@@ -124,10 +124,17 @@ export function MainNav({
                       onClick={() => setOpen(expanded ? null : item.key)}
                       onMouseEnter={() => setOpen(item.key)}
                       className={cn(
-                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium transition-colors xl:px-2 xl:text-[13.5px]",
+                        /*
+                         * The active menu keeps a 2px rule under its label.
+                         * `underline-offset` puts it clear of the descenders
+                         * so it reads as a marker, not a text decoration.
+                         */
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
                         isActive(item.href) || expanded
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
+                        isActive(item.href) &&
+                          "underline decoration-accent-300 decoration-2",
                       )}
                     >
                       {item.label}
@@ -144,9 +151,9 @@ export function MainNav({
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "block whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium transition-colors xl:px-2 xl:text-[13.5px]",
+                        "block whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
                         isActive(item.href)
-                          ? "text-accent-300"
+                          ? "text-accent-300 underline decoration-accent-300 decoration-2"
                           : "text-white hover:text-accent-300",
                       )}
                     >
@@ -290,7 +297,9 @@ function MobileMenu({
                   href={item.href}
                   className={cn(
                     "flex-1 py-3.5 text-[15px] font-medium",
-                    isActive(item.href) ? "text-accent-300" : "text-white",
+                    isActive(item.href)
+                      ? "text-accent-300 underline decoration-accent-300 decoration-2 underline-offset-[6px]"
+                      : "text-white",
                   )}
                 >
                   {item.label}
