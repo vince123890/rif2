@@ -207,9 +207,9 @@ export default async function HomePage({
       <Section tone="white">
         <div className="container-rif">
           <SectionHeading title={t("sustainabilityTitle")} />
-          <div className="mt-14">
+          <div className="mt-10">
             <ReportCarousel
-              reports={sustainability.slice(0, 4).map((d) => ({
+              reports={sustainability.slice(0, 6).map((d) => ({
                 year: d.year,
                 href: "/corporate-secretary/sustainability-report",
               }))}
@@ -223,9 +223,9 @@ export default async function HomePage({
       <Section tone="canvas">
         <div className="container-rif">
           <SectionHeading title={t("financialTitle")} />
-          <div className="mt-14">
+          <div className="mt-10">
             <ReportCarousel
-              reports={financial.slice(0, 4).map((d) => ({
+              reports={financial.slice(0, 6).map((d) => ({
                 year: d.year,
                 href: "/corporate-secretary/financial-report",
               }))}

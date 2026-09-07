@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import type { HeroSlide } from "@/lib/content";
 import { pick } from "@/lib/content";
@@ -95,90 +94,77 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
        */}
       <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/60" />
 
-      <div className="container-rif relative flex min-h-[560px] flex-col justify-center py-24 md:min-h-[700px] lg:min-h-[800px]">
+      <div className="container-rif relative flex min-h-[520px] flex-col justify-center pb-6 pt-28 md:min-h-[620px] lg:min-h-[660px] lg:pt-32">
         <div key={slide.id} className="max-w-3xl animate-fade-up">
-          <p className="text-[13px] font-bold uppercase tracking-[0.18em] text-brand-600">
-            {pick(slide.kicker, locale)}
-          </p>
-
-          {/* fig: 96px SemiBold, white — one colour, no orange split */}
-          <h1 className="mt-6 max-w-[864px] text-[40px] font-semibold leading-[1.12] tracking-[-0.02em] text-white md:text-[68px] lg:text-[96px]">
+          {/*
+           * fig: the headline runs three colours — the opening clause in
+           * white, then one word in accent orange and the closing word in
+           * brand green. `title` / `titleAccent` in the content carry the
+           * first two parts; `titleTail` the green one.
+           */}
+          <h1 className="max-w-[900px] text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white md:text-[56px] lg:text-[76px] xl:text-[88px]">
             {pick(slide.title, locale)}
-            {slide.titleAccent ? ` ${pick(slide.titleAccent, locale)}` : null}
+            {slide.titleAccent ? (
+              <>
+                {" "}
+                <span className="text-accent-500">
+                  {pick(slide.titleAccent, locale)}
+                </span>
+              </>
+            ) : null}
+            {slide.titleTail ? (
+              <>
+                {" "}
+                <span className="text-brand-600">
+                  {pick(slide.titleTail, locale)}
+                </span>
+              </>
+            ) : null}
           </h1>
 
-          {/* fig: 24px Bold white, no bullets, no italic */}
-          <p className="mt-8 max-w-[679px] text-[17px] font-bold leading-[1.45] text-white md:text-[24px]">
+          {/* fig: 24px Bold white, set right under the headline block */}
+          <p className="mt-6 max-w-[679px] self-end text-[17px] font-bold leading-[1.45] text-white md:text-[24px] md:text-right">
             {pick(slide.lead, locale)}
           </p>
         </div>
       </div>
 
       {/*
-       * fig: a translucent strip under the headline listing what RIF
-       * finances, numbered 01–04 and split by hairline rules. It replaces
-       * the pair of CTA buttons the hero used to carry.
+       * fig: the four financing types sit directly on the photo — no panel,
+       * no fill, just hairline rules between the columns. They double as the
+       * carousel's controls, which is why the hero carries no arrows or dots.
        */}
-      <div className="container-rif relative pb-10">
-        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-[12px] bg-white/20 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="container-rif relative pb-14">
+        <ul className="grid grid-cols-2 gap-y-6 lg:grid-cols-4">
           {financingTypes.map((f, i) => (
             <li
               key={f.en}
-              className="flex items-start gap-3 bg-white/5 px-5 py-4 backdrop-blur-sm"
+              className={
+                i > 0 ? "lg:border-l lg:border-white/25" : undefined
+              }
             >
-              <span className="text-[16px] leading-tight text-white/80">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-[16px] font-bold leading-[1.2] text-white md:text-[20px]">
-                {locale === "id" ? f.id : f.en}
-              </span>
+              <button
+                type="button"
+                onClick={() => go(i)}
+                aria-current={i === index}
+                aria-label={locale === "id" ? f.id : f.en}
+                className={cn(
+                  "flex w-full items-start gap-3 px-2 text-left transition-opacity lg:px-6",
+                  i === index ? "opacity-100" : "opacity-60 hover:opacity-90",
+                )}
+              >
+                <span className="text-[14px] leading-[1.5] text-white md:text-[16px]">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="text-[15px] font-bold leading-[1.2] text-white md:text-[20px]">
+                  {locale === "id" ? f.id : f.en}
+                </span>
+              </button>
             </li>
           ))}
         </ul>
       </div>
 
-      {slides.length > 1 && (
-        <div className="container-rif relative pb-14">
-          <div className="flex items-center gap-4">
-            <div className="flex gap-2">
-              <button
-                type="button"
-                onClick={() => go(index - 1)}
-                aria-label="Previous slide"
-                className="grid h-12 w-12 place-items-center rounded-full border border-ink-200 bg-white/70 text-ink-700 backdrop-blur transition-colors hover:bg-brand-600 hover:text-white"
-              >
-                <ChevronLeft className="h-5 w-5" aria-hidden />
-              </button>
-              <button
-                type="button"
-                onClick={() => go(index + 1)}
-                aria-label="Next slide"
-                className="grid h-12 w-12 place-items-center rounded-full border border-ink-200 bg-white/70 text-ink-700 backdrop-blur transition-colors hover:bg-brand-600 hover:text-white"
-              >
-                <ChevronRight className="h-5 w-5" aria-hidden />
-              </button>
-            </div>
-
-            <div className="flex gap-2">
-              {slides.map((s, i) => (
-                <button
-                  key={s.id}
-                  type="button"
-                  onClick={() => go(i)}
-                  aria-label={`Slide ${i + 1}`}
-                  aria-current={i === index}
-                  className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
-                    i === index
-                      ? "w-10 bg-accent-500"
-                      : "w-5 bg-ink-400/60 hover:bg-ink-500",
-                  )}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

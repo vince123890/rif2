@@ -90,19 +90,19 @@ export function MainNav({
       className="lg:sticky lg:top-6 lg:z-50 lg:-mb-[96px] lg:bg-transparent"
     >
       <div className="bg-brand-600 shadow-sm lg:container-rif lg:mx-auto lg:rounded-[36px] lg:bg-brand-600 lg:px-3 lg:shadow-lg">
-        <div className="container-rif flex h-16 items-center justify-between gap-2 lg:h-[72px] lg:flex-nowrap lg:px-0">
+        <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:flex-nowrap lg:gap-5 lg:px-0">
           {/* Brand lockup — inside the pill on desktop, per the fig */}
           <Link
             href="/"
             aria-label={brandName}
-            className="shrink-0 lg:pl-3"
+            className="mr-4 shrink-0 lg:pl-2"
           >
-            <Logo tone="light" />
+            <Logo tone="light" wordmarkClassName="hidden" />
           </Link>
 
           {/* Desktop menu */}
           <nav aria-label="Main" className="hidden min-w-0 flex-1 lg:block">
-            <ul className="flex flex-nowrap items-center justify-end xl:justify-center">
+            <ul className="flex flex-nowrap items-center justify-end">
             {desktopItems.map((item) => {
               const hasKids = !!item.children?.length;
               const expanded = open === item.key;
@@ -117,7 +117,7 @@ export function MainNav({
                       onClick={() => setOpen(expanded ? null : item.key)}
                       onMouseEnter={() => setOpen(item.key)}
                       className={cn(
-                        "flex items-center gap-1 whitespace-nowrap px-2 py-4 text-[13.5px] font-medium transition-colors xl:px-3 xl:text-[14px]",
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-medium transition-colors xl:px-2.5 xl:text-[14px]",
                         isActive(item.href) || expanded
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -137,7 +137,7 @@ export function MainNav({
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "block whitespace-nowrap px-2 py-4 text-[13.5px] font-medium transition-colors xl:px-3 xl:text-[14px]",
+                        "block whitespace-nowrap px-1.5 py-4 text-[13px] font-medium transition-colors xl:px-2.5 xl:text-[14px]",
                         isActive(item.href)
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -165,7 +165,7 @@ export function MainNav({
           </ul>
         </nav>
 
-          <div className="flex items-center gap-1 lg:pr-1">
+          <div className="flex shrink-0 items-center gap-1 lg:pr-1">
             <LanguageSwitcher />
 
             {/* fig: a search icon sits at the trailing edge of the pill. */}

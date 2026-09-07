@@ -12,10 +12,17 @@ import { cn } from "@/lib/utils";
 export function Logo({
   className,
   tone = "dark",
+  wordmarkClassName,
 }: {
   className?: string;
   /** "dark" = dark text on a light ground; "light" = on a dark ground. */
   tone?: "dark" | "light";
+  /**
+   * Extra classes for the company name. The header pill uses this to drop
+   * the wordmark below xl, where eight menu labels would otherwise run
+   * underneath it.
+   */
+  wordmarkClassName?: string;
 }) {
   const light = tone === "light";
 
@@ -34,6 +41,7 @@ export function Logo({
         className={cn(
           "text-[19px] font-black leading-tight tracking-tight",
           light ? "text-white" : "text-ink-900",
+          wordmarkClassName,
         )}
       >
         Resona Indonesia Finance

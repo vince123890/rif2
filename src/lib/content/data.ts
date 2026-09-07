@@ -15,6 +15,15 @@ import type {
  * Figma reference file. Everything is replaced by Strapi once content is handed over.
  */
 
+/*
+ * Hero slides. The fig runs four, stepped through by the numbered
+ * 01–04 financing labels beneath the headline rather than by arrows or
+ * dots, so each slide is paired with one financing type.
+ *
+ * The headline is split into three coloured parts — white, accent orange,
+ * then brand green — which is how the fig sets "Beyond Finance / for a
+ * **Brighter** **Future**".
+ */
 export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
@@ -23,36 +32,48 @@ export const heroSlides: HeroSlide[] = [
       id: "PEMBIAYAAN KORPORASI TERPERCAYA",
       en: "TRUSTED CORPORATE FINANCING",
     },
-    title: { id: "Beyond Finance,", en: "Beyond Finance," },
-    titleAccent: {
-      id: "for a Brighter Future.",
-      en: "for a Brighter Future.",
-    },
+    title: { id: "Beyond Finance for a", en: "Beyond Finance for a" },
+    titleAccent: { id: "Brighter", en: "Brighter" },
+    titleTail: { id: "Future", en: "Future" },
     lead: {
-      id: "Solusi pembiayaan korporasi yang mendukung pertumbuhan bisnis Anda, didukung kekuatan Resona Group dari Jepang.",
-      en: "Corporate financing solutions that support your business growth, backed by the strength of Resona Group of Japan.",
+      id: "Mendukung pertumbuhan bisnis melalui solusi pembiayaan yang tepercaya dan kemitraan jangka panjang",
+      en: "Supporting business growth through reliable financing solutions and long-term partnerships",
     },
   },
   {
     id: "hero-2",
-    image: "/images/hero-skyline-sunset.jpg",
-    kicker: { id: "SEJAK 1984", en: "SINCE 1984" },
-    title: { id: "Mitra Pembiayaan", en: "Your Financing Partner" },
-    titleAccent: { id: "Bisnis Anda.", en: "for Growth." },
+    image: "/images/financing-forklift.png",
+    kicker: { id: "MESIN INDUSTRI", en: "INDUSTRIAL MACHINERY" },
+    title: { id: "Membiayai Mesin yang", en: "Financing the Machines" },
+    titleAccent: { id: "Menggerakkan", en: "That Keep" },
+    titleTail: { id: "Industri", en: "Industry Moving" },
     lead: {
-      id: "Lebih dari empat dekade mendampingi korporasi Indonesia dengan fasilitas pembiayaan investasi, modal kerja, dan anjak piutang.",
-      en: "More than four decades supporting Indonesian corporations with investment financing, working capital, and factoring facilities.",
+      id: "Fasilitas pembiayaan mesin produksi untuk menjaga kapasitas dan produktivitas usaha Anda",
+      en: "Financing facilities for production machinery that protect your capacity and productivity",
     },
   },
   {
     id: "hero-3",
-    image: "/images/office-lounge.jpg",
-    kicker: { id: "TATA KELOLA YANG BAIK", en: "GOOD GOVERNANCE" },
-    title: { id: "Transparan,", en: "Transparent," },
-    titleAccent: { id: "Aman, Terpercaya.", en: "Secure, Trusted." },
+    image: "/images/financing-truck.png",
+    kicker: { id: "KENDARAAN OPERASIONAL", en: "VEHICLE OPERATIONAL" },
+    title: { id: "Armada yang Menjaga", en: "A Fleet That Keeps" },
+    titleAccent: { id: "Distribusi", en: "Your Business" },
+    titleTail: { id: "Tetap Lancar", en: "Delivering" },
     lead: {
-      id: "Berizin dan diawasi oleh Otoritas Jasa Keuangan, dengan komitmen penuh pada keterbukaan informasi.",
-      en: "Licensed and supervised by the Indonesia Financial Services Authority, with a full commitment to information disclosure.",
+      id: "Pembiayaan kendaraan operasional untuk menunjang distribusi dan mobilitas perusahaan",
+      en: "Operational vehicle financing that supports your distribution and corporate mobility",
+    },
+  },
+  {
+    id: "hero-4",
+    image: "/images/hero-skyline-sunset.jpg",
+    kicker: { id: "ALAT BERAT & IT", en: "HEAVY EQUIPMENT & IT" },
+    title: { id: "Investasi Aset untuk", en: "Asset Investment for" },
+    titleAccent: { id: "Pertumbuhan", en: "Long-Term" },
+    titleTail: { id: "Jangka Panjang", en: "Growth" },
+    lead: {
+      id: "Pembiayaan alat berat dan perangkat IT tanpa mengganggu modal kerja perusahaan",
+      en: "Heavy equipment and IT financing that leaves your working capital intact",
     },
   },
 ];

@@ -22,7 +22,10 @@ export type HeroSlide = {
   image: string;
   kicker: I18nText;
   title: I18nText;
+  /** Rendered in accent orange, after `title`. */
   titleAccent?: I18nText;
+  /** Rendered in brand green, after `titleAccent` — the fig's third colour. */
+  titleTail?: I18nText;
   lead: I18nText;
 };
 
