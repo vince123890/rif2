@@ -13,6 +13,8 @@ export type NavItem = {
   key: string;
   label: string;
   href: string;
+  /** Render as a plain link even when it has children (see `navigation.ts`). */
+  flat?: boolean;
   children?: NavItem[];
 };
 
@@ -111,7 +113,7 @@ export function MainNav({
           <nav aria-label="Main" className="hidden min-w-0 flex-1 lg:block">
             <ul className="flex flex-nowrap items-center justify-between">
             {desktopItems.map((item) => {
-              const hasKids = !!item.children?.length;
+              const hasKids = !item.flat && !!item.children?.length;
               const expanded = open === item.key;
 
               return (
@@ -151,13 +153,22 @@ export function MainNav({
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "block whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
                         isActive(item.href)
                           ? "text-accent-300 underline decoration-accent-300 decoration-2"
                           : "text-white hover:text-accent-300",
                       )}
                     >
                       {item.label}
+                      {/*
+                       * fig keeps the caret on every section that has
+                       * children even though the bar opens nothing — it
+                       * marks "this leads somewhere deeper", so a section
+                       * landing page still shows it.
+                       */}
+                      {item.children?.length ? (
+                        <ChevronDown className="h-3.5 w-3.5" aria-hidden />
+                      ) : null}
                     </Link>
                   )}
 
@@ -287,7 +298,7 @@ function MobileMenu({
     >
       <ul className="container-rif divide-y divide-white/10">
         {items.map((item) => {
-          const hasKids = !!item.children?.length;
+          const hasKids = !item.flat && !!item.children?.length;
           const isOpen = expanded.includes(item.key);
 
           return (

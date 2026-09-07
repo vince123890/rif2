@@ -13,6 +13,19 @@ export type NavNode = {
   /** Locale-independent path, without the /{locale} prefix. */
   href: string;
   enabled?: boolean;
+  /**
+   * Render as a plain link in the header even though it has children —
+   * for sections whose landing page already lists them, so the dropdown
+   * would only repeat it. The children stay here for the sitemap, the
+   * footer and the prev/next walk.
+   */
+  flat?: boolean;
+  /**
+   * Keep the page in the sitemap, the footer and the prev/next walk, but
+   * leave it out of the header bar — the fig lists only four sections
+   * plus Contact.
+   */
+  hideInHeader?: boolean;
   children?: NavNode[];
 };
 
@@ -21,6 +34,7 @@ export const navigation: NavNode[] = [
   {
     key: "about",
     href: "/about",
+    flat: true,
     children: [
       { key: "management-message", href: "/about/management-message" },
       {
@@ -48,6 +62,7 @@ export const navigation: NavNode[] = [
   },
   {
     key: "gcg",
+    flat: true,
     href: "/gcg",
     children: [
       { key: "anti-fraud", href: "/gcg/anti-fraud" },
@@ -58,6 +73,7 @@ export const navigation: NavNode[] = [
   },
   {
     key: "corporate-secretary",
+    flat: true,
     href: "/corporate-secretary",
     children: [
       {
@@ -71,6 +87,7 @@ export const navigation: NavNode[] = [
   },
   {
     key: "products",
+    flat: true,
     href: "/products",
     children: [
       { key: "investment-financing", href: "/products/investment-financing" },
@@ -82,14 +99,21 @@ export const navigation: NavNode[] = [
   {
     key: "news",
     href: "/news",
+    /* Not in the fig's bar; reached from the About page and the footer. */
+    hideInHeader: true,
     children: [
       { key: "news-education", href: "/news?category=education" },
       { key: "news-csr", href: "/news?category=csr" },
     ],
   },
-  { key: "careers", href: "/careers" },
+  { key: "careers", href: "/careers", hideInHeader: true },
   { key: "contact", href: "/contact" },
 ];
+
+/** Sections the fig shows in the header bar. */
+export function headerNavigation(): NavNode[] {
+  return visibleNavigation().filter((n) => !n.hideInHeader);
+}
 
 /** Visible navigation tree (FR-GL-04). */
 export function visibleNavigation(nodes: NavNode[] = navigation): NavNode[] {

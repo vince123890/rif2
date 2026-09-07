@@ -1,7 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { site } from "@/config/site";
-import { visibleNavigation } from "@/config/navigation";
+import { headerNavigation } from "@/config/navigation";
 import { MainNav } from "./main-nav";
 
 /**
@@ -18,13 +18,14 @@ import { MainNav } from "./main-nav";
  */
 export async function SiteHeader() {
   const t = await getTranslations("nav");
-  const nav = visibleNavigation();
+  const nav = headerNavigation();
 
   // Labels resolve on the server so the client nav stays a thin shell.
   const items = nav.map((n) => ({
     key: n.key,
     label: t(n.key),
     href: n.href,
+    flat: n.flat,
     children: n.children?.map((c) => ({
       key: c.key,
       label: t(c.key),

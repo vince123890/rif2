@@ -108,7 +108,7 @@ export default async function AboutPage({
         variant="card"
         title={t("heroTitle")}
         subtitle={t("heroSubtitle")}
-        image="/images/hero-city-dusk.jpg"
+        image="/images/about-hero.jpg"
       />
 
       {rows.map((row, i) => (
