@@ -34,9 +34,10 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, t, activities] = await Promise.all([
+  const [tNav, t, tCsr, activities] = await Promise.all([
     getTranslations("nav"),
     getTranslations("news"),
+    getTranslations("csr"),
     getCsrActivities(),
   ]);
 
@@ -45,11 +46,11 @@ export default async function Page({
   return (
     <>
       <InnerPage titleKey="csr">
-        <p className="text-[16px] leading-[1.6] text-ink-500 md:text-[20px]">
-          {locale === "id"
-            ? "Sejalan dengan semangat keuangan berkelanjutan, Lembaga Jasa Keuangan turut berkontribusi pada Tujuan Pembangunan Berkelanjutan melalui program tanggung jawab sosial perusahaan yang menyentuh tantangan iklim, pelestarian lingkungan, dan kesejahteraan masyarakat."
-            : "In line with the spirit of sustainable finance, Financial Services Institutions have contributed to the Sustainable Development Goals through corporate social responsibility programmes that address climate challenges, environmental protection, and community welfare."}
-        </p>
+        {/* fig `Frame 192`: 20px body in #6E6E6E, justified */}
+        <div className="space-y-5 text-justify text-[16px] leading-[1.6] text-ink-500 md:text-[20px]">
+          <p>{tCsr("intro1")}</p>
+          <p>{tCsr("intro2")}</p>
+        </div>
       </InnerPage>
 
       {lead ? (
