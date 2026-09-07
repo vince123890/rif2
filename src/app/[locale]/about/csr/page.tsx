@@ -60,7 +60,7 @@ export default async function Page({
             className="group overflow-hidden rounded-[16px] border border-ink-200 bg-white transition-shadow hover:shadow-md"
           >
             <Link href={`/about/csr/${c.slug}`} tabIndex={-1} aria-hidden>
-              <div className="relative aspect-16/10 bg-ink-100">
+              <div className="relative aspect-16/10 bg-ink-200">
                 <Image
                   src={c.image}
                   alt={pick(c.title, locale)}
@@ -90,7 +90,7 @@ export default async function Page({
               </p>
               <Link
                 href={`/about/csr/${c.slug}`}
-                className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-400 transition-colors hover:text-accent-500"
+                className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-500"
               >
                 {tc("readMore")}
                 <ArrowRight

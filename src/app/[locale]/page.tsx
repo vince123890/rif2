@@ -80,7 +80,7 @@ export default async function HomePage({
             {/* Video / story card */}
             <div className="relative overflow-hidden rounded-[16px] bg-ink-900">
               <Image
-                src="/images/city-skyline-alt.jpg"
+                src="/images/hero-skyline-sunset.jpg"
                 alt=""
                 width={760}
                 height={900}
@@ -88,7 +88,7 @@ export default async function HomePage({
                 className="h-full min-h-[320px] w-full object-cover opacity-70"
               />
               <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-900/90 via-ink-900/30 to-transparent p-8">
-                <span className="grid h-16 w-16 place-items-center rounded-full bg-accent-400 text-white">
+                <span className="grid h-16 w-16 place-items-center rounded-full bg-accent-500 text-white">
                   <Play className="h-6 w-6 fill-current" aria-hidden />
                 </span>
                 <h3 className="mt-6 text-[20px] font-bold text-white">
@@ -110,7 +110,7 @@ export default async function HomePage({
                 <li key={i} className="relative pl-9">
                   <span
                     aria-hidden
-                    className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full bg-accent-400 ring-4 ring-canvas"
+                    className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full bg-accent-500 ring-4 ring-canvas"
                   />
                   <p className="text-[14px] font-bold text-ink-900">
                     {m.year} {m.month[locale === "en" ? "en" : "id"]}
@@ -167,13 +167,18 @@ export default async function HomePage({
       {/* ---- MESSAGE FROM THE MANAGEMENT ---- */}
       <Section tone="white">
         <div className="container-rif grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
-          <div className="relative aspect-4/3 overflow-hidden rounded-[16px] bg-ink-100">
+          {/*
+           * RIF's own team portrait, shot as a cutout on white. It sits on
+           * the brand tint rather than a photo crop so the figures keep
+           * their full height instead of being cropped at the torso.
+           */}
+          <div className="relative aspect-4/3 overflow-hidden rounded-[16px] bg-brand-50">
             <Image
-              src="/images/meeting-boardroom.jpg"
+              src="/images/team-batik.png"
               alt=""
               fill
               sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-cover"
+              className="object-contain object-bottom"
             />
           </div>
           <div>
@@ -262,7 +267,7 @@ function ReportCard({
         {years.map((y) => (
           <li
             key={y}
-            className="rounded-full bg-ink-50 px-4 py-1.5 text-[13px] font-bold text-ink-700"
+            className="rounded-full bg-ink-100 px-4 py-1.5 text-[13px] font-bold text-ink-700"
           >
             {y}
           </li>
@@ -272,7 +277,7 @@ function ReportCard({
       <div className="mt-auto pt-8">
         <Link
           href={href}
-          className="group inline-flex items-center gap-2 text-[15px] font-bold text-accent-400 transition-colors hover:text-accent-500"
+          className="group inline-flex items-center gap-2 text-[15px] font-bold text-accent-500 transition-colors hover:text-accent-500"
         >
           {cta}
           <ArrowRight

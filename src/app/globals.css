@@ -3,58 +3,86 @@
 /*
  * RIF Design System
  *
- * Tokens measured directly from `Resona Perdania.fig`
- * (canvas "Playground Hijau", frame "history home page" — the most
- * developed layout), cross-checked against the live parent-company site
- * at perdania.co.id.
+ * Tokens read directly out of `docs/Resona Indonesia Finance.fig`
+ * (canvas "Design"), decoded from the file's Kiwi node tree rather than
+ * eyeballed, so every value below is the designer's literal swatch.
  *
- * Type scale from the fig: 84 / 40 / 24 / 20 / 16 / 14 / 12 px.
- * Neutrals are pure greys (#0F0F0F / #3B3B3B / #6E6E6E), not blue-tinted.
- * Corner radius is 16px for cards, 12px for buttons, 50px for the big
- * feature panel, 100px for pills.
+ * The fig defines three 10-step ramps — Green (primary), Orange
+ * (secondary) and BW — plus a single red accent. Step 5 is the "Main"
+ * of each ramp and is what the design applies to buttons, links and
+ * headings.
+ *
+ * Type is Lato throughout: 12 / 14 / 16 / 20 px body sizes and a
+ * 16 / 20 / 24 / 30 / 32 / 40 px heading scale. Body line-height is
+ * 1.5, rising to 1.7 at 20px and above.
  */
 
 @theme {
-  /* ---- Brand green (fig: #006F4F primary, #1AA67D link-on-dark) ---- */
-  --color-brand-50: #e6f1ed; /* fig: tinted panel */
-  --color-brand-100: #c7e0d7;
-  --color-brand-200: #9fcbbc;
-  --color-brand-300: #5fb99b;
-  --color-brand-400: #1aa67d; /* fig: footer links, accents on dark */
-  --color-brand-500: #338c72; /* fig: secondary footer link */
-  --color-brand-600: #006f4f; /* fig: PRIMARY */
-  --color-brand-700: #005a41;
-  --color-brand-800: #004734;
-  --color-brand-900: #003527;
+  /* ---- Green (primary) — fig "Green (Primary)/Green 0…9" ---- */
+  --color-brand-50: #e6f1ed; /* Green 0 */
+  --color-brand-100: #cce2dc; /* Green 1 */
+  --color-brand-200: #99c5b9; /* Green 2 */
+  --color-brand-300: #66a995; /* Green 3 */
+  --color-brand-400: #338c72; /* Green 4 */
+  --color-brand-500: #006f4f; /* Green 5 — MAIN */
+  --color-brand-600: #006f4f; /* alias: the fig's primary */
+  --color-brand-700: #00593f; /* Green 6 */
+  --color-brand-800: #00432f; /* Green 7 */
+  --color-brand-900: #002c20; /* Green 8 */
+  --color-brand-950: #001610; /* Green 9 */
 
-  /* ---- Accent orange (fig: #F58220) ---- */
-  --color-accent-50: #fef3e9; /* fig: soft accent surface */
-  --color-accent-100: #fde6d2; /* fig: accent border */
-  --color-accent-200: #edb886; /* fig: news-section wash */
-  --color-accent-300: #f8a75f;
-  --color-accent-400: #f58220; /* fig: PRIMARY ACCENT */
-  --color-accent-500: #e06d0d;
-  --color-accent-600: #b95709;
+  /* ---- Orange (secondary) — fig "Orange (Secondary)/Orange 0…9" ---- */
+  --color-accent-50: #fef3e9; /* Orange 0 */
+  --color-accent-100: #fde6d2; /* Orange 1 */
+  --color-accent-200: #fbcda6; /* Orange 2 */
+  --color-accent-300: #f9b479; /* Orange 3 */
+  --color-accent-400: #f79b4d; /* Orange 4 */
+  --color-accent-500: #f58220; /* Orange 5 — MAIN */
+  --color-accent-600: #c4681a; /* Orange 6 */
+  --color-accent-700: #934e13; /* Orange 7 */
+  --color-accent-800: #62340d; /* Orange 8 */
+  --color-accent-900: #311a06; /* Orange 9 */
 
-  /* ---- Neutrals (fig: pure greys) ---- */
-  --color-ink-900: #0f0f0f; /* fig: headings */
-  --color-ink-800: #1f1f1f;
-  --color-ink-700: #3b3b3b; /* fig: body copy */
-  --color-ink-600: #545454;
-  --color-ink-500: #6e6e6e; /* fig: muted / section lead */
-  --color-ink-400: #b7b7b7;
-  --color-ink-300: #dbdbdb;
-  --color-ink-200: #ededed; /* fig: hairline borders */
-  --color-ink-100: #eeeff0;
-  --color-ink-50: #f7f7f7; /* fig: inset surfaces */
+  /* ---- Neutrals — fig "White - Black/BW 0…9" ---- */
+  --color-ink-50: #ffffff; /* BW 0 */
+  --color-ink-100: #ededed; /* BW 1 */
+  --color-ink-200: #dbdbdb; /* BW 2 */
+  --color-ink-300: #b7b7b7; /* BW 3 */
+  --color-ink-400: #929292; /* BW 4 */
+  --color-ink-500: #6e6e6e; /* BW 5 — muted copy */
+  --color-ink-600: #4a4a4a; /* BW 6 */
+  --color-ink-700: #3b3b3b; /* BW 7 — body copy */
+  --color-ink-800: #1e1e1e; /* BW 8 */
+  --color-ink-900: #0f0f0f; /* BW 9 — headings */
 
-  /* Page ground — the fig frame itself is #F9FAFB, not white */
-  --color-canvas: #f9fafb;
+  /* ---- Danger — fig "Accent" swatch ---- */
+  --color-danger: #fb2c36;
 
-  /* ---- Typography: Lato (from the fig) ---- */
+  /* Page ground */
+  --color-canvas: #ffffff;
+
+  /* ---- Typography: Lato (fig) ---- */
   --font-sans:
     var(--font-lato), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
+
+  /* Body ramp — fig SM / Base / LG / XL */
+  --text-sm: 12px;
+  --text-sm--line-height: 1.5;
+  --text-base: 14px;
+  --text-base--line-height: 1.5;
+  --text-lg: 16px;
+  --text-lg--line-height: 1.5;
+  --text-xl: 20px;
+  --text-xl--line-height: 1.7;
+
+  /* Heading ramp — fig Heading 5 → Heading 1 */
+  --text-h5: 16px;
+  --text-h4: 20px;
+  --text-h3: 24px;
+  --text-h2: 30px;
+  --text-h2-alt: 32px;
+  --text-h1: 40px;
 
   /* ---- Radii (measured) ---- */
   --radius-xs: 8px;

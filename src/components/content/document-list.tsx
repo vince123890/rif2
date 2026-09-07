@@ -41,7 +41,7 @@ export function DocumentList({
 
   if (!documents.length) {
     return (
-      <p className="rounded-[12px] border border-dashed border-ink-200 bg-ink-50 px-6 py-12 text-center text-ink-500">
+      <p className="rounded-[12px] border border-dashed border-ink-200 bg-ink-100 px-6 py-12 text-center text-ink-500">
         {tReports("empty")}
       </p>
     );

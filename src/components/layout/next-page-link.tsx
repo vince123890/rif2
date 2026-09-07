@@ -30,7 +30,7 @@ export async function NextPageLink({ current }: { current: string }) {
         </p>
         <Link
           href={next}
-          className="group mt-2 inline-flex items-center gap-2 text-[26px] text-accent-400 transition-colors hover:text-accent-500 md:text-[34px]"
+          className="group mt-2 inline-flex items-center gap-2 text-[26px] text-accent-500 transition-colors hover:text-accent-600 md:text-[34px]"
         >
           {label}
           <ChevronRight

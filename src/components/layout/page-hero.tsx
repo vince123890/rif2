@@ -22,7 +22,7 @@ export async function PageHero({
   titleAccent,
   subtitle,
   crumbs = [],
-  image = "/images/meeting-boardroom.jpg",
+  image = "/images/management-message.jpg",
 }: {
   title: string;
   /** Leading fragment rendered in orange, as in the fig. */
@@ -107,7 +107,7 @@ export async function PageHero({
           {/* fig: 64px, leading fragment in #F58220 */}
           <h1 className="max-w-4xl text-[34px] font-bold leading-[1.12] tracking-[-0.01em] text-white md:text-[50px] lg:text-[64px]">
             {titleAccent ? (
-              <span className="text-accent-400">{titleAccent}</span>
+              <span className="text-accent-500">{titleAccent}</span>
             ) : null}
             {titleAccent && title ? " " : null}
             {title}
@@ -121,7 +121,7 @@ export async function PageHero({
         </div>
 
         {/* Base rule — fig: 5px #F58220 */}
-        <div aria-hidden className="absolute inset-x-0 bottom-0 h-[5px] bg-accent-400" />
+        <div aria-hidden className="absolute inset-x-0 bottom-0 h-[5px] bg-accent-500" />
       </div>
     </section>
   );

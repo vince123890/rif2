@@ -53,7 +53,7 @@ export default async function Page({
 
       {vacancies.length === 0 ? (
         /* FR-CR-02 — "Not Available" state */
-        <div className="mt-10 rounded-[16px] border border-dashed border-ink-200 bg-ink-50 px-6 py-16 text-center">
+        <div className="mt-10 rounded-[16px] border border-dashed border-ink-200 bg-ink-100 px-6 py-16 text-center">
           <Briefcase className="mx-auto h-10 w-10 text-ink-300" aria-hidden />
           <p className="mt-4 text-[22px] font-normal text-ink-800">
             {t("notAvailable")}

@@ -103,7 +103,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             {slide.titleAccent ? (
               <>
                 <br />
-                <span className="text-accent-400">
+                <span className="text-accent-500">
                   {pick(slide.titleAccent, locale)}
                 </span>
               </>
@@ -159,7 +159,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-300",
                     i === index
-                      ? "w-10 bg-accent-400"
+                      ? "w-10 bg-accent-500"
                       : "w-5 bg-ink-400/60 hover:bg-ink-500",
                   )}
                 />

@@ -55,7 +55,7 @@ export default async function Page({
             key={a.id}
             className="group overflow-hidden rounded-[16px] border border-ink-200 bg-white transition-shadow hover:shadow-md"
           >
-            <div className="relative aspect-square bg-ink-50">
+            <div className="relative aspect-square bg-ink-200">
               <Image
                 src={a.image}
                 alt={pick(a.title, locale)}

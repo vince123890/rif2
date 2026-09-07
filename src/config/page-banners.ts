@@ -17,14 +17,14 @@ export type BannerSpec = {
 /** Keyed by the page's route. */
 export const pageBanners: Record<string, BannerSpec> = {
   "/about/management-message": {
-    image: "/images/meeting-boardroom.jpg",
+    image: "/images/management-message.jpg",
     subtitle: {
       id: "Komitmen kami dalam menghadirkan solusi pembiayaan yang relevan bagi pertumbuhan bisnis nasabah.",
       en: "Our commitment to delivering financing solutions relevant to our customers' business growth.",
     },
   },
   "/about/company-profile/vision-mission": {
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     accentWords: 2,
     subtitle: {
       id: "Arah dan tujuan yang memandu setiap langkah PT Resona Indonesia Finance.",
@@ -32,28 +32,28 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/at-a-glance": {
-    image: "/images/city-skyline-alt.jpg",
+    image: "/images/hero-skyline-sunset.jpg",
     subtitle: {
       id: "Lebih dari empat dekade mendampingi korporasi Indonesia dengan fasilitas pembiayaan yang tepercaya.",
       en: "More than four decades supporting Indonesian corporations with trusted financing facilities.",
     },
   },
   "/about/company-profile/history": {
-    image: "/images/archive-office-1958.jpg",
+    image: "/images/office-tower.jpg",
     subtitle: {
       id: "Perjalanan kami mencerminkan komitmen selama bertahun-tahun terhadap kemajuan, integritas, dan peningkatan berkelanjutan.",
       en: "Our journey reflects years of commitment to progress, integrity, and continuous improvement.",
     },
   },
   "/about/company-profile/business-license": {
-    image: "/images/documents-desk.jpg",
+    image: "/images/library-study.jpg",
     subtitle: {
       id: "Perusahaan beroperasi berdasarkan izin usaha resmi yang diterbitkan oleh Kementerian Keuangan Republik Indonesia.",
       en: "The Company operates under official business licences issued by the Ministry of Finance of the Republic of Indonesia.",
     },
   },
   "/about/company-profile/finance-facilities": {
-    image: "/images/containers.jpg",
+    image: "/images/financing-truck.png",
     accentWords: 2,
     subtitle: {
       id: "Ragam fasilitas pembiayaan yang dirancang untuk mendukung kebutuhan investasi dan modal kerja korporasi.",
@@ -61,14 +61,14 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/management": {
-    image: "/images/meeting-team.jpg",
+    image: "/images/management-board.jpg",
     subtitle: {
       id: "Jajaran manajemen kami mengedepankan nilai integritas, kepercayaan, dan inovasi dengan keahlian yang beragam.",
       en: "Our management team embodies the values of integrity, trust, and innovation, with diverse expertise and a shared commitment to excellence.",
     },
   },
   "/about/company-profile/organization-structure": {
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     accentWords: 2,
     subtitle: {
       id: "Struktur organisasi yang menopang tata kelola dan efektivitas operasional perusahaan.",
@@ -76,7 +76,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/shareholders": {
-    image: "/images/exec-port.jpg",
+    image: "/images/management-board.jpg",
     accentWords: 2,
     subtitle: {
       id: "Komposisi kepemilikan saham PT Resona Indonesia Finance sebagai bagian dari kelompok Resona Grup.",
@@ -84,14 +84,14 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/award": {
-    image: "/images/products-blocks.jpg",
+    image: "/images/investment-growth.png",
     subtitle: {
       id: "Apresiasi atas kinerja keuangan dan penerapan tata kelola perusahaan yang baik.",
       en: "Recognition of our financial performance and the application of good corporate governance.",
     },
   },
   "/about/csr": {
-    image: "/images/green-sustainability.jpg",
+    image: "/images/csr-tree-planting.jpg",
     accentWords: 2,
     subtitle: {
       id: "Kontribusi nyata bagi masyarakat dan lingkungan melalui berbagai program tanggung jawab sosial perusahaan.",
@@ -99,14 +99,14 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/privacy": {
-    image: "/images/security-lock.jpg",
+    image: "/images/privacy-policy.jpg",
     subtitle: {
       id: "Kami menghormati privasi setiap pengunjung dan berkomitmen melindungi informasi yang disampaikan kepada kami.",
       en: "We respect the privacy of every visitor and are committed to protecting the information submitted to us.",
     },
   },
   "/about/bank-resona-perdania": {
-    image: "/images/hero-jakarta.jpg",
+    image: "/images/hero-city-dusk.jpg",
     accentWords: 2,
     subtitle: {
       id: "Bank joint venture pertama di Indonesia dan perusahaan induk PT Resona Indonesia Finance.",
@@ -115,14 +115,14 @@ export const pageBanners: Record<string, BannerSpec> = {
   },
 
   "/gcg/anti-fraud": {
-    image: "/images/security-lock.jpg",
+    image: "/images/privacy-policy.jpg",
     subtitle: {
       id: "Strategi anti fraud yang menyeluruh untuk mencegah, mendeteksi, dan menangani setiap potensi kecurangan.",
       en: "A comprehensive anti-fraud strategy to prevent, detect, and handle any potential fraud.",
     },
   },
   "/gcg/integrity-pact": {
-    image: "/images/documents-desk.jpg",
+    image: "/images/library-study.jpg",
     accentWords: 2,
     subtitle: {
       id: "Komitmen seluruh jajaran perusahaan untuk menjalankan tugas secara jujur, transparan, dan bebas benturan kepentingan.",
@@ -130,7 +130,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/gcg/good-corporate-governance": {
-    image: "/images/meeting-boardroom.jpg",
+    image: "/images/management-message.jpg",
     accentWords: 2,
     subtitle: {
       id: "Prinsip transparansi, akuntabilitas, pertanggungjawaban, independensi, dan kewajaran sebagai landasan usaha kami.",
@@ -138,7 +138,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/gcg/aml-cft": {
-    image: "/images/officer-review.jpg",
+    image: "/images/team-laptop.jpg",
     accentWords: 2,
     subtitle: {
       id: "Penerapan program Anti Pencucian Uang dan Pencegahan Pendanaan Terorisme sesuai ketentuan yang berlaku.",
@@ -147,7 +147,7 @@ export const pageBanners: Record<string, BannerSpec> = {
   },
 
   "/corporate-secretary/sustainability-report": {
-    image: "/images/green-sustainability.jpg",
+    image: "/images/csr-tree-planting.jpg",
     accentWords: 2,
     subtitle: {
       id: "Laporan keberlanjutan yang merekam kinerja lingkungan, sosial, dan tata kelola perusahaan setiap tahun.",
@@ -155,7 +155,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/corporate-secretary/financial-report": {
-    image: "/images/financial-docs.jpg",
+    image: "/images/reading-lamp.jpg",
     accentWords: 2,
     subtitle: {
       id: "Laporan keuangan tahunan yang telah diaudit, sebagai wujud keterbukaan informasi kepada publik.",
@@ -163,7 +163,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/corporate-secretary/business-strategy": {
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     accentWords: 2,
     subtitle: {
       id: "Arah strategis dan rencana jangka panjang perusahaan dalam menghadapi dinamika industri pembiayaan.",
@@ -171,7 +171,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/corporate-secretary/privacy": {
-    image: "/images/security-lock.jpg",
+    image: "/images/privacy-policy.jpg",
     subtitle: {
       id: "Kami menghormati privasi setiap pengunjung dan berkomitmen melindungi informasi yang disampaikan kepada kami.",
       en: "We respect the privacy of every visitor and are committed to protecting the information submitted to us.",
@@ -179,7 +179,7 @@ export const pageBanners: Record<string, BannerSpec> = {
   },
 
   "/products": {
-    image: "/images/client-meeting.jpg",
+    image: "/images/office-lounge.jpg",
     accentWords: 1,
     subtitle: {
       id: "Kami menyediakan produk dan layanan pembiayaan tepercaya yang dirancang untuk mendukung pertumbuhan bisnis Anda.",
@@ -187,7 +187,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/products/investment-financing": {
-    image: "/images/exec-port.jpg",
+    image: "/images/management-board.jpg",
     accentWords: 1,
     subtitle: {
       id: "Pembiayaan investasi melalui Sewa Pembiayaan dan Jual dan Sewa Balik untuk kebutuhan aset tetap perusahaan.",
@@ -195,7 +195,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/products/working-capital": {
-    image: "/images/client-meeting.jpg",
+    image: "/images/office-lounge.jpg",
     accentWords: 1,
     subtitle: {
       id: "Pembiayaan modal kerja untuk menjaga kelancaran operasional dan mendukung ekspansi usaha Anda.",
@@ -203,7 +203,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/products/factoring": {
-    image: "/images/containers.jpg",
+    image: "/images/financing-truck.png",
     accentWords: 1,
     subtitle: {
       id: "Fasilitas anjak piutang untuk mempercepat likuiditas atas tagihan yang belum jatuh tempo.",
@@ -211,7 +211,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/products/sbdp": {
-    image: "/images/calculator-desk.jpg",
+    image: "/images/financing-forklift.png",
     accentWords: 1,
     subtitle: {
       id: "Informasi Suku Bunga Dasar Pembiayaan yang dipublikasikan secara berkala setiap bulan.",
@@ -220,21 +220,21 @@ export const pageBanners: Record<string, BannerSpec> = {
   },
 
   "/news": {
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     subtitle: {
       id: "Dapatkan informasi terkini tentang perkembangan, kegiatan, dan program literasi keuangan kami.",
       en: "Stay updated with the latest developments, activities, and financial literacy programmes.",
     },
   },
   "/careers": {
-    image: "/images/officer-review.jpg",
+    image: "/images/team-laptop.jpg",
     subtitle: {
       id: "Bergabunglah bersama tim kami dan bangun karier di industri pembiayaan korporasi.",
       en: "Join our team and build your career in the corporate financing industry.",
     },
   },
   "/contact": {
-    image: "/images/office-reception.jpg",
+    image: "/images/office-tower.jpg",
     subtitle: {
       id: "Kami siap membantu menjawab pertanyaan Anda seputar produk dan layanan pembiayaan kami.",
       en: "We are ready to answer your questions about our financing products and services.",

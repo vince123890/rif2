@@ -18,7 +18,7 @@ import type {
 export const heroSlides: HeroSlide[] = [
   {
     id: "hero-1",
-    image: "/images/hero-jakarta.jpg",
+    image: "/images/hero-city-dusk.jpg",
     kicker: {
       id: "PEMBIAYAAN KORPORASI TERPERCAYA",
       en: "TRUSTED CORPORATE FINANCING",
@@ -35,7 +35,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: "hero-2",
-    image: "/images/hero-port.jpg",
+    image: "/images/hero-skyline-sunset.jpg",
     kicker: { id: "SEJAK 1984", en: "SINCE 1984" },
     title: { id: "Mitra Pembiayaan", en: "Your Financing Partner" },
     titleAccent: { id: "Bisnis Anda.", en: "for Growth." },
@@ -46,7 +46,7 @@ export const heroSlides: HeroSlide[] = [
   },
   {
     id: "hero-3",
-    image: "/images/meeting-team.jpg",
+    image: "/images/office-lounge.jpg",
     kicker: { id: "TATA KELOLA YANG BAIK", en: "GOOD GOVERNANCE" },
     title: { id: "Transparan,", en: "Transparent," },
     titleAccent: { id: "Aman, Terpercaya.", en: "Secure, Trusted." },
@@ -65,7 +65,7 @@ export const products: Product[] = [
       id: "Pembiayaan Investasi yang dilakukan dengan cara Sewa Pembiayaan dan Jual dan Sewa Balik.",
       en: "Investment Financing provided through Finance Lease and Sale and Lease Back schemes.",
     },
-    image: "/images/exec-port.jpg",
+    image: "/images/investment-growth.png",
     highlights: {
       id: ["Sewa Pembiayaan (Finance Lease)", "Jual dan Sewa Balik (Sale and Lease Back)"],
       en: ["Finance Lease", "Sale and Lease Back"],
@@ -94,7 +94,7 @@ export const products: Product[] = [
       id: "Pembiayaan Modal Kerja yang dilakukan dengan cara Pembiayaan Fasilitas Modal Usaha.",
       en: "Working Capital financing provided through Business Capital Facility schemes.",
     },
-    image: "/images/client-meeting.jpg",
+    image: "/images/financing-forklift.png",
     highlights: {
       id: ["Alat Berat", "Mesin Industri", "Perangkat TI", "Kendaraan Operasional"],
       en: ["Heavy Equipment", "Industrial Machinery", "IT Equipment", "Operational Vehicles"],
@@ -131,7 +131,7 @@ export const products: Product[] = [
       id: "Fasilitas Anjak Piutang untuk membantu pengelolaan arus kas melalui pengalihan piutang dagang.",
       en: "Factoring facilities that help manage cash flow through the transfer of trade receivables.",
     },
-    image: "/images/containers.jpg",
+    image: "/images/financing-truck.png",
     highlights: {
       id: ["Pengalihan piutang dagang", "Optimalisasi arus kas", "Jangka waktu fleksibel"],
       en: ["Transfer of trade receivables", "Cash-flow optimisation", "Flexible tenor"],
@@ -219,7 +219,7 @@ export const articles: Article[] = [
 <p>The activity is part of RIF's commitment to supporting the national financial-literacy programme launched by the Financial Services Authority. Through interactive sessions, students were introduced to the role of the financing industry, financing products, and the importance of prudent financial management from an early age.</p>
 <p>RIF hopes this activity equips the younger generation with adequate financial understanding before entering the workforce.</p>`,
     },
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     publishedAt: "2025-07-18",
     tags: ["Keuangan", "Pendidikan", "Literasi"],
   },
@@ -240,7 +240,7 @@ export const articles: Article[] = [
       en: `<p>As part of its Corporate Social Responsibility activities, PT Resona Indonesia Finance provided assistance to the Forest Farmer Group (KTH) Srengseng Hijau Lestari.</p>
 <p>The assistance reflects the company's care for environmental sustainability and the empowerment of surrounding communities. The programme aligns with the sustainability commitment that forms part of the company's long-term strategy.</p>`,
     },
-    image: "/images/archive-1973.jpg",
+    image: "/images/library-study.jpg",
     publishedAt: "2024-10-23",
     tags: ["CSR", "Lingkungan"],
   },
@@ -299,7 +299,7 @@ export const awards: Award[] = [
       id: "Apresiasi atas kinerja keuangan dan tata kelola perusahaan sepanjang tahun 2024.",
       en: "Recognition of financial performance and corporate governance throughout 2024.",
     },
-    image: "/images/products-blocks.jpg",
+    image: "/images/investment-growth.png",
   },
   {
     id: "a2",
@@ -312,7 +312,7 @@ export const awards: Award[] = [
       id: "Penghargaan atas predikat kinerja keuangan “Sangat Bagus”.",
       en: "Award for a “Very Good” financial performance rating.",
     },
-    image: "/images/financial-docs.jpg",
+    image: "/images/reading-lamp.jpg",
   },
   {
     id: "a3",
@@ -325,7 +325,7 @@ export const awards: Award[] = [
       id: "Penghargaan atas kinerja perusahaan pembiayaan terbaik pada kategorinya.",
       en: "Award for the best financing company performance in its category.",
     },
-    image: "/images/city-skyline-alt.jpg",
+    image: "/images/hero-skyline-sunset.jpg",
   },
 ];
 
@@ -344,7 +344,7 @@ export const csrActivities: CsrActivity[] = [
       id: "<p>Program pemberdayaan kelompok tani hutan melalui penyediaan sarana produksi dan pendampingan budidaya, guna mendukung kelestarian kawasan hijau di wilayah Srengseng.</p>",
       en: "<p>An empowerment programme for a forest farmer group through the provision of production facilities and cultivation guidance, supporting the preservation of green areas in the Srengseng region.</p>",
     },
-    image: "/images/green-sustainability.jpg",
+    image: "/images/csr-tree-planting.jpg",
     date: "2024-10-23",
   },
   {
@@ -361,7 +361,7 @@ export const csrActivities: CsrActivity[] = [
       id: "<p>Kegiatan literasi keuangan dengan tema “Memanfaatkan Perusahaan Pembiayaan untuk Masa Depan yang Lebih Baik”, mengenalkan peran industri pembiayaan kepada generasi muda.</p>",
       en: "<p>A financial literacy activity themed “Leveraging Financing Companies for a Better Future”, introducing the role of the financing industry to the younger generation.</p>",
     },
-    image: "/images/meeting-presentation.jpg",
+    image: "/images/team-collaboration.jpg",
     date: "2025-06-19",
   },
   {
@@ -375,7 +375,7 @@ export const csrActivities: CsrActivity[] = [
       id: "<p>Penyediaan sarana dan prasarana belajar untuk meningkatkan kualitas pendidikan di sekolah mitra.</p>",
       en: "<p>Provision of learning facilities and infrastructure to improve education quality at partner schools.</p>",
     },
-    image: "/images/officer-review.jpg",
+    image: "/images/team-laptop.jpg",
     date: "2024-05-14",
   },
   {
@@ -389,7 +389,7 @@ export const csrActivities: CsrActivity[] = [
       id: "<p>Kegiatan bakti sosial yang melibatkan karyawan perusahaan bersama masyarakat sekitar.</p>",
       en: "<p>Community service activities involving company employees together with local residents.</p>",
     },
-    image: "/images/meeting-boardroom.jpg",
+    image: "/images/management-message.jpg",
     date: "2024-03-08",
   },
 ];

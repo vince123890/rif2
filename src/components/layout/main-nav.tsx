@@ -117,7 +117,7 @@ export function MainNav({ items }: { items: NavItem[] }) {
                   {hasKids && expanded && (
                     <div
                       onMouseLeave={() => setOpen(null)}
-                      className="absolute left-0 top-full z-50 min-w-[290px] animate-fade-up rounded-b-md border-t-2 border-accent-400 bg-white py-2 shadow-xl"
+                      className="absolute left-0 top-full z-50 min-w-[290px] animate-fade-up rounded-b-md border-t-2 border-accent-500 bg-white py-2 shadow-xl"
                     >
                       <ul>
                         {item.children!.map((child) => (
@@ -190,7 +190,7 @@ function SubMenuItem({ item }: { item: NavItem }) {
       </button>
 
       {open && (
-        <div className="absolute left-full top-0 z-50 min-w-[270px] rounded-[12px] border-t-2 border-accent-400 bg-white py-2 shadow-xl">
+        <div className="absolute left-full top-0 z-50 min-w-[270px] rounded-[12px] border-t-2 border-accent-500 bg-white py-2 shadow-xl">
           <ul>
             {item.children!.map((g) => (
               <li key={g.key}>

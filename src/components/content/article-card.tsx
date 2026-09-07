@@ -70,7 +70,7 @@ export async function ArticleCard({
           </p>
           <Link
             href={href}
-            className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-400 transition-colors hover:text-accent-500"
+            className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600"
           >
             {t("readingMore")}
             <ArrowRight
@@ -105,7 +105,7 @@ export async function ArticleCard({
         </p>
         <Link
           href={href}
-          className="mt-auto inline-flex items-center gap-2 pt-5 text-[14px] font-bold text-accent-400 transition-colors hover:text-accent-500"
+          className="mt-auto inline-flex items-center gap-2 pt-5 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600"
         >
           {t("readingMore")}
           <ArrowRight
