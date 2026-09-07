@@ -139,5 +139,30 @@
     "genericTitle": "Something went wrong",
     "genericLead": "Sorry, an error occurred while loading this page. Please try again.",
     "retry": "Try again"
+  },
+  "about": {
+    "heroTitle": "About Us",
+    "heroSubtitle": "An overview of our trusted financing solutions for investment and working capital since 1984",
+    "companyProfile": "Established in 1984 as part of the Resona Group, PT Resona Indonesia Finance is an OJK-licensed financing company in Jakarta that provides investment and working capital solutions, primarily financing industrial machinery, heavy equipment, commercial vehicles, and IT assets.",
+    "csr": "In line with sustainable finance and the Sustainable Development Goals (SDGs), PT Resona Indonesia Finance's Corporate Social Responsibility (CSR) focuses on tackling climate challenges, protecting the environment, and enhancing community welfare to drive sustainable business growth.",
+    "privacy": "Governed by Law No. 27 of 2022 on Personal Data Protection and OJK regulations, PT Resona Indonesia Finance's Terms of Privacy outlines how personal data is legally collected, processed, and protected with customer consent to deliver services, meet regulatory obligations, and uphold data subject rights securely.",
+    "bankResona": "Established on February 15, 1956, Bank Resona Perdania (“Bank”) began its operations on February 1, 1958. Bank Resona Perdania is the first joint venture bank in Indonesia which is a concrete representation of the commitment between Indonesia and Japan in enhancing economic cooperation, particularly in the banking sector.",
+    "news": "PT Resona Indonesia Finance's latest corporate activities, community engagements, and sustainability initiatives, featuring events such as student financial literacy workshops and Corporate Social Responsibility (CSR) programs.",
+    "career": "PT Resona Indonesia Finance, featuring an Available Jobs portal where prospective candidates can explore open positions and submit their applications through the Apply Job Now feature.",
+    "tCompanyProfile": "Company Profile",
+    "tCsr": "Corporate Social Responsibility",
+    "tPrivacy": "Terms of Privacy",
+    "tBankResona": "Bank Resona Perdania",
+    "tNews": "News",
+    "tCareer": "Career"
+  },
+  "companyProfile": {
+    "heroTitle": "Company\nProfile",
+    "tab-overview": "Company Overview",
+    "tab-journey": "Our Journey",
+    "tab-business": "Business & Financing",
+    "tab-management": "Management",
+    "tab-structure": "Organization & Shareholder Structure",
+    "tab-award": "Award"
   }
 }

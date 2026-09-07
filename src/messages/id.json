@@ -139,5 +139,30 @@
     "genericTitle": "Terjadi kesalahan",
     "genericLead": "Maaf, terjadi kesalahan saat memuat halaman ini. Silakan coba lagi.",
     "retry": "Coba lagi"
+  },
+  "about": {
+    "heroTitle": "Tentang Kami",
+    "heroSubtitle": "Sekilas tentang solusi pembiayaan investasi dan modal kerja yang tepercaya sejak 1984",
+    "companyProfile": "Didirikan pada 1984 sebagai bagian dari Resona Group, PT Resona Indonesia Finance adalah perusahaan pembiayaan berizin OJK yang berkedudukan di Jakarta dan menyediakan solusi pembiayaan investasi serta modal kerja, terutama untuk mesin industri, alat berat, kendaraan komersial, dan aset TI.",
+    "csr": "Sejalan dengan keuangan berkelanjutan dan Tujuan Pembangunan Berkelanjutan (SDGs), Tanggung Jawab Sosial Perusahaan (CSR) PT Resona Indonesia Finance berfokus pada penanganan tantangan iklim, pelestarian lingkungan, dan peningkatan kesejahteraan masyarakat untuk mendorong pertumbuhan bisnis yang berkelanjutan.",
+    "privacy": "Mengacu pada Undang-Undang No. 27 Tahun 2022 tentang Pelindungan Data Pribadi dan ketentuan OJK, Ketentuan Privasi PT Resona Indonesia Finance menjelaskan bagaimana data pribadi dikumpulkan, diproses, dan dilindungi secara sah dengan persetujuan pelanggan untuk memberikan layanan, memenuhi kewajiban regulasi, serta menjunjung hak subjek data secara aman.",
+    "bankResona": "Didirikan pada 15 Februari 1956, Bank Resona Perdania (“Bank”) memulai operasinya pada 1 Februari 1958. Bank Resona Perdania merupakan bank patungan pertama di Indonesia yang menjadi perwujudan nyata komitmen antara Indonesia dan Jepang dalam mempererat kerja sama ekonomi, khususnya di sektor perbankan.",
+    "news": "Kegiatan korporasi terbaru PT Resona Indonesia Finance, keterlibatan dengan masyarakat, dan inisiatif keberlanjutan, termasuk kegiatan seperti literasi keuangan bagi pelajar dan program Tanggung Jawab Sosial Perusahaan (CSR).",
+    "career": "PT Resona Indonesia Finance menyediakan portal Lowongan Tersedia tempat calon kandidat dapat menelusuri posisi yang terbuka dan mengirimkan lamaran melalui fitur Lamar Sekarang.",
+    "tCompanyProfile": "Profil Perusahaan",
+    "tCsr": "Tanggung Jawab Sosial Perusahaan",
+    "tPrivacy": "Ketentuan Privasi",
+    "tBankResona": "Bank Resona Perdania",
+    "tNews": "Berita",
+    "tCareer": "Karir"
+  },
+  "companyProfile": {
+    "heroTitle": "Profil\nPerusahaan",
+    "tab-overview": "Sekilas Perusahaan",
+    "tab-journey": "Perjalanan Kami",
+    "tab-business": "Bisnis & Pembiayaan",
+    "tab-management": "Manajemen",
+    "tab-structure": "Struktur Organisasi & Pemegang Saham",
+    "tab-award": "Penghargaan"
   }
 }

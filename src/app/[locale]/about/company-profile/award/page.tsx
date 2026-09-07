@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 
 import { getAwards, pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { CompanyProfilePage } from "@/components/layout/company-profile-page";
 
 const ROUTE = "/about/company-profile/award";
 
@@ -26,29 +25,11 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, awards] = await Promise.all([
-    getTranslations("nav"),
-    getAwards(),
-  ]);
+  const awards = await getAwards();
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("award"), banner?.accentWords).accent}
-      title={splitTitle(tNav("award"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-      crumbs={[
-        { label: tNav("about"), href: "/about/management-message" },
-        {
-          label: tNav("company-profile"),
-          href: "/about/company-profile/vision-mission",
-        },
-      ]}
-    >
+    <CompanyProfilePage route={ROUTE}>
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {awards.map((a) => (
           <article
@@ -78,6 +59,6 @@ export default async function Page({
           </article>
         ))}
       </div>
-    </ContentPage>
+    </CompanyProfilePage>
   );
 }

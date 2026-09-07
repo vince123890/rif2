@@ -1,11 +1,11 @@
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 
 import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { Discs } from "@/components/content/journey-timeline";
 import { RichText } from "@/components/ui/rich-text";
 import { DocumentActions } from "@/components/content/document-actions";
 
@@ -26,6 +26,13 @@ export async function generateMetadata({
   });
 }
 
+/**
+ * "Business & Financing" — `Desktop - 11`.
+ *
+ * The fig puts the business licence and the financing facilities on this
+ * one tab, each in its own white panel (r=24) with the nested discs
+ * bleeding off the top-right corner.
+ */
 export default async function Page({
   params,
 }: {
@@ -34,27 +41,36 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const page = getStaticPage(PAGE_KEY);
-  if (!page) notFound();
+  const facilities = getStaticPage(PAGE_KEY);
+  const licence = getStaticPage("business-license");
+  if (!facilities) notFound();
 
-  const tNav = await getTranslations("nav");
-
-  const banner = getBanner(ROUTE, locale);
+  const panels = [licence, facilities].filter(Boolean);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(page.title, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(page.title, locale), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      crumbs={[
-    { label: tNav("about"), href: "/about/management-message" },
-    { label: tNav("company-profile"), href: "/about/company-profile/vision-mission" },
-      ]}
-    >
-      <RichText html={pick(page.body, locale)} />
-      {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
-    </ContentPage>
+    <CompanyProfilePage route={ROUTE} bare>
+      <div className="space-y-6">
+        {panels.map((page) => (
+          <section
+            key={page!.key}
+            className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12"
+          >
+            <Discs className="-right-16 -top-24" />
+            <div className="relative">
+              {/* fig `Frame 5`: 32px green section heading */}
+              <h2 className="text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
+                {pick(page!.title, locale)}
+              </h2>
+              <div className="mt-6">
+                <RichText html={pick(page!.body, locale)} />
+              </div>
+              {page!.document ? (
+                <DocumentActions file={page!.document} className="mt-10" />
+              ) : null}
+            </div>
+          </section>
+        ))}
+      </div>
+    </CompanyProfilePage>
   );
 }

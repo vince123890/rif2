@@ -1,11 +1,9 @@
-import Image from "next/image";
-import { getTranslations, setRequestLocale } from "next-intl/server";
-import { User } from "lucide-react";
+import { setRequestLocale } from "next-intl/server";
 
-import { getManagement, pick } from "@/lib/content";
+import { getManagement } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { ManagementCarousel } from "@/components/content/management-carousel";
 
 const ROUTE = "/about/company-profile/management";
 
@@ -18,7 +16,12 @@ export async function generateMetadata({
   return buildMetadata({ locale, titleKey: "management", path: ROUTE });
 }
 
-/** FR-AB-07 — Board of Commissioners and Board of Directors. */
+/**
+ * FR-AB-07 — Board of Commissioners and Board of Directors.
+ *
+ * `Desktop - 12` gives each board its own orange heading and its own
+ * carousel of portrait cards, rather than the flat grid this page used.
+ */
 export default async function Page({
   params,
 }: {
@@ -27,10 +30,7 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, people] = await Promise.all([
-    getTranslations("nav"),
-    getManagement(),
-  ]);
+  const people = await getManagement();
 
   const boards = [
     {
@@ -43,65 +43,26 @@ export default async function Page({
     },
   ];
 
-  const banner = getBanner(ROUTE, locale);
-
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("management"), banner?.accentWords).accent}
-      title={splitTitle(tNav("management"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-      crumbs={[
-        { label: tNav("about"), href: "/about/management-message" },
-        {
-          label: tNav("company-profile"),
-          href: "/about/company-profile/vision-mission",
-        },
-      ]}
-    >
-      <div className="space-y-14">
+    <CompanyProfilePage route={ROUTE} bare>
+      <div className="space-y-16">
         {boards.map((board) => {
           const members = people.filter((p) => p.board === board.key);
           if (!members.length) return null;
 
           return (
             <section key={board.key}>
-              <h2 className="text-[24px] font-normal text-brand-600 md:text-[28px]">
+              {/* fig `Frame 138/214`: 30px orange, centred over the carousel */}
+              <h2 className="text-center text-[24px] font-bold text-accent-500 md:text-[30px]">
                 {board.title}
               </h2>
-              <div className="mt-6 grid gap-6 border-t border-brand-200 pt-8 sm:grid-cols-2 lg:grid-cols-4">
-                {members.map((p) => (
-                  <article key={p.id} className="text-center sm:text-left">
-                    <div className="relative mx-auto aspect-square w-full max-w-[220px] overflow-hidden rounded-[16px] bg-ink-100 sm:mx-0">
-                      {p.photo ? (
-                        <Image
-                          src={p.photo}
-                          alt={p.name}
-                          fill
-                          sizes="220px"
-                          className="object-cover"
-                        />
-                      ) : (
-                        <span className="grid h-full w-full place-items-center text-ink-300">
-                          <User className="h-14 w-14" aria-hidden />
-                        </span>
-                      )}
-                    </div>
-                    <h3 className="mt-4 text-[17px] font-bold text-ink-900">
-                      {p.name}
-                    </h3>
-                    <p className="mt-0.5 text-[14px] text-ink-500">
-                      {pick(p.position, locale)}
-                    </p>
-                  </article>
-                ))}
+              <div className="mt-8">
+                <ManagementCarousel people={members} />
               </div>
             </section>
           );
         })}
       </div>
-    </ContentPage>
+    </CompanyProfilePage>
   );
 }

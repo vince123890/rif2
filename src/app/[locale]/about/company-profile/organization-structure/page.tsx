@@ -1,8 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { CompanyProfilePage } from "@/components/layout/company-profile-page";
 import { ZoomableImage } from "@/components/content/zoomable-image";
 
 const ROUTE = "/about/company-profile/organization-structure";
@@ -27,30 +26,14 @@ export default async function Page({
 
   const tNav = await getTranslations("nav");
 
-  const banner = getBanner(ROUTE, locale);
-
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("organization-structure"), banner?.accentWords).accent}
-      title={splitTitle(tNav("organization-structure"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-      crumbs={[
-        { label: tNav("about"), href: "/about/management-message" },
-        {
-          label: tNav("company-profile"),
-          href: "/about/company-profile/vision-mission",
-        },
-      ]}
-    >
+    <CompanyProfilePage route={ROUTE}>
       <ZoomableImage
         src="/images/org-structure.svg"
         alt={tNav("organization-structure")}
         width={1400}
         height={900}
       />
-    </ContentPage>
+    </CompanyProfilePage>
   );
 }

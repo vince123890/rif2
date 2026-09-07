@@ -89,7 +89,14 @@ export function MainNav({
        */
       className="lg:sticky lg:top-6 lg:z-50 lg:-mb-[96px] lg:bg-transparent"
     >
-      <div className="bg-brand-600 shadow-sm lg:container-rif lg:mx-auto lg:rounded-[36px] lg:bg-brand-600 lg:px-3 lg:shadow-lg">
+      <div
+        /*
+         * fig `Frame 58`: the pill is 1416 wide inset 12px from the 1440
+         * frame — the same box as the banner beneath it, so the two line
+         * up. It is wider than `container-rif`, hence its own max-width.
+         */
+        className="bg-brand-600 shadow-sm lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-[1416px] lg:rounded-[36px] lg:bg-brand-600 lg:px-6 lg:shadow-lg"
+      >
         <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:flex-nowrap lg:gap-5 lg:px-0">
           {/* Brand lockup — inside the pill on desktop, per the fig */}
           <Link
