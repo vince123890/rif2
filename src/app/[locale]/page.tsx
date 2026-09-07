@@ -68,7 +68,7 @@ export default async function HomePage({
       {/* ---- 3. MESSAGE FROM THE MANAGEMENT ---- */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("managementTitle")} color="ink" size="lg" />
+          <SectionHeading title={t("managementTitle")} size="lg" />
 
           {/*
            * A single raised white card holding the photo on the left and the

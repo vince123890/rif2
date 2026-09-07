@@ -95,12 +95,6 @@ export function SectionHeading({
   lead,
   align = "center",
   tone = "dark",
-  /**
-   * fig sets the reports and news headings in accent orange and the
-   * management/products headings in near-black. Default follows the
-   * former; pass "ink" for the latter.
-   */
-  color = "accent",
   size = "lg",
   action,
 }: {
@@ -108,10 +102,10 @@ export function SectionHeading({
   lead?: string;
   align?: "center" | "left";
   tone?: "dark" | "light";
-  color?: "accent" | "ink";
   /**
-   * fig sets the management, products and sustainability headings at 40px
-   * and the financial-report and news headings at 30px.
+   * The fig mixes 40px and 30px headings; RIF asked for one size across
+   * the homepage, so every section passes "lg". "md" is kept for the
+   * inner pages, which do use the smaller heading.
    */
   size?: "lg" | "md";
   /** Rendered opposite the title, e.g. the news section's "View More". */
@@ -131,11 +125,7 @@ export function SectionHeading({
           size === "lg"
             ? "text-[28px] md:text-[40px]"
             : "text-[24px] md:text-[30px]",
-          tone === "light"
-            ? "text-white"
-            : color === "accent"
-              ? "text-accent-500"
-              : "text-ink-900",
+          tone === "light" ? "text-white" : "text-accent-500",
         )}
       >
         {title}
