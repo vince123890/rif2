@@ -10,21 +10,19 @@ import { cn } from "@/lib/utils";
 
 export type ReportEntry = { year: number; href: string };
 
-/** How many covers are visible at once on desktop. */
+/** Covers visible at once on desktop. */
 const VISIBLE = 3;
 
 /**
- * Report carousel, built to the fig's Sustainability / Financial sections.
+ * Report carousel for the Sustainability and Financial sections.
  *
- * The leading cover sits on a raised white card and is rendered larger; the
- * covers behind it are flat against the page ground and slightly smaller, so
- * the row reads as a stack receding to the right. Each cover carries the
- * Resona lockup, the report name in accent orange and an oversized "R"
- * watermark.
+ * Smoothness note: every card keeps a fixed layout box and the same padding
+ * whether or not it leads. Only `transform` and `opacity` change, both of
+ * which the compositor can animate without re-running layout. An earlier
+ * version grew the lead card's padding and margin instead, which resized its
+ * box mid-slide and made the motion stutter.
  *
- * Sliding is animated: the whole rail translates and each card eases between
- * its lead and trailing size, so stepping through feels continuous rather
- * than a swap. Arrows, dots, drag and the arrow keys all drive it.
+ * Driven by the arrows, the dots, pointer drag, and the left/right keys.
  */
 export function ReportCarousel({
   reports,
@@ -45,7 +43,6 @@ export function ReportCarousel({
   const last = Math.max(0, reports.length - VISIBLE);
   const go = (next: number) => setIndex(Math.min(Math.max(next, 0), last));
 
-  // A drag past a quarter of a card steps the carousel.
   const endDrag = () => {
     if (!drag) return;
     if (drag.dx < -60) go(index + 1);
@@ -53,10 +50,12 @@ export function ReportCarousel({
     setDrag(null);
   };
 
+  const slide = "cubic-bezier(0.22, 1, 0.36, 1)";
+
   return (
     <div>
       <div
-        className="overflow-hidden pb-4"
+        className="overflow-hidden px-1 pb-6 pt-2"
         role="region"
         aria-roledescription="carousel"
         aria-label={label}
@@ -71,43 +70,48 @@ export function ReportCarousel({
         }
         onPointerUp={endDrag}
         onPointerLeave={endDrag}
+        onPointerCancel={endDrag}
       >
         <ul
-          className={cn(
-            "flex items-start gap-6",
-            !drag && "transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-          )}
+          className="flex items-stretch gap-6 will-change-transform"
           style={{
-            transform: `translateX(calc(${-index} * (var(--card) + 1.5rem) + ${drag?.dx ?? 0}px))`,
-            ["--card" as string]: "clamp(220px, 25vw, 340px)",
+            ["--card" as string]: "clamp(220px, 24vw, 330px)",
+            transform: `translate3d(calc(${-index} * (var(--card) + 1.5rem) + ${
+              drag?.dx ?? 0
+            }px), 0, 0)`,
+            transition: drag ? "none" : `transform 600ms ${slide}`,
           }}
         >
           {reports.map((r, i) => {
             const lead = i === index;
+            const offscreen = i < index || i >= index + VISIBLE;
+
             return (
               <li
                 key={r.year}
-                aria-hidden={i < index || i >= index + VISIBLE}
-                className={cn(
-                  "w-[var(--card)] shrink-0 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                  lead
-                    ? "rounded-[24px] bg-white p-4 shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]"
-                    : "mt-6 p-2 opacity-90",
-                )}
+                aria-hidden={offscreen}
+                /* Fixed box; scale (not size) marks the lead card. */
+                className="w-[var(--card)] shrink-0 origin-bottom will-change-transform"
+                style={{
+                  transform: lead ? "scale(1)" : "scale(0.9)",
+                  opacity: offscreen ? 0.35 : 1,
+                  transition: `transform 600ms ${slide}, opacity 600ms ${slide}`,
+                }}
               >
                 <Link
                   href={r.href}
-                  tabIndex={i < index || i >= index + VISIBLE ? -1 : undefined}
-                  className="group block"
+                  tabIndex={offscreen ? -1 : undefined}
                   draggable={false}
+                  className={cn(
+                    "group flex h-full flex-col rounded-[24px] p-4",
+                    "transition-[background-color,box-shadow] duration-500",
+                    lead
+                      ? "bg-white shadow-[0_18px_50px_-20px_rgba(0,0,0,0.35)]"
+                      : "bg-transparent shadow-none",
+                  )}
                 >
                   {/* Cover */}
-                  <span
-                    className={cn(
-                      "relative flex flex-col overflow-hidden rounded-[12px] bg-ink-100 p-6 transition-all duration-500",
-                      lead ? "aspect-4/3" : "aspect-4/3",
-                    )}
-                  >
+                  <span className="relative flex aspect-4/3 flex-col overflow-hidden rounded-[12px] bg-ink-100 p-5">
                     <span className="relative z-10 flex items-center gap-2">
                       <Image
                         src="/brand/resona-mark.png"
@@ -115,57 +119,34 @@ export function ReportCarousel({
                         width={32}
                         height={40}
                         aria-hidden
-                        className={cn(
-                          "w-auto shrink-0 transition-all duration-500",
-                          lead ? "h-7" : "h-5",
-                        )}
+                        className="h-6 w-auto shrink-0"
                       />
-                      <span
-                        className={cn(
-                          "font-bold leading-tight text-brand-600 transition-all duration-500",
-                          lead ? "text-[15px] md:text-[17px]" : "text-[12px] md:text-[13px]",
-                        )}
-                      >
+                      <span className="text-[13px] font-bold leading-tight text-brand-600 md:text-[14px]">
                         Resona Indonesia Finance
                       </span>
                     </span>
 
-                    <span
-                      className={cn(
-                        "relative z-10 mt-5 font-bold uppercase leading-[1.15] text-accent-500 transition-all duration-500",
-                        lead ? "text-[22px] md:text-[28px]" : "text-[16px] md:text-[20px]",
-                      )}
-                    >
+                    <span className="relative z-10 mt-4 text-[18px] font-bold uppercase leading-[1.15] text-accent-500 md:text-[22px]">
                       {label}
                     </span>
 
-                    {/* Oversized "R" watermark, as in the fig */}
+                    {/* Oversized "R" watermark, as in the design */}
                     <Image
                       src="/brand/resona-mark.png"
                       alt=""
                       width={400}
                       height={500}
                       aria-hidden
-                      className="pointer-events-none absolute -bottom-10 -right-10 h-[75%] w-auto opacity-[0.13]"
+                      className="pointer-events-none absolute -bottom-8 -right-8 h-[70%] w-auto opacity-[0.13]"
                     />
                   </span>
 
                   {/* Year + Detail */}
-                  <span className="flex items-center justify-between gap-3 px-2 pt-5">
-                    <span
-                      className={cn(
-                        "font-bold text-ink-900 transition-all duration-500",
-                        lead ? "text-[22px] md:text-[26px]" : "text-[17px] md:text-[19px]",
-                      )}
-                    >
+                  <span className="mt-auto flex items-center justify-between gap-3 px-1 pt-5">
+                    <span className="text-[20px] font-bold text-ink-900 md:text-[24px]">
                       {r.year}
                     </span>
-                    <span
-                      className={cn(
-                        "inline-flex items-center rounded-full bg-brand-600 font-bold text-white transition-colors group-hover:bg-brand-700",
-                        lead ? "px-6 py-2.5 text-[16px]" : "px-4 py-1.5 text-[13px]",
-                      )}
-                    >
+                    <span className="inline-flex items-center rounded-full bg-brand-600 px-5 py-2 text-[14px] font-bold text-white transition-colors group-hover:bg-brand-700 md:text-[15px]">
                       {t("detail")}
                     </span>
                   </span>
@@ -176,15 +157,15 @@ export function ReportCarousel({
         </ul>
       </div>
 
-      {/* Controls — fig: round green arrows with dots between, left-aligned */}
+      {/* Controls — round green arrows with dots between */}
       {reports.length > VISIBLE && (
-        <div className="mt-8 flex items-center gap-5">
+        <div className="flex items-center gap-5">
           <button
             type="button"
             onClick={() => go(index - 1)}
             disabled={index === 0}
             aria-label={t("previous")}
-            className="grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700 disabled:opacity-40"
+            className="grid h-11 w-11 place-items-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700 disabled:opacity-40"
           >
             <ArrowLeft className="h-5 w-5" aria-hidden />
           </button>
@@ -210,7 +191,7 @@ export function ReportCarousel({
             onClick={() => go(index + 1)}
             disabled={index === last}
             aria-label={t("next")}
-            className="grid h-12 w-12 place-items-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700 disabled:opacity-40"
+            className="grid h-11 w-11 place-items-center rounded-full bg-brand-600 text-white transition-colors hover:bg-brand-700 disabled:opacity-40"
           >
             <ArrowRight className="h-5 w-5" aria-hidden />
           </button>

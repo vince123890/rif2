@@ -11,6 +11,7 @@ import {
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { ProductTabs } from "@/components/content/product-tabs";
 import { ArticleCard } from "@/components/content/article-card";
+import { FeaturedArticle } from "@/components/content/featured-article";
 import { ReportCarousel } from "@/components/content/report-carousel";
 import { Section, SectionHeading } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
@@ -45,6 +46,8 @@ export default async function HomePage({
     { value: "5.03%", label: t("macroGdp") },
     { value: "USD 29.04B", label: t("macroTrade") },
   ];
+
+  const [featured, ...rest] = articles;
 
   const stats = [
     { value: `${new Date().getFullYear() - 1984}+`, label: t("statYears") },
@@ -97,7 +100,7 @@ export default async function HomePage({
             <div className="grid lg:grid-cols-[652fr_600fr]">
               <div className="relative min-h-[280px] lg:min-h-[420px]">
                 <Image
-                  src="/images/team-collaboration.jpg"
+                  src="/images/management-message.jpg"
                   alt=""
                   fill
                   sizes="(min-width: 1024px) 52vw, 100vw"
@@ -215,25 +218,27 @@ export default async function HomePage({
         </div>
       </Section>
 
-      {/* ---- 7. NEWS — peach wash (fig: #EDB886 @ 10%) ---- */}
-      <Section tone="peach">
+      {/* ---- 7. NEWS ---- */}
+      <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading
-            title={t("newsTitle")}
-            lead={t("newsLead")}
-          />
-
-          {/* fig: stacked horizontal cards, image beside copy */}
-          <div className="mt-14 grid gap-8 lg:grid-cols-2">
-            {articles.map((a) => (
-              <ArticleCard key={a.slug} article={a} layout="horizontal" />
-            ))}
+          {/*
+           * The capture puts the heading on the left with a "View More" pill
+           * opposite it, then a tall featured story beside two stacked
+           * summaries — not a row of equal cards.
+           */}
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <SectionHeading title={t("newsTitle")} align="left" />
+            <ButtonLink href="/news">{t("newsCta")}</ButtonLink>
           </div>
 
-          <div className="mt-14 text-center">
-            <ButtonLink href="/news" size="lg">
-              {t("newsCta")}
-            </ButtonLink>
+          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+            {featured ? <FeaturedArticle article={featured} /> : null}
+
+            <div className="grid gap-6">
+              {rest.map((a) => (
+                <ArticleCard key={a.slug} article={a} layout="horizontal" />
+              ))}
+            </div>
           </div>
         </div>
       </Section>

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 
 import { site } from "@/config/site";
@@ -9,11 +8,10 @@ import { Logo } from "./logo";
  * FR-GL-02 — footer, laid out from `docs/Resona Indonesia Finance.fig`
  * (frame "Frame 190").
  *
- * The fig's footer is a green band holding three blocks: the brand lockup
- * with the address and phone numbers, an office photo beneath it, and two
- * columns of grouped links. There is no map embed and no company blurb —
- * both were in the old footer and neither appears in the design. Below the
- * band sits a light strip carrying the OJK statement and the copyright.
+ * A green band holding the brand lockup with the address, phone numbers and
+ * a map of the office, beside two columns of grouped links. The company
+ * blurb from the old footer is gone — the design has no equivalent. Below
+ * the band sits a light strip carrying the OJK statement and the copyright.
  */
 export async function SiteFooter() {
   const [t, tNav] = await Promise.all([
@@ -87,7 +85,7 @@ export async function SiteFooter() {
     <footer>
       <div className="bg-brand-600 text-white">
         <div className="container-rif grid gap-12 py-16 lg:grid-cols-[415fr_538fr] lg:gap-24">
-          {/* Brand, contact, and the office photo the fig places beneath */}
+          {/* Brand, contact details, and the office map */}
           <div>
             <Logo tone="light" />
 
@@ -108,13 +106,18 @@ export async function SiteFooter() {
               {site.fax}
             </p>
 
-            <div className="relative mt-10 aspect-[415/212] max-w-[415px] overflow-hidden rounded-[24px]">
-              <Image
-                src="/images/office-tower.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 415px, 100vw"
-                className="object-cover"
+            {/*
+             * The design puts a map of the office here, not a photo. A live
+             * embed keeps it useful (pan, zoom, "open in Maps") rather than
+             * being a picture of a map.
+             */}
+            <div className="mt-10 aspect-[415/212] max-w-[415px] overflow-hidden rounded-[24px]">
+              <iframe
+                src={site.mapEmbedUrl}
+                title={`${site.name} — ${site.address.short}`}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="h-full w-full border-0"
               />
             </div>
           </div>

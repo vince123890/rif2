@@ -142,7 +142,8 @@
     "tags": "Tags",
     "readingMore": "Reading More",
     "empty": "No articles in this category yet.",
-    "backToList": "Back to News"
+    "backToList": "Back to News",
+    "author": "Resona Admin"
   },
   "reports": {
     "empty": "No documents have been published yet.",

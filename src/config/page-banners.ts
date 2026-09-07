@@ -24,7 +24,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/vision-mission": {
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     accentWords: 2,
     subtitle: {
       id: "Arah dan tujuan yang memandu setiap langkah PT Resona Indonesia Finance.",
@@ -68,7 +68,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/about/company-profile/organization-structure": {
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     accentWords: 2,
     subtitle: {
       id: "Struktur organisasi yang menopang tata kelola dan efektivitas operasional perusahaan.",
@@ -163,7 +163,7 @@ export const pageBanners: Record<string, BannerSpec> = {
     },
   },
   "/corporate-secretary/business-strategy": {
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     accentWords: 2,
     subtitle: {
       id: "Arah strategis dan rencana jangka panjang perusahaan dalam menghadapi dinamika industri pembiayaan.",
@@ -220,7 +220,7 @@ export const pageBanners: Record<string, BannerSpec> = {
   },
 
   "/news": {
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     subtitle: {
       id: "Dapatkan informasi terkini tentang perkembangan, kegiatan, dan program literasi keuangan kami.",
       en: "Stay updated with the latest developments, activities, and financial literacy programmes.",

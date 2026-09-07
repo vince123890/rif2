@@ -142,7 +142,8 @@
     "tags": "Tag",
     "readingMore": "Selengkapnya",
     "empty": "Belum ada berita pada kategori ini.",
-    "backToList": "Kembali ke Berita"
+    "backToList": "Kembali ke Berita",
+    "author": "Resona Admin"
   },
   "reports": {
     "empty": "Belum ada dokumen yang dipublikasikan.",

@@ -240,7 +240,7 @@ export const articles: Article[] = [
 <p>The activity is part of RIF's commitment to supporting the national financial-literacy programme launched by the Financial Services Authority. Through interactive sessions, students were introduced to the role of the financing industry, financing products, and the importance of prudent financial management from an early age.</p>
 <p>RIF hopes this activity equips the younger generation with adequate financial understanding before entering the workforce.</p>`,
     },
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     publishedAt: "2025-07-18",
     tags: ["Keuangan", "Pendidikan", "Literasi"],
   },
@@ -382,7 +382,7 @@ export const csrActivities: CsrActivity[] = [
       id: "<p>Kegiatan literasi keuangan dengan tema “Memanfaatkan Perusahaan Pembiayaan untuk Masa Depan yang Lebih Baik”, mengenalkan peran industri pembiayaan kepada generasi muda.</p>",
       en: "<p>A financial literacy activity themed “Leveraging Financing Companies for a Better Future”, introducing the role of the financing industry to the younger generation.</p>",
     },
-    image: "/images/team-collaboration.jpg",
+    image: "/images/office-lounge.jpg",
     date: "2025-06-19",
   },
   {
