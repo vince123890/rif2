@@ -1,8 +1,40 @@
+const FALLBACK_SITE_URL = "https://www.rif.co.id";
+
+/**
+ * The canonical origin, used for `metadataBase`, the sitemap, robots.txt and
+ * every canonical/OG URL.
+ *
+ * This is deliberately defensive rather than a plain `??` fallback. On the
+ * hosting side the variable is easy to get slightly wrong, and each way fails
+ * differently:
+ *
+ *   - Set but empty — `??` does NOT fall back (it only catches null/undefined),
+ *     so `new URL("")` throws "Invalid URL" and the whole prerender fails.
+ *   - Missing a scheme ("www.rif.co.id") — also throws.
+ *   - Carrying a trailing slash — no throw, but every URL built by string
+ *     concatenation ends up with a double slash.
+ *
+ * So: trim, ignore anything blank or unparseable, default a bare host to
+ * https://, and strip any trailing slash.
+ */
+function resolveSiteUrl(): string {
+  const raw = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (!raw) return FALLBACK_SITE_URL;
+
+  const candidate = /^https?:\/\//i.test(raw) ? raw : `https://${raw}`;
+
+  try {
+    return new URL(candidate).origin;
+  } catch {
+    return FALLBACK_SITE_URL;
+  }
+}
+
 /** Company facts — BRD §6.8 (FR-CT-01) and the existing site footer. */
 export const site = {
   name: "PT Resona Indonesia Finance",
   shortName: "Resona Indonesia Finance",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.rif.co.id",
+  url: resolveSiteUrl(),
   phone: "021 - 570 1956",
   fax: "021 - 570 1961",
   email: "pengaduan@rif.co.id",
