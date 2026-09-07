@@ -31,6 +31,20 @@ export function MainNav({
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
 
+  /*
+   * EXPERIMENT (RIF, temporary): the pill is nearly transparent while the
+   * page sits at the top, and turns solid as soon as it scrolls. Remove
+   * this block, the `scrolled` classes on the pill, and restore the plain
+   * `bg-brand-600` to go back.
+   */
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Close any open menu when the route changes. Deriving this during render
   // (rather than in an effect) avoids a cascading re-render on every nav.
   const [lastPath, setLastPath] = useState(pathname);
@@ -97,7 +111,13 @@ export function MainNav({
          * frame — the same box as the banner beneath it, so the two line
          * up. It is wider than `container-rif`, hence its own max-width.
          */
-        className="bg-brand-600 shadow-sm lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-[1416px] lg:rounded-[36px] lg:bg-brand-600 lg:px-6 lg:shadow-lg"
+        className={cn(
+          "shadow-sm transition-colors duration-300 lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-[1416px] lg:rounded-[36px] lg:px-6 lg:shadow-lg",
+          /* EXPERIMENT: see the `scrolled` note above. */
+          scrolled
+            ? "bg-brand-600 lg:bg-brand-600"
+            : "bg-brand-600 lg:bg-brand-600/5 lg:shadow-none lg:backdrop-blur-sm",
+        )}
       >
         <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:flex-nowrap lg:gap-5 lg:px-0">
           {/* Brand lockup — inside the pill on desktop, per the fig */}
