@@ -101,6 +101,7 @@ export function SectionHeading({
    * former; pass "ink" for the latter.
    */
   color = "accent",
+  size = "lg",
   action,
 }: {
   title: string;
@@ -108,19 +109,28 @@ export function SectionHeading({
   align?: "center" | "left";
   tone?: "dark" | "light";
   color?: "accent" | "ink";
+  /**
+   * fig sets the management, products and sustainability headings at 40px
+   * and the financial-report and news headings at 30px.
+   */
+  size?: "lg" | "md";
   /** Rendered opposite the title, e.g. the news section's "View More". */
   action?: ReactNode;
 }) {
   /*
-   * fig: the title sits inside a white pill (radius 42, 24px padding,
-   * 16px gap) with a blossom either side — not as bare text on the page.
+   * fig `Frame 82/83/125/156`: the title row is a plain auto-layout frame
+   * with a blossom either side — 24px padding, 16px gap, and *no* fill.
+   * The white pill this used to draw was ours, not the design's.
    */
   const heading = (
-    <div className="inline-flex items-center gap-4 rounded-[42px] bg-white px-6 py-3">
+    <div className="inline-flex items-center gap-4 px-6 py-3">
       <Blossom />
       <h2
         className={cn(
-          "text-[24px] font-bold leading-[1.2] md:text-[30px]",
+          "font-bold leading-[1.2]",
+          size === "lg"
+            ? "text-[28px] md:text-[40px]"
+            : "text-[24px] md:text-[30px]",
           tone === "light"
             ? "text-white"
             : color === "accent"

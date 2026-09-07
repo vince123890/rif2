@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
-import { Check } from "lucide-react";
 
 import type { Product } from "@/lib/content";
 import { pick, pickList } from "@/lib/content";
@@ -75,29 +74,51 @@ export function ProductTabs({ products }: { products: Product[] }) {
             {pick(product.summary, locale)}
           </h3>
 
-          <ul className="mt-6 space-y-3">
+          {/* fig `Frame 113`: blossom bullets at 28px, 24px copy in green */}
+          <ul className="mt-6 space-y-2.5">
             {pickList(product.highlights, locale).map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[16px] font-bold text-brand-600 md:text-[18px]"
+                className="flex items-center gap-2.5 text-[18px] font-bold text-brand-600 md:text-[24px]"
               >
-                <Check className="mt-1 h-5 w-5 shrink-0" aria-hidden />
+                <Image
+                  src="/brand/resona-blossom.png"
+                  alt=""
+                  width={28}
+                  height={28}
+                  aria-hidden
+                  className="h-7 w-7 shrink-0"
+                />
                 {item}
               </li>
             ))}
           </ul>
 
-          {/* Multi-currency marks, as on the existing product card */}
-          <div className="mt-7 flex gap-3" aria-label="IDR, USD, JPY">
-            {["Rp", "$", "¥"].map((c) => (
-              <span
-                key={c}
-                className="grid h-11 w-11 place-items-center rounded-full bg-brand-600 text-[17px] font-bold text-white"
-              >
-                {c}
-              </span>
-            ))}
-          </div>
+          {/*
+           * fig `Frame 116`: a bold green lead-in ("Benefit of Finance
+           * Lease:") followed by two paragraphs — the first green Bold, the
+           * second grey Regular. Only the investment product carries one.
+           */}
+          {product.benefit ? (
+            <div className="mt-7">
+              <p className="text-[16px] font-bold leading-[1.4] text-brand-600 md:text-[18px]">
+                {pick(product.benefit.title, locale)}
+              </p>
+              {pickList(product.benefit.paragraphs, locale).map((para, i) => (
+                <p
+                  key={para}
+                  className={cn(
+                    "mt-3 text-justify text-[13px] leading-[1.6] md:text-[15px]",
+                    i === 0
+                      ? "font-bold text-brand-600"
+                      : "text-ink-500",
+                  )}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          ) : null}
 
           {/* fig: the CTA fills the column width rather than hugging its label */}
           <div className="mt-8">
@@ -107,7 +128,7 @@ export function ProductTabs({ products }: { products: Product[] }) {
               size="lg"
               className="w-full"
             >
-              {t("more")}
+              {t("learnMore")}
             </ButtonLink>
           </div>
         </div>

@@ -83,13 +83,30 @@ export const products: Product[] = [
     slug: "investment-financing",
     name: { id: "Pembiayaan Investasi", en: "Investment Financing" },
     summary: {
-      id: "Pembiayaan Investasi yang dilakukan dengan cara Sewa Pembiayaan dan Jual dan Sewa Balik.",
-      en: "Investment Financing provided through Finance Lease and Sale and Lease Back schemes.",
+      id: "Pembiayaan Investasi yang dilakukan dengan cara berikut:",
+      en: "Investment Financing carried out in the following ways:",
     },
     image: "/images/investment-growth.png",
     highlights: {
-      id: ["Sewa Pembiayaan (Finance Lease)", "Jual dan Sewa Balik (Sale and Lease Back)"],
-      en: ["Finance Lease", "Sale and Lease Back"],
+      id: ["Jual dan Sewa Balik", "Sewa Pembiayaan"],
+      en: ["Sell and Leaseback", "Finance Leases"],
+    },
+    /* Transcribed from `Frame 116` of `Desktop - 4` in the fig. */
+    benefit: {
+      title: {
+        id: "Manfaat Sewa Pembiayaan:",
+        en: "Benefit of Finance Lease:",
+      },
+      paragraphs: {
+        id: [
+          "Investasi aset tetap tetap dapat dilakukan tanpa memengaruhi modal kerja pelanggan. Terlebih, dengan jangka waktu yang panjang dan metode pembayaran yang fleksibel, pelanggan dapat menyesuaikan metode pembayaran berdasarkan kondisi keuangannya.",
+          "Perencanaan Pajak : Selama masa sewa, pembayaran sewa (pokok dan bunga) merupakan biaya yang dapat dikurangkan dari penghasilan bruto pelanggan.",
+        ],
+        en: [
+          "Asset Investment still can be done without affecting working capital of customer. Moreover, due to the long term period and flexible repayment method, customer can adjust their repayment method based on its financial condition.",
+          "Tax Planning : During the lease periods, the lease payment (principal and interest) are costs that can be deducted from the gross income of the customer.",
+        ],
+      },
     },
     body: {
       id: `<h2>Manfaat Sewa Pembiayaan</h2>
@@ -263,6 +280,27 @@ export const articles: Article[] = [
     },
     image: "/images/library-study.jpg",
     publishedAt: "2024-10-23",
+    tags: ["CSR", "Lingkungan"],
+  },
+  {
+    slug: "penghijauan-lingkungan-2024",
+    category: "csr",
+    title: {
+      id: "Program Penghijauan Lingkungan Perusahaan",
+      en: "Corporate Environmental Greening Programme",
+    },
+    excerpt: {
+      id: "PT Resona Indonesia Finance menanam pohon bersama masyarakat sekitar sebagai bagian dari program keberlanjutan lingkungan perusahaan.",
+      en: "PT Resona Indonesia Finance planted trees together with the surrounding community as part of the company's environmental sustainability programme.",
+    },
+    body: {
+      id: `<p>PT Resona Indonesia Finance (“RIF”) menyelenggarakan kegiatan penghijauan bersama masyarakat sekitar sebagai bagian dari program Tanggung Jawab Sosial Perusahaan.</p>
+<p>Kegiatan ini menjadi wujud komitmen RIF terhadap kelestarian lingkungan sekaligus mempererat hubungan dengan masyarakat di sekitar wilayah operasional perusahaan.</p>`,
+      en: `<p>PT Resona Indonesia Finance (“RIF”) held a greening activity together with the surrounding community as part of its Corporate Social Responsibility programme.</p>
+<p>The activity reflects RIF's commitment to environmental sustainability while strengthening relationships with communities around the company's operational areas.</p>`,
+    },
+    image: "/images/csr-tree-planting.jpg",
+    publishedAt: "2024-08-14",
     tags: ["CSR", "Lingkungan"],
   },
 ];

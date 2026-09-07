@@ -65,7 +65,8 @@
     "detail": "Detail",
     "previous": "Previous",
     "next": "Next",
-    "viewMore": "View More"
+    "viewMore": "View More",
+    "learnMore": "Learn More"
   },
   "home": {
     "heroTitle": "Beyond Finance,",
@@ -76,9 +77,9 @@
     "statSince": "Established",
     "statGroup": "Part of",
     "statOjk": "Supervised by",
-    "productsTitle": "What We Offer",
-    "newsTitle": "Latest News & Insights",
-    "newsCta": "See More News",
+    "productsTitle": "Product & Services",
+    "newsTitle": "Latest News",
+    "newsCta": "View More",
     "managementTitle": "Message From The Management",
     "sustainabilityKicker": "サステナビリティ • SUSTAINABILITY",
     "sustainabilityTitle": "Sustainability Report",

@@ -65,7 +65,8 @@
     "detail": "Detail",
     "previous": "Sebelumnya",
     "next": "Berikutnya",
-    "viewMore": "Lihat Selengkapnya"
+    "viewMore": "Lihat Selengkapnya",
+    "learnMore": "Selengkapnya"
   },
   "home": {
     "heroTitle": "Beyond Finance,",
@@ -76,8 +77,8 @@
     "statSince": "Berdiri Sejak",
     "statGroup": "Bagian dari",
     "statOjk": "Diawasi oleh",
-    "productsTitle": "Apa yang Kami Tawarkan",
-    "newsTitle": "Berita & Wawasan Terbaru",
+    "productsTitle": "Produk & Layanan",
+    "newsTitle": "Berita Terbaru",
     "newsCta": "Lihat Selengkapnya",
     "managementTitle": "Sambutan Manajemen",
     "sustainabilityKicker": "サステナビリティ • KEBERLANJUTAN",

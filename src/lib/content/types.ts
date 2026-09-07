@@ -37,6 +37,15 @@ export type Product = {
   image: string;
   /** Bullet list of what the facility covers. */
   highlights: { id: string[]; en: string[] };
+  /**
+   * Short benefit note shown under the bullets on the homepage panel —
+   * `Frame 116` in `Desktop - 4`: a bold lead-in line followed by two
+   * paragraphs, the second set in grey.
+   */
+  benefit?: {
+    title: I18nText;
+    paragraphs: { id: string[]; en: string[] };
+  };
   body: I18nText;
 };
 

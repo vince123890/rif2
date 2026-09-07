@@ -49,36 +49,16 @@ export default async function HomePage({
 
   const [featured, ...rest] = articles;
 
-  const stats = [
-    { value: `${new Date().getFullYear() - 1984}+`, label: t("statYears") },
-    { value: "1984", label: t("statSince") },
-    { value: "Resona Group", label: t("statGroup") },
-    { value: "OJK", label: t("statOjk") },
-  ];
-
   return (
     <>
       {/* FR-HM-01 */}
       <HeroCarousel slides={slides} />
 
-      {/* Key facts strip */}
-      <section className="border-b border-ink-200 bg-white">
-        <div className="container-rif grid grid-cols-2 gap-8 py-14 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="text-center lg:text-left">
-              <p className="text-[30px] font-bold leading-tight text-brand-600 md:text-[40px]">
-                {s.value}
-              </p>
-              <p className="mt-1.5 text-[15px] text-ink-500">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/*
        * Section order follows `Desktop - 4` in `docs/Resona Indonesia
-       * Finance.fig`: hero, key facts, management message, products,
-       * sustainability report, financial report, news.
+       * Finance.fig`: hero, management message, products, sustainability
+       * report, financial report, news. The fig has no key-facts strip
+       * between the hero and the management message.
        *
        * The fig has no history/timeline section on the homepage — that
        * content now lives only on /about/company-profile/history — and it
@@ -88,7 +68,7 @@ export default async function HomePage({
       {/* ---- 3. MESSAGE FROM THE MANAGEMENT ---- */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("managementTitle")} color="ink" />
+          <SectionHeading title={t("managementTitle")} color="ink" size="lg" />
 
           {/*
            * A single raised white card holding the photo on the left and the
@@ -137,7 +117,7 @@ export default async function HomePage({
                       }
                     >
                       <dt className="sr-only">{m.label}</dt>
-                      <dd className="text-[18px] font-bold leading-tight text-accent-500 md:text-[22px]">
+                      <dd className="text-[18px] font-bold leading-tight text-brand-600 md:text-[24px]">
                         {m.value}
                       </dd>
                       <p className="mt-1 text-[12px] text-ink-400 md:text-[13px]">
@@ -150,10 +130,11 @@ export default async function HomePage({
                 <div className="mt-auto pt-8">
                   <ButtonLink
                     href="/about/management-message"
+                    variant="accent"
                     size="lg"
                     className="w-full"
                   >
-                    {tc("more")}
+                    {tc("learnMore")}
                   </ButtonLink>
                 </div>
               </div>
@@ -163,9 +144,9 @@ export default async function HomePage({
       </Section>
 
       {/* ---- 4. PRODUCTS ---- */}
-      <Section tone="canvas">
+      <Section tone="white">
         <div className="container-rif">
-          <SectionHeading title={t("productsTitle")} color="ink" />
+          <SectionHeading title={t("productsTitle")} size="lg" />
           <div className="mt-8">
             <ProductTabs products={products} />
           </div>
@@ -180,7 +161,7 @@ export default async function HomePage({
        */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("sustainabilityTitle")} />
+          <SectionHeading title={t("sustainabilityTitle")} size="lg" />
           <div className="mt-6">
             <ReportCarousel
               reports={sustainability.slice(0, 6).map((d) => ({
@@ -196,7 +177,7 @@ export default async function HomePage({
 
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("financialTitle")} />
+          <SectionHeading title={t("financialTitle")} size="lg" />
           <div className="mt-6">
             <ReportCarousel
               reports={financial.slice(0, 6).map((d) => ({
@@ -216,13 +197,15 @@ export default async function HomePage({
           <SectionHeading
             title={t("newsTitle")}
             align="left"
+            size="lg"
             action={<ButtonLink href="/news">{t("newsCta")}</ButtonLink>}
           />
 
+          {/* fig `Frame 166`: 759 + 529 columns, 24px gutter, 600px tall */}
           <div className="mt-8 grid gap-6 lg:grid-cols-[759fr_529fr]">
             {featured ? <FeaturedArticle article={featured} /> : null}
 
-            <div className="grid gap-6">
+            <div className="grid content-between gap-3">
               {rest.map((a) => (
                 <ArticleCard key={a.slug} article={a} layout="horizontal" />
               ))}
