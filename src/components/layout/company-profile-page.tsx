@@ -87,18 +87,21 @@ export async function CompanyProfilePage({
       />
 
       {/*
-       * fig: the page ground is #F9FAFB with the Resona blossom tiled over
-       * it as a PATTERN fill at 5%, scaled to 0.3 — a fine wash behind the
-       * breadcrumb, the tab rail and the gaps between panels, not the
-       * large motif it reads as at full size.
+       * fig: the page ground is #F9FAFB with the blossom sheet tiled over
+       * it as a PATTERN fill at 5% — the wash behind the breadcrumb, the
+       * tab rail and the gaps between panels.
        */}
       <div className="relative isolate bg-canvas pb-16 md:pb-24">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04]"
           style={{
-            backgroundImage: "url(/brand/resona-blossom.png)",
-            backgroundSize: "56px auto",
+            backgroundImage: "url(/brand/blossom-pattern.png)",
+            /*
+             * fig `Frame 124`: the PATTERN fill draws a 1330x1183 tile at
+             * scale 0.3, i.e. 399x355 on the page. The asset ships at 2x.
+             */
+            backgroundSize: "399px auto",
             backgroundRepeat: "repeat",
           }}
         />

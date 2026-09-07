@@ -14,9 +14,9 @@ import { cn } from "@/lib/utils";
  *
  * The fig never draws this tab — it only names it in the rail — so the
  * composition follows the board carousel in `Desktop - 12`: a focused card
- * flanked by neighbours at falling scale, with 64px green arrows and dots
- * beneath. Each card is the trophy over a caption strip carrying the year
- * and a green "Detail" pill.
+ * flanked by neighbours at 0.75 and 0.5 with a 64px green arrow either
+ * side — the same geometry, easing and caption strip as the board, so the
+ * two tabs read as one component with different content.
  */
 export function AwardCarousel({ awards }: { awards: Award[] }) {
   const locale = useLocale();
@@ -38,14 +38,14 @@ export function AwardCarousel({ awards }: { awards: Award[] }) {
 
   return (
     <div>
-      <div className="relative flex h-[380px] items-center justify-center md:h-[460px] lg:h-[520px]">
+      <div className="relative flex h-[420px] items-center justify-center md:h-[560px] lg:h-[650px]">
         {awards.map((award, i) => {
           const offset = offsetOf(i);
           const distance = Math.abs(offset);
           if (distance > 2) return null;
 
-          const scale = distance === 0 ? 1 : distance === 1 ? 0.8 : 0.62;
-          const shift = offset * 78;
+          const scale = distance === 0 ? 1 : distance === 1 ? 0.75 : 0.5;
+          const shift = offset * 62;
 
           return (
             <button
@@ -59,31 +59,31 @@ export function AwardCarousel({ awards }: { awards: Award[] }) {
               style={{
                 transform: `translateX(${shift}%) scale(${scale})`,
                 zIndex: 10 - distance,
-                opacity: distance === 2 ? 0.9 : 1,
+                opacity: distance === 2 ? 0.85 : 1,
               }}
             >
-              <article className="w-[240px] overflow-hidden rounded-[24px] bg-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] md:w-[270px] lg:w-[286px]">
-                <div className="relative aspect-square bg-white">
+              <article className="w-[300px] overflow-hidden rounded-[21px] bg-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)] md:w-[380px] lg:w-[437px]">
+                <div className="relative aspect-[415/524] bg-ink-100">
                   <Image
                     src={award.image}
                     alt=""
                     fill
-                    sizes="(min-width: 1024px) 286px, 60vw"
+                    sizes="(min-width: 1024px) 437px, 70vw"
                     className="object-contain p-6"
                   />
                 </div>
 
                 {/* Caption — only the focused card shows it, as in the render */}
-                <div
-                  className={cn(
-                    "flex items-center justify-between gap-3 px-5 pb-5 transition-opacity",
-                    distance === 0 ? "opacity-100" : "opacity-0",
-                  )}
-                >
-                  <p className="text-[18px] font-bold text-ink-900 lg:text-[22px]">
-                    {award.year}
-                  </p>
-                  <span className="shrink-0 rounded-full bg-brand-600 px-5 py-2.5 text-[13px] font-bold text-white lg:text-[15px]">
+                <div className="flex items-center justify-between gap-3 p-4 lg:p-5">
+                  <div className="min-w-0 text-left">
+                    <p className="text-[18px] font-bold leading-[1.2] text-ink-700 lg:text-[26px]">
+                      {award.year}
+                    </p>
+                    <p className="truncate text-[11px] leading-[1.3] text-ink-700 lg:text-[14px]">
+                      {pick(award.title, locale)}
+                    </p>
+                  </div>
+                  <span className="shrink-0 rounded-full bg-brand-600 px-4 py-2 text-[12px] font-bold text-white lg:text-[17px]">
                     {t("detail")}
                   </span>
                 </div>
@@ -94,14 +94,14 @@ export function AwardCarousel({ awards }: { awards: Award[] }) {
       </div>
 
       {/* fig `Frame 161`: 64px green arrows either side of a row of dots */}
-      <div className="mt-6 flex items-center justify-center gap-4">
+      <div className="mt-8 flex items-center justify-center gap-4">
         <button
           type="button"
           onClick={() => go(active - 1)}
           aria-label={t("previous")}
-          className="grid h-14 w-14 place-items-center rounded-full bg-brand-600 text-white transition-transform hover:-translate-x-0.5 lg:h-16 lg:w-16"
+          className="grid h-16 w-16 place-items-center rounded-full bg-brand-600 text-white transition-transform hover:-translate-x-0.5"
         >
-          <ArrowLeft className="h-5 w-5 lg:h-6 lg:w-6" aria-hidden />
+          <ArrowLeft className="h-6 w-6" aria-hidden />
         </button>
 
         <div className="flex items-center gap-2">
@@ -124,9 +124,9 @@ export function AwardCarousel({ awards }: { awards: Award[] }) {
           type="button"
           onClick={() => go(active + 1)}
           aria-label={t("next")}
-          className="grid h-14 w-14 place-items-center rounded-full bg-brand-600 text-white transition-transform hover:translate-x-0.5 lg:h-16 lg:w-16"
+          className="grid h-16 w-16 place-items-center rounded-full bg-brand-600 text-white transition-transform hover:translate-x-0.5"
         >
-          <ArrowRight className="h-5 w-5 lg:h-6 lg:w-6" aria-hidden />
+          <ArrowRight className="h-6 w-6" aria-hidden />
         </button>
       </div>
     </div>
