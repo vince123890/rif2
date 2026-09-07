@@ -358,7 +358,7 @@ export const awards: Award[] = [
       id: "Apresiasi atas kinerja keuangan dan tata kelola perusahaan sepanjang tahun 2024.",
       en: "Recognition of financial performance and corporate governance throughout 2024.",
     },
-    image: "/images/investment-growth.png",
+    image: "/images/award-trophy.svg",
   },
   {
     id: "a2",
@@ -371,7 +371,7 @@ export const awards: Award[] = [
       id: "Penghargaan atas predikat kinerja keuangan “Sangat Bagus”.",
       en: "Award for a “Very Good” financial performance rating.",
     },
-    image: "/images/reading-lamp.jpg",
+    image: "/images/award-trophy.svg",
   },
   {
     id: "a3",
@@ -384,7 +384,7 @@ export const awards: Award[] = [
       id: "Penghargaan atas kinerja perusahaan pembiayaan terbaik pada kategorinya.",
       en: "Award for the best financing company performance in its category.",
     },
-    image: "/images/hero-skyline-sunset.jpg",
+    image: "/images/award-trophy.svg",
   },
 ];
 
