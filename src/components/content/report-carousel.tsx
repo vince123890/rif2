@@ -21,7 +21,28 @@ export type ReportEntry = { year: number; href: string };
 const ACTIVE_W = 300;
 const INACTIVE_W = 200;
 const GAP = 20;
-const EASE = "cubic-bezier(.22,.9,.35,1)";
+/*
+ * The reference file uses cubic-bezier(.22,.9,.35,1), which covers 84% of
+ * the distance in the first half of the run. That is fine for a single
+ * property, but here the rail's translate and the cards' flex-basis both
+ * move a card at once, so the front-loading compounds: the row jumps, then
+ * crawls the last few pixels, and reads as stuttering. A more even curve
+ * spends the time proportionally and the slide looks continuous.
+ */
+const EASE = "cubic-bezier(.4,0,.2,1)";
+
+/*
+ * Rail and card widths must share one duration and one curve.
+ *
+ * Both move a card's position at once: the rail slides it left while the
+ * outgoing active card shrinks 300 -> 200, pulling everything after it left
+ * as well. Running those on different timings (0.5s vs 0.45s) made the two
+ * contributions peak at different moments, so a card lurched forward and
+ * then crawled the last few pixels — the motion read as stuttering even
+ * though each property animated correctly on its own.
+ */
+const DURATION = "0.55s";
+const MOVE = `${DURATION} ${EASE}`;
 
 /**
  * Report carousel for the Sustainability and Financial sections.
@@ -48,6 +69,15 @@ export function ReportCarousel({
   const shift = (dir: 1 | -1) =>
     setActive((a) => (a + dir + reports.length) % reports.length);
 
+  /*
+   * Offset = the real width of everything before the active card.
+   *
+   * Cards before it are all inactive, so this is `active` inactive widths
+   * plus the gaps between them. Using the *outgoing* geometry instead
+   * (a flat INACTIVE_W + GAP per step) over-shoots by 100px, because the
+   * card that just shrank pulls the row back by that much — which is what
+   * made the slide lurch and then crawl.
+   */
   const offset = active * (INACTIVE_W + GAP);
 
   const endDrag = () => {
@@ -82,7 +112,7 @@ export function ReportCarousel({
           style={{
             gap: GAP,
             transform: `translateX(${-offset + (drag?.dx ?? 0)}px)`,
-            transition: drag ? "none" : `transform 0.5s ${EASE}`,
+            transition: drag ? "none" : `transform ${MOVE}`,
           }}
         >
           {reports.map((r, i) => {
@@ -101,7 +131,7 @@ export function ReportCarousel({
                 style={{
                   flex: `0 0 ${isActive ? ACTIVE_W : INACTIVE_W}px`,
                   filter: isActive ? "none" : "saturate(0.6) opacity(0.85)",
-                  transition: `flex-basis 0.45s ${EASE}, filter 0.45s ease`,
+                  transition: `flex-basis ${MOVE}, filter ${MOVE}`,
                 }}
                 className={cn(
                   "overflow-hidden rounded-[24px] bg-white",
@@ -133,7 +163,7 @@ export function ReportCarousel({
                       style={{
                         fontSize: isActive ? 22 : 16,
                         color: isActive ? "#F58220" : "#D8A87C",
-                        transition: `font-size 0.45s ease, color 0.45s ease`,
+                        transition: `font-size ${MOVE}, color ${MOVE}`,
                       }}
                     >
                       {label}
