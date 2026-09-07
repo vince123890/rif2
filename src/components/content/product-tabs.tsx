@@ -56,32 +56,32 @@ export function ProductTabs({ products }: { products: Product[] }) {
         </div>
       </div>
 
-      {/* Panel */}
+      {/*
+       * Panel — fig `Frame 125`: copy in a 600px column on the left, the
+       * artwork as a 558px square bleeding off to the right. Switching tabs
+       * cross-fades the panel so it reads as a change of subject rather
+       * than a hard swap.
+       */}
       <div
         role="tabpanel"
         id={`panel-${product.slug}`}
         aria-labelledby={`tab-${product.slug}`}
-        className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16"
+        key={product.slug}
+        className="mt-14 grid animate-fade-up gap-10 lg:grid-cols-[600fr_558fr] lg:items-center lg:gap-14"
       >
-        <div className="relative order-2 aspect-square overflow-hidden rounded-[24px] bg-ink-100 lg:order-none">
-          <Image
-            src={product.image}
-            alt={pick(product.name, locale)}
-            fill
-            sizes="(min-width: 1024px) 45vw, 100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <h3 className="text-[24px] font-bold leading-snug text-brand-600 md:text-[32px]">
+        <div className="order-2 flex flex-col lg:order-1">
+          {/* fig: heading, bullets and body all in brand green */}
+          <h3 className="text-[24px] font-bold leading-[1.3] text-brand-600 md:text-[32px]">
             {pick(product.summary, locale)}
           </h3>
 
-          <ul className="mt-6 space-y-3 border-t border-ink-200 pt-6">
+          <ul className="mt-6 space-y-3">
             {pickList(product.highlights, locale).map((item) => (
-              <li key={item} className="flex items-start gap-3 text-[15px] text-ink-700">
-                <Check className="mt-0.5 h-5 w-5 shrink-0 text-brand-400" aria-hidden />
+              <li
+                key={item}
+                className="flex items-start gap-3 text-[16px] font-bold text-brand-600 md:text-[18px]"
+              >
+                <Check className="mt-1 h-5 w-5 shrink-0" aria-hidden />
                 {item}
               </li>
             ))}
@@ -110,6 +110,16 @@ export function ProductTabs({ products }: { products: Product[] }) {
               {t("more")}
             </ButtonLink>
           </div>
+        </div>
+
+        <div className="relative order-1 aspect-square lg:order-2">
+          <Image
+            src={product.image}
+            alt={pick(product.name, locale)}
+            fill
+            sizes="(min-width: 1024px) 42vw, 100vw"
+            className="object-contain"
+          />
         </div>
       </div>
     </div>

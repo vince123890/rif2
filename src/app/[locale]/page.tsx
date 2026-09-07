@@ -96,7 +96,7 @@ export default async function HomePage({
            * over the photo, but the rendered design the client supplied puts
            * it as dark type on white — the render is what we follow.
            */}
-          <div className="mt-10 overflow-hidden rounded-[16px] bg-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)]">
+          <div className="mt-6 overflow-hidden rounded-[16px] bg-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)]">
             <div className="grid lg:grid-cols-[652fr_600fr]">
               <div className="relative min-h-[280px] lg:min-h-[420px]">
                 <Image
@@ -165,17 +165,9 @@ export default async function HomePage({
       {/* ---- 4. PRODUCTS ---- */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading
-            title={t("productsTitle")}
-            lead={t("productsLead")}
-          />
-          <div className="mt-14">
+          <SectionHeading title={t("productsTitle")} />
+          <div className="mt-8">
             <ProductTabs products={products} />
-          </div>
-          <div className="mt-12 text-center">
-            <ButtonLink href="/products" size="lg">
-              {t("productsCta")}
-            </ButtonLink>
           </div>
         </div>
       </Section>
@@ -189,7 +181,7 @@ export default async function HomePage({
       <Section tone="white">
         <div className="container-rif">
           <SectionHeading title={t("sustainabilityTitle")} />
-          <div className="mt-10">
+          <div className="mt-6">
             <ReportCarousel
               reports={sustainability.slice(0, 6).map((d) => ({
                 year: d.year,
@@ -205,7 +197,7 @@ export default async function HomePage({
       <Section tone="canvas">
         <div className="container-rif">
           <SectionHeading title={t("financialTitle")} />
-          <div className="mt-10">
+          <div className="mt-6">
             <ReportCarousel
               reports={financial.slice(0, 6).map((d) => ({
                 year: d.year,
@@ -231,7 +223,7 @@ export default async function HomePage({
             <ButtonLink href="/news">{t("newsCta")}</ButtonLink>
           </div>
 
-          <div className="mt-10 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
             {featured ? <FeaturedArticle article={featured} /> : null}
 
             <div className="grid gap-6">

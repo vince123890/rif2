@@ -30,7 +30,12 @@ export function Section({
   return (
     <section
       id={id}
-      className={cn("py-20 md:py-24 lg:py-28", tones[tone], className)}
+      /*
+       * fig: sections are separated by 100px, not the 224px the previous
+       * py-28 produced. Halved to py-[50px] a side so two adjacent sections
+       * add up to the design's gap.
+       */
+      className={cn("py-12 md:py-[50px]", tones[tone], className)}
     >
       {children}
     </section>
