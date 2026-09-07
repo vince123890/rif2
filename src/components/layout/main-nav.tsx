@@ -67,11 +67,11 @@ export function MainNav({
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   /*
-   * The fig's rail carries no "Home" entry — the brand lockup on the left
-   * is the home link — and eight labels will not fit inside a 1312px pill.
-   * Mobile keeps the full list, where it is a stacked drawer.
+   * The fig's rail opens straight on "About Us" — the brand lockup is the
+   * home link there — but RIF asked for an explicit Home entry, so the
+   * desktop rail now shows the list whole.
    */
-  const desktopItems = items.filter((i) => i.href !== "/");
+  const desktopItems = items;
 
   return (
     /*
@@ -111,7 +111,14 @@ export function MainNav({
 
           {/* Desktop menu */}
           <nav aria-label="Main" className="hidden min-w-0 flex-1 lg:block">
-            <ul className="flex flex-nowrap items-center justify-between">
+            <ul
+              /*
+               * Even gaps rather than `justify-between`: with six labels of
+               * very different widths, spreading them to the edges leaves
+               * ragged holes between the short ones.
+               */
+              className="flex flex-nowrap items-center justify-center gap-1 xl:gap-3"
+            >
             {desktopItems.map((item) => {
               const hasKids = !item.flat && !!item.children?.length;
               const expanded = open === item.key;
