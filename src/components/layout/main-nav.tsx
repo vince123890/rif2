@@ -32,7 +32,7 @@ export function MainNav({
   const navRef = useRef<HTMLDivElement>(null);
 
   /*
-   * EXPERIMENT (RIF, temporary): the pill is nearly transparent while the
+   * EXPERIMENT (RIF, temporary): the pill is fully transparent while the
    * page sits at the top, and turns solid as soon as it scrolls. Remove
    * this block, the `scrolled` classes on the pill, and restore the plain
    * `bg-brand-600` to go back.
@@ -116,7 +116,7 @@ export function MainNav({
           /* EXPERIMENT: see the `scrolled` note above. */
           scrolled
             ? "bg-brand-600 lg:bg-brand-600"
-            : "bg-brand-600 lg:bg-brand-600/5 lg:shadow-none lg:backdrop-blur-sm",
+            : "bg-brand-600 lg:bg-transparent lg:shadow-none",
         )}
       >
         <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:flex-nowrap lg:gap-5 lg:px-0">
