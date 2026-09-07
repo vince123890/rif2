@@ -90,7 +90,7 @@ export default async function Page({
               </p>
               <Link
                 href={`/about/csr/${c.slug}`}
-                className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-500"
+                className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600"
               >
                 {tc("readMore")}
                 <ArrowRight

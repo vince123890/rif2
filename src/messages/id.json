@@ -88,7 +88,18 @@
     "historyCta": "Lihat Sejarah Kami",
     "productsCta": "Lihat Selengkapnya",
     "newsCta": "Lihat Selengkapnya",
-    "managementTitle": "Sambutan Manajemen"
+    "managementTitle": "Sambutan Manajemen",
+    "sustainabilityKicker": "サステナビリティ • KEBERLANJUTAN",
+    "sustainabilityTitle": "Laporan Keberlanjutan",
+    "sustainabilityLead": "Laporan tahunan kami atas komitmen lingkungan, sosial, dan tata kelola yang melandasi cara kami membiayai.",
+    "sustainabilityCta": "Lihat Semua Laporan",
+    "financialKicker": "財務報告 • KEUANGAN",
+    "financialTitle": "Laporan Keuangan",
+    "financialLead": "Laporan keuangan teraudit yang diterbitkan setiap tahun sebagai wujud komitmen kami pada keterbukaan informasi.",
+    "financialCta": "Lihat Semua Laporan",
+    "macroGdp": "Pertumbuhan PDB",
+    "macroInflation": "Inflasi",
+    "macroTrade": "Surplus Perdagangan"
   },
   "footer": {
     "menu": "MENU",

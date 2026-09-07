@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight, Play } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 import {
   getArticles,
@@ -19,7 +19,6 @@ import {
   SectionHeading,
 } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
-import { milestones } from "@/lib/content/milestones";
 
 export default async function HomePage({
   params,
@@ -40,6 +39,17 @@ export default async function HomePage({
       getSustainabilityReports(),
       getFinancialReports(),
     ]);
+
+  /*
+   * Macro indicators shown beside the management message, transcribed from
+   * the fig. Kept here rather than inline so the values are easy to find
+   * and update when RIF confirms them.
+   */
+  const macroIndicators = [
+    { value: "5.03%", label: t("macroGdp") },
+    { value: "1.57%", label: t("macroInflation") },
+    { value: "USD 29.04B", label: t("macroTrade") },
+  ];
 
   const stats = [
     { value: `${new Date().getFullYear() - 1984}+`, label: t("statYears") },
@@ -67,104 +77,17 @@ export default async function HomePage({
         </div>
       </section>
 
-      {/* ---- HISTORY — the fig's signature section: timeline + video card ---- */}
-      <Section tone="canvas">
-        <div className="container-rif">
-          <SectionHeading
-            eyebrow={t("historyKicker")}
-            title={t("historyTitle")}
-            lead={t("historyLead")}
-          />
+      {/*
+       * Section order follows `Desktop - 4` in `docs/Resona Indonesia
+       * Finance.fig`: hero, key facts, management message, products,
+       * sustainability report, financial report, news.
+       *
+       * The fig has no history/timeline section on the homepage — that
+       * content now lives only on /about/company-profile/history — and it
+       * splits the single reports panel into two separate sections.
+       */}
 
-          <div className="mt-16 grid gap-10 lg:grid-cols-[380px_1fr] lg:gap-14">
-            {/* Video / story card */}
-            <div className="relative overflow-hidden rounded-[16px] bg-ink-900">
-              <Image
-                src="/images/hero-skyline-sunset.jpg"
-                alt=""
-                width={760}
-                height={900}
-                sizes="(min-width: 1024px) 380px, 100vw"
-                className="h-full min-h-[320px] w-full object-cover opacity-70"
-              />
-              <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-ink-900/90 via-ink-900/30 to-transparent p-8">
-                <span className="grid h-16 w-16 place-items-center rounded-full bg-accent-500 text-white">
-                  <Play className="h-6 w-6 fill-current" aria-hidden />
-                </span>
-                <h3 className="mt-6 text-[20px] font-bold text-white">
-                  {locale === "id"
-                    ? "Video Profil Perusahaan"
-                    : "Company Profile Video"}
-                </h3>
-                <p className="mt-1 text-[14px] text-white/80">
-                  {locale === "id"
-                    ? "Saksikan kisah kami"
-                    : "Watch our story unfold"}
-                </p>
-              </div>
-            </div>
-
-            {/* Milestone timeline */}
-            <ol className="relative space-y-8 before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-px before:bg-ink-300">
-              {milestones.slice(0, 4).map((m, i) => (
-                <li key={i} className="relative pl-9">
-                  <span
-                    aria-hidden
-                    className="absolute left-0 top-1.5 h-3.5 w-3.5 rounded-full bg-accent-500 ring-4 ring-canvas"
-                  />
-                  <p className="text-[14px] font-bold text-ink-900">
-                    {m.year} {m.month[locale === "en" ? "en" : "id"]}
-                  </p>
-                  <p className="mt-1.5 text-[16px] leading-relaxed text-ink-500">
-                    {m.body[locale === "en" ? "en" : "id"]}
-                  </p>
-                </li>
-              ))}
-            </ol>
-          </div>
-
-          <div className="mt-14 text-center">
-            <ButtonLink href="/about/company-profile/history" size="lg">
-              {t("historyCta")}
-            </ButtonLink>
-          </div>
-        </div>
-      </Section>
-
-      {/* ---- REPORTS — dark green feature panel (fig: radius 50) ---- */}
-      <div className="bg-canvas pb-20 md:pb-24 lg:pb-28">
-        <FeaturePanel>
-          <SectionHeading
-            eyebrow={t("reportKicker")}
-            title={t("reportTitle")}
-            lead={t("reportLead")}
-            tone="light"
-          />
-
-          <div className="mx-auto mt-14 grid max-w-4xl gap-6 md:grid-cols-2">
-            <ReportCard
-              title={
-                locale === "id"
-                  ? "Laporan Keberlanjutan"
-                  : "Sustainability Report"
-              }
-              years={sustainability.slice(0, 3).map((d) => d.year)}
-              href="/corporate-secretary/sustainability-report"
-              cta={tc("more")}
-            />
-            <ReportCard
-              title={
-                locale === "id" ? "Laporan Keuangan" : "Financial Report"
-              }
-              years={financial.slice(0, 3).map((d) => d.year)}
-              href="/corporate-secretary/financial-report"
-              cta={tc("more")}
-            />
-          </div>
-        </FeaturePanel>
-      </div>
-
-      {/* ---- MESSAGE FROM THE MANAGEMENT ---- */}
+      {/* ---- 3. MESSAGE FROM THE MANAGEMENT ---- */}
       <Section tone="white">
         <div className="container-rif grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
           {/*
@@ -193,6 +116,25 @@ export default async function HomePage({
                 ? "Perekonomian global menunjukkan kinerja yang bervariasi, dipengaruhi oleh tensi geopolitik, fragmentasi perdagangan, serta dinamika kebijakan moneter di berbagai negara. Dalam situasi ketidakpastian ini, Indonesia berhasil mencatatkan pertumbuhan ekonomi yang terjaga, ditopang oleh sektor jasa keuangan yang tetap resilien."
                 : "The global economy has shown varied performance, influenced by geopolitical tensions, trade fragmentation, and monetary policy dynamics across countries. Amid this uncertainty, Indonesia has recorded steady economic growth, supported by a resilient financial services sector."}
             </p>
+
+            {/*
+             * Macro indicators, as laid out in the fig's management section.
+             * TODO(RIF): these figures came from the design file, not from a
+             * cited source — confirm them (and their reference period) with
+             * RIF before go-live, or drop the strip.
+             */}
+            <dl className="mt-9 grid grid-cols-3 gap-6 border-t border-ink-200 pt-7">
+              {macroIndicators.map((m) => (
+                <div key={m.label}>
+                  <dt className="sr-only">{m.label}</dt>
+                  <dd className="text-[22px] font-bold leading-tight text-brand-600 md:text-[26px]">
+                    {m.value}
+                  </dd>
+                  <p className="mt-1 text-[14px] text-ink-500">{m.label}</p>
+                </div>
+              ))}
+            </dl>
+
             <div className="mt-9">
               <ButtonLink href="/about/management-message" variant="accent">
                 {tc("more")}
@@ -202,7 +144,7 @@ export default async function HomePage({
         </div>
       </Section>
 
-      {/* ---- PRODUCTS ---- */}
+      {/* ---- 4. PRODUCTS ---- */}
       <Section tone="canvas">
         <div className="container-rif">
           <SectionHeading
@@ -221,7 +163,43 @@ export default async function HomePage({
         </div>
       </Section>
 
-      {/* ---- NEWS — peach wash (fig: #EDB886 @ 10%) ---- */}
+      {/* ---- 5. SUSTAINABILITY REPORT — dark green panel (fig: radius 50) ---- */}
+      <div className="bg-canvas pt-20 md:pt-24 lg:pt-28">
+        <FeaturePanel>
+          <SectionHeading
+            eyebrow={t("sustainabilityKicker")}
+            title={t("sustainabilityTitle")}
+            lead={t("sustainabilityLead")}
+            tone="light"
+          />
+          <ReportYearGrid
+            reports={sustainability.slice(0, 3)}
+            href="/corporate-secretary/sustainability-report"
+            label={t("sustainabilityTitle")}
+            cta={t("sustainabilityCta")}
+          />
+        </FeaturePanel>
+      </div>
+
+      {/* ---- 6. FINANCIAL REPORT ---- */}
+      <div className="bg-canvas py-20 md:py-24 lg:py-28">
+        <FeaturePanel>
+          <SectionHeading
+            eyebrow={t("financialKicker")}
+            title={t("financialTitle")}
+            lead={t("financialLead")}
+            tone="light"
+          />
+          <ReportYearGrid
+            reports={financial.slice(0, 3)}
+            href="/corporate-secretary/financial-report"
+            label={t("financialTitle")}
+            cta={t("financialCta")}
+          />
+        </FeaturePanel>
+      </div>
+
+      {/* ---- 7. NEWS — peach wash (fig: #EDB886 @ 10%) ---- */}
       <Section tone="peach">
         <div className="container-rif">
           <SectionHeading
@@ -243,49 +221,67 @@ export default async function HomePage({
           </div>
         </div>
       </Section>
+
     </>
   );
 }
 
-/** Report card sitting on the dark green panel. */
-function ReportCard({
-  title,
-  years,
+/**
+ * Year tiles for a report section, sitting on the dark green panel.
+ *
+ * The fig shows each year as its own cover-like tile rather than the single
+ * card with year pills the page used before, so the two report sections can
+ * stand alone.
+ */
+function ReportYearGrid({
+  reports,
   href,
+  label,
   cta,
 }: {
-  title: string;
-  years: number[];
+  reports: { year: number }[];
   href: string;
+  label: string;
   cta: string;
 }) {
-  return (
-    <div className="flex flex-col rounded-[16px] bg-white/95 p-8 transition-transform duration-300 hover:-translate-y-1">
-      <h3 className="text-[20px] font-bold text-ink-900">{title}</h3>
+  if (!reports.length) return null;
 
-      <ul className="mt-5 flex flex-wrap gap-2">
-        {years.map((y) => (
-          <li
-            key={y}
-            className="rounded-full bg-ink-100 px-4 py-1.5 text-[13px] font-bold text-ink-700"
-          >
-            {y}
+  return (
+    <>
+      <ul className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-3">
+        {reports.map((r) => (
+          <li key={r.year}>
+            <Link
+              href={href}
+              className="group flex h-full flex-col rounded-[16px] bg-white/95 p-7 transition-transform duration-300 hover:-translate-y-1"
+            >
+              <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-brand-600">
+                {label}
+              </span>
+              <span className="mt-3 text-[30px] font-bold leading-none text-ink-900 md:text-[40px]">
+                {r.year}
+              </span>
+              <span className="mt-auto inline-flex items-center gap-2 pt-8 text-[15px] font-bold text-accent-500 transition-colors group-hover:text-accent-600">
+                {cta}
+                <ArrowRight
+                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                  aria-hidden
+                />
+              </span>
+            </Link>
           </li>
         ))}
       </ul>
 
-      <div className="mt-auto pt-8">
+      <div className="mt-12 text-center">
         <Link
           href={href}
-          className="group inline-flex items-center gap-2 text-[15px] font-bold text-accent-500 transition-colors hover:text-accent-500"
+          className="inline-flex items-center gap-2 text-[15px] font-bold text-white underline underline-offset-4 transition-colors hover:text-accent-300"
         >
           {cta}
-          <ArrowRight
-            className="h-4 w-4 transition-transform group-hover:translate-x-1"
-            aria-hidden
-          />
+          <ArrowRight className="h-4 w-4" aria-hidden />
         </Link>
       </div>
-    </div>
+    </>
   );
 }

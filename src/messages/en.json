@@ -88,7 +88,18 @@
     "historyCta": "See Our History",
     "productsCta": "See More Products",
     "newsCta": "See More News",
-    "managementTitle": "Message From The Management"
+    "managementTitle": "Message From The Management",
+    "sustainabilityKicker": "サステナビリティ • SUSTAINABILITY",
+    "sustainabilityTitle": "Sustainability Report",
+    "sustainabilityLead": "Our annual account of the environmental, social and governance commitments behind how we finance.",
+    "sustainabilityCta": "View All Reports",
+    "financialKicker": "財務報告 • FINANCIAL",
+    "financialTitle": "Financial Report",
+    "financialLead": "Audited financial statements published each year as part of our commitment to information disclosure.",
+    "financialCta": "View All Reports",
+    "macroGdp": "GDP Growth",
+    "macroInflation": "Inflation",
+    "macroTrade": "Trade Surplus"
   },
   "footer": {
     "menu": "MENU",
