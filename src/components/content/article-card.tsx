@@ -55,7 +55,7 @@ export async function ArticleCard({
         <Link href={href} tabIndex={-1} aria-hidden>
           {thumb}
         </Link>
-        <div className="flex flex-col rounded-[24px] bg-ink-100/70 p-6">
+        <div className="flex flex-col rounded-[24px] bg-ink-100 p-6">
           <div className="flex flex-wrap items-center gap-3">
             <span className="rounded-full bg-brand-600 px-3 py-1 text-[12px] text-white">
               {categoryLabel}
@@ -67,12 +67,12 @@ export async function ArticleCard({
               {formatDate(article.publishedAt, locale)}
             </time>
           </div>
-          <h3 className="mt-2 text-[22px] font-bold leading-snug text-ink-900 md:text-[24px]">
+          <h3 className="mt-3 text-[16px] font-bold leading-[1.35] text-ink-900">
             <Link href={href} className="transition-colors hover:text-brand-600">
               {pick(article.title, locale)}
             </Link>
           </h3>
-          <p className="mt-3 line-clamp-3 text-[15px] leading-relaxed text-ink-500">
+          <p className="mt-2 line-clamp-4 text-[12px] leading-[1.5] text-ink-500">
             {pick(article.excerpt, locale)}
           </p>
           <Link

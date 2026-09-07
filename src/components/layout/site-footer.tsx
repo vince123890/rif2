@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { MapPin, Phone, Printer } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { site } from "@/config/site";
@@ -83,27 +85,46 @@ export async function SiteFooter() {
 
   return (
     <footer>
-      <div className="bg-brand-600 text-white">
+      <div className="relative isolate overflow-hidden bg-brand-600 text-white">
+        {/* fig: an oversized Resona mark in #E6F1ED washes the right side */}
+        <Image
+          src="/brand/resona-mark-white.png"
+          alt=""
+          width={976}
+          height={1000}
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -top-16 -z-10 h-[140%] w-auto opacity-[0.06]"
+        />
+
         <div className="container-rif grid gap-12 py-16 lg:grid-cols-[415fr_538fr] lg:gap-24">
           {/* Brand, contact details, and the office map */}
           <div>
             <Logo tone="light" />
 
-            <p className="mt-8 max-w-[390px] text-[15px] leading-[1.5] md:text-[16px]">
-              {site.address.line1}
-              <br />
-              {site.address.line2}
+            {/* fig/capture: address and contact lines carry small outline icons */}
+            <p className="mt-8 flex max-w-[420px] items-start gap-3 text-[15px] leading-[1.5] md:text-[16px]">
+              <MapPin className="mt-1 h-5 w-5 shrink-0" aria-hidden />
+              <span>
+                {site.address.line1}
+                <br />
+                {site.address.line2}
+              </span>
             </p>
 
-            <p className="mt-6 text-[15px] md:text-[16px]">
-              <a
-                href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
-                className="transition-colors hover:text-accent-300"
-              >
-                {site.phone}
-              </a>
-              <span className="px-2 text-white/50">/</span>
-              {site.fax}
+            <p className="mt-6 flex flex-wrap items-center gap-x-8 gap-y-3 text-[15px] md:text-[16px]">
+              <span className="inline-flex items-center gap-3">
+                <Phone className="h-5 w-5 shrink-0" aria-hidden />
+                <a
+                  href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
+                  className="transition-colors hover:text-accent-300"
+                >
+                  {site.phone}
+                </a>
+              </span>
+              <span className="inline-flex items-center gap-3">
+                <Printer className="h-5 w-5 shrink-0" aria-hidden />
+                {site.fax}
+              </span>
             </p>
 
             {/*
@@ -128,7 +149,7 @@ export async function SiteFooter() {
               <div key={i} className="space-y-10">
                 {column.map((group) => (
                   <nav key={group.heading} aria-label={tNav(group.heading)}>
-                    <h2 className="text-[18px] font-bold md:text-[20px]">
+                    <h2 className="text-[18px] font-bold text-white md:text-[20px]">
                       {tNav(group.heading)}
                     </h2>
                     <ul className="mt-4 space-y-3">
@@ -136,7 +157,7 @@ export async function SiteFooter() {
                         <li key={`${group.heading}-${l.href}`}>
                           <Link
                             href={l.href}
-                            className="text-[15px] transition-colors hover:text-accent-300 md:text-[16px]"
+                            className="text-[15px] text-white transition-colors hover:text-accent-300 md:text-[16px]"
                           >
                             {tNav(l.key)}
                           </Link>

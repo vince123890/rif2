@@ -88,7 +88,7 @@ export default async function HomePage({
       {/* ---- 3. MESSAGE FROM THE MANAGEMENT ---- */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("managementTitle")} />
+          <SectionHeading title={t("managementTitle")} color="ink" />
 
           {/*
            * A single raised white card holding the photo on the left and the
@@ -165,7 +165,7 @@ export default async function HomePage({
       {/* ---- 4. PRODUCTS ---- */}
       <Section tone="canvas">
         <div className="container-rif">
-          <SectionHeading title={t("productsTitle")} />
+          <SectionHeading title={t("productsTitle")} color="ink" />
           <div className="mt-8">
             <ProductTabs products={products} />
           </div>
@@ -178,7 +178,7 @@ export default async function HomePage({
        * carousel of report-cover cards — not the dark green feature panel
        * the page used before.
        */}
-      <Section tone="white">
+      <Section tone="canvas">
         <div className="container-rif">
           <SectionHeading title={t("sustainabilityTitle")} />
           <div className="mt-6">
@@ -210,20 +210,16 @@ export default async function HomePage({
         </div>
       </Section>
 
-      {/* ---- 7. NEWS ---- */}
-      <Section tone="canvas">
+      {/* ---- 7. NEWS — the one white band in the fig (#FFFFFF) ---- */}
+      <Section tone="white">
         <div className="container-rif">
-          {/*
-           * The capture puts the heading on the left with a "View More" pill
-           * opposite it, then a tall featured story beside two stacked
-           * summaries — not a row of equal cards.
-           */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <SectionHeading title={t("newsTitle")} align="left" />
-            <ButtonLink href="/news">{t("newsCta")}</ButtonLink>
-          </div>
+          <SectionHeading
+            title={t("newsTitle")}
+            align="left"
+            action={<ButtonLink href="/news">{t("newsCta")}</ButtonLink>}
+          />
 
-          <div className="mt-8 grid gap-6 lg:grid-cols-[1.15fr_1fr]">
+          <div className="mt-8 grid gap-6 lg:grid-cols-[759fr_529fr]">
             {featured ? <FeaturedArticle article={featured} /> : null}
 
             <div className="grid gap-6">

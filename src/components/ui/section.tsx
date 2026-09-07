@@ -20,6 +20,11 @@ export function Section({
   className?: string;
   id?: string;
 }) {
+  /*
+   * fig: the page is one flat #F9FAFB ground; only the Latest News band is
+   * white. The old alternating canvas/white/peach rhythm was ours, not the
+   * design's.
+   */
   const tones = {
     canvas: "bg-canvas",
     white: "bg-white",
@@ -90,46 +95,62 @@ export function SectionHeading({
   lead,
   align = "center",
   tone = "dark",
+  /**
+   * fig sets the reports and news headings in accent orange and the
+   * management/products headings in near-black. Default follows the
+   * former; pass "ink" for the latter.
+   */
+  color = "accent",
+  action,
 }: {
   title: string;
   lead?: string;
   align?: "center" | "left";
   tone?: "dark" | "light";
+  color?: "accent" | "ink";
+  /** Rendered opposite the title, e.g. the news section's "View More". */
+  action?: ReactNode;
 }) {
-  return (
-    <div
-      className={cn(
-        "max-w-[900px]",
-        align === "center" ? "mx-auto text-center" : "text-left",
-      )}
-    >
-      {/*
-       * fig: the Japanese/English eyebrow is gone. Each section title is
-       * flanked by the Resona blossom instead — 40×36 either side, with the
-       * title centred between them.
-       */}
-      <div
+  /*
+   * fig: the title sits inside a white pill (radius 42, 24px padding,
+   * 16px gap) with a blossom either side — not as bare text on the page.
+   */
+  const heading = (
+    <div className="inline-flex items-center gap-4 rounded-[42px] bg-white px-6 py-3">
+      <Blossom />
+      <h2
         className={cn(
-          "flex items-center gap-5",
-          align === "center" ? "justify-center" : "justify-start",
+          "text-[24px] font-bold leading-[1.2] md:text-[30px]",
+          tone === "light"
+            ? "text-white"
+            : color === "accent"
+              ? "text-accent-500"
+              : "text-ink-900",
         )}
       >
-        <Blossom />
-        <h2
-          className={cn(
-            "text-[30px] font-bold leading-[1.15] md:text-[40px]",
-            tone === "light" ? "text-white" : "text-ink-900",
-          )}
-        >
-          {title}
-        </h2>
-        <Blossom />
+        {title}
+      </h2>
+      <Blossom />
+    </div>
+  );
+
+  return (
+    <div className={cn(align === "center" ? "text-center" : "text-left")}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center gap-4",
+          align === "center" ? "justify-center" : "justify-between",
+        )}
+      >
+        {heading}
+        {action}
       </div>
 
       {lead ? (
         <p
           className={cn(
-            "mt-5 text-[17px] leading-[1.6] md:text-[24px]",
+            "mt-5 text-[17px] leading-[1.6] md:text-[20px]",
+            align === "center" ? "mx-auto max-w-[900px]" : "",
             tone === "light" ? "text-white/85" : "text-ink-500",
           )}
         >

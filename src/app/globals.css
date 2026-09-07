@@ -58,8 +58,8 @@
   /* ---- Danger — fig "Accent" swatch ---- */
   --color-danger: #fb2c36;
 
-  /* Page ground */
-  --color-canvas: #ffffff;
+  /* Page ground — fig frame fill is #F9FAFB, not white */
+  --color-canvas: #f9fafb;
 
   /* ---- Typography: Lato (fig) ---- */
   --font-sans:

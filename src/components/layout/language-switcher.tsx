@@ -2,7 +2,9 @@
 
 import { useState, useTransition, useEffect, useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { ChevronDown, Globe } from "lucide-react";
+import { ChevronDown } from "lucide-react";
+
+import { TranslateIcon } from "./translate-icon";
 
 import { routing, usePathname, useRouter } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
@@ -52,8 +54,9 @@ export function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         className="flex items-center gap-1.5 rounded-[12px] px-3 py-2 text-[14px] font-medium text-white transition-colors hover:bg-white/10 disabled:opacity-60"
       >
-        <Globe className="h-4 w-4" aria-hidden />
+        {/* fig: label first, then the translate glyph (vuesax/linear/translate) */}
         {LABELS[locale] ?? locale.toUpperCase()}
+        <TranslateIcon className="h-[18px] w-[18px]" />
         <ChevronDown
           className={cn("h-3.5 w-3.5 transition-transform", open && "rotate-180")}
           aria-hidden
