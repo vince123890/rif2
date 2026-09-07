@@ -139,27 +139,31 @@ export function FigTabs({
 }) {
   return (
     <div className="container-rif pt-6">
-      <div className="overflow-x-auto">
-          <div className="inline-flex min-w-full items-center gap-2 rounded-[34px] bg-white p-3 shadow-sm">
-            {tabs.map((tab) => {
-              const active = tab.href === current;
-              return (
-                <Link
-                  key={tab.href}
-                  href={tab.href}
-                  aria-current={active ? "page" : undefined}
-                  className={cn(
-                    "whitespace-nowrap rounded-full px-5 py-2.5 text-[16px] transition-colors md:text-[20px]",
-                    active
-                      ? "bg-accent-500 font-bold text-white"
-                      : "text-ink-900 hover:bg-brand-50",
-                  )}
-                >
-                  {tab.label}
-                </Link>
-              );
-          })}
-        </div>
+      {/*
+       * fig `Frame 83`: one rail holding every pill. The six labels have to
+       * fit the 1312px container without a scrollbar, so the rail wraps and
+       * the type steps down a notch rather than overflowing. Its own fill is
+       * white at 5% — nearly the page ground, just enough to read as a rail.
+       */}
+      <div className="flex flex-wrap items-center gap-x-1 gap-y-2 rounded-[34px] bg-white/5 p-2 lg:flex-nowrap lg:gap-x-0.5">
+        {tabs.map((tab) => {
+          const active = tab.href === current;
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              aria-current={active ? "page" : undefined}
+              className={cn(
+                "whitespace-nowrap rounded-full px-4 py-2.5 text-center text-[14px] transition-colors md:text-[16px] lg:px-3 xl:px-4 xl:text-[17px]",
+                active
+                  ? "bg-accent-500 font-bold text-white"
+                  : "text-ink-900 hover:bg-white/60",
+              )}
+            >
+              {tab.label}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

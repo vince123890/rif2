@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { milestones } from "@/lib/content/milestones";
 import { cn } from "@/lib/utils";
@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
  */
 export function JourneyTimeline({ image }: { image: string }) {
   const locale = useLocale();
+  const t = useTranslations("companyProfile");
   const [active, setActive] = useState(0);
 
   /* fig `Frame 206`: the rail lists each distinct year once. */
@@ -37,17 +38,22 @@ export function JourneyTimeline({ image }: { image: string }) {
       {/* fig `Frame 8`: three nested discs bleeding off the top-right */}
       <Discs className="-right-16 -top-24" />
 
-      <div className="relative grid gap-8 lg:grid-cols-[56px_450fr_550fr] lg:gap-10">
-        {/* Year rail */}
-        <ul className="flex gap-4 overflow-x-auto lg:flex-col lg:gap-1 lg:overflow-visible">
+      <div className="relative grid items-center gap-8 lg:grid-cols-[56px_450fr_550fr] lg:gap-10">
+        {/*
+         * Year rail — fig `Frame 206`: a 56px column of 18px years on a
+         * 32px rhythm, centred against the card rather than pinned to its
+         * top. The years are a legend for the story beside them, so they
+         * stay much smaller than the headline year.
+         */}
+        <ul className="flex items-center gap-4 overflow-x-auto lg:flex-col lg:items-start lg:justify-center lg:gap-0 lg:overflow-visible">
           {years.map(([year, index]) => (
-            <li key={year}>
+            <li key={year} className="lg:leading-[32px]">
               <button
                 type="button"
                 onClick={() => setActive(index)}
                 aria-current={year === activeYear}
                 className={cn(
-                  "text-[24px] font-bold leading-[1.1] transition-colors md:text-[30px]",
+                  "text-[16px] font-bold leading-[1.1] transition-colors md:text-[18px]",
                   year === activeYear
                     ? "text-ink-900"
                     : "text-ink-500 hover:text-ink-700",
@@ -59,15 +65,19 @@ export function JourneyTimeline({ image }: { image: string }) {
           ))}
         </ul>
 
-        {/* Story — fig `Frame 203`: month at 30px, year at 30px, body at 20px */}
+        {/*
+         * Story — fig `Frame 203`. The frame data sets month and year in
+         * near-black, but the rendered design RIF supplied colours the
+         * month orange and the year brand green, which is what we follow.
+         */}
         <div className="flex flex-col justify-center">
-          <p className="text-[24px] font-bold leading-[1.2] text-ink-900 md:text-[30px]">
+          <p className="text-[20px] font-bold leading-[1.2] text-accent-500 md:text-[24px]">
             {current.month[locale === "id" ? "id" : "en"]}
           </p>
-          <p className="text-[36px] font-bold leading-[1.1] text-ink-900 md:text-[48px]">
+          <p className="text-[44px] font-bold leading-[1.1] text-brand-600 md:text-[64px]">
             {current.year}
           </p>
-          <p className="mt-6 max-w-[350px] text-[16px] leading-[1.6] text-ink-900 md:text-[20px]">
+          <p className="mt-4 max-w-[350px] text-[15px] leading-[1.6] text-ink-700 md:text-[16px]">
             {current.body[locale === "id" ? "id" : "en"]}
           </p>
 
@@ -90,14 +100,28 @@ export function JourneyTimeline({ image }: { image: string }) {
         </div>
 
         {/* Photo — fig `Frame 204`: 550x536, radius 24 */}
-        <div className="relative aspect-[550/536] overflow-hidden rounded-[24px] bg-ink-100">
-          <Image
-            src={image}
-            alt=""
-            fill
-            sizes="(min-width: 1024px) 42vw, 100vw"
-            className="object-cover"
-          />
+        <div className="relative">
+          <div className="relative aspect-[550/536] overflow-hidden rounded-[24px] bg-ink-100">
+            <Image
+              src={image}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 42vw, 100vw"
+              className="object-cover"
+            />
+          </div>
+
+          {/*
+           * fig `Frame 208`: a 150px green disc straddling the photo's
+           * right edge. It labels the gesture rather than performing it —
+           * the year rail and the dots are what actually move the story.
+           */}
+          <div
+            aria-hidden
+            className="absolute -right-6 top-1/2 hidden h-[150px] w-[150px] -translate-y-1/2 place-items-center whitespace-pre-line rounded-full bg-brand-600 text-center text-[16px] font-bold leading-[1.2] text-white lg:grid"
+          >
+            {t("scrollToExplore")}
+          </div>
         </div>
       </div>
     </div>

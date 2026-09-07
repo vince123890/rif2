@@ -88,8 +88,9 @@ export async function CompanyProfilePage({
 
       {/*
        * fig: the page ground is #F9FAFB with the Resona blossom tiled over
-       * it as a PATTERN fill at 5% — the wash that runs behind the
-       * breadcrumb, the tab rail and the gaps between panels.
+       * it as a PATTERN fill at 5%, scaled to 0.3 — a fine wash behind the
+       * breadcrumb, the tab rail and the gaps between panels, not the
+       * large motif it reads as at full size.
        */}
       <div className="relative isolate bg-canvas pb-16 md:pb-24">
         <div
@@ -97,7 +98,7 @@ export async function CompanyProfilePage({
           className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04]"
           style={{
             backgroundImage: "url(/brand/resona-blossom.png)",
-            backgroundSize: "96px auto",
+            backgroundSize: "56px auto",
             backgroundRepeat: "repeat",
           }}
         />

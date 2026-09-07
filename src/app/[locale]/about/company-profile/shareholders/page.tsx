@@ -6,6 +6,7 @@ import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
 import { RichText } from "@/components/ui/rich-text";
+import { ZoomableImage } from "@/components/content/zoomable-image";
 import { DocumentActions } from "@/components/content/document-actions";
 
 const PAGE_KEY = "shareholders";
@@ -40,7 +41,16 @@ export default async function Page({
 
   return (
     <CompanyProfilePage route={ROUTE}>
-      <RichText html={pick(page.body, locale)} />
+      {/* fig `image 7`: the ownership split is flat artwork, not markup. */}
+      <ZoomableImage
+        src="/images/shareholders-structure.png"
+        alt={pick(page.title, locale)}
+        width={801}
+        height={340}
+      />
+      <div className="mt-8">
+        <RichText html={pick(page.body, locale)} />
+      </div>
       {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
     </CompanyProfilePage>
   );
