@@ -1,12 +1,21 @@
 import { getTranslations } from "next-intl/server";
-import { MapPin, Phone } from "lucide-react";
 
 import { site } from "@/config/site";
 import { visibleNavigation } from "@/config/navigation";
-import { Link } from "@/i18n/routing";
-import { Logo } from "./logo";
 import { MainNav } from "./main-nav";
 
+/**
+ * Site header, styled from `docs/Resona Indonesia Finance.fig`.
+ *
+ * The fig replaces the old two-row header (white utility bar above a
+ * full-bleed green nav) with a single floating pill: 1312×72 at radius 36,
+ * filled #006F4F, inset 64px from the frame and overlapping the hero rather
+ * than sitting above it. Every label, the language toggle and the search
+ * icon are white.
+ *
+ * Contact details are no longer in the header — the fig keeps them in the
+ * footer only.
+ */
 export async function SiteHeader() {
   const t = await getTranslations("nav");
   const nav = visibleNavigation();
@@ -28,31 +37,5 @@ export async function SiteHeader() {
     })),
   }));
 
-  return (
-    <header className="sticky top-0 z-50">
-      {/* Utility bar — brand lockup left, contact right */}
-      <div className="hidden border-b border-ink-200 bg-white lg:block">
-        <div className="container-rif flex h-[72px] items-center justify-between">
-          <Link href="/" aria-label={site.name}>
-            <Logo />
-          </Link>
-          <div className="flex items-center gap-8 text-[13px] text-ink-500">
-            <span className="inline-flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-brand-600" aria-hidden />
-              {site.address.short}
-            </span>
-            <a
-              href={`tel:${site.phone.replace(/[^\d+]/g, "")}`}
-              className="inline-flex items-center gap-2 transition-colors hover:text-brand-600"
-            >
-              <Phone className="h-4 w-4 text-brand-600" aria-hidden />
-              {site.phone}
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <MainNav items={items} />
-    </header>
-  );
+  return <MainNav items={items} brandName={site.name} />;
 }

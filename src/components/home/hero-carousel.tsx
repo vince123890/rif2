@@ -7,10 +7,21 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import type { HeroSlide } from "@/lib/content";
 import { pick } from "@/lib/content";
-import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const INTERVAL = 7000;
+
+/**
+ * The four financing types listed under the hero headline in the fig.
+ * Hard-coded here (rather than derived from `products`) because the fig
+ * names equipment categories, which cut across the three product pages.
+ */
+const financingTypes: { id: string; en: string }[] = [
+  { id: "Pembiayaan Mesin Industri", en: "Industrial Machinery Financing" },
+  { id: "Pembiayaan Kendaraan Operasional", en: "Vehicle Operational Financing" },
+  { id: "Pembiayaan Alat Berat", en: "Heavy Equipment Financing" },
+  { id: "Pembiayaan Perangkat IT", en: "IT Machinery Financing" },
+];
 
 /**
  * FR-HM-01 — hero banner slider.
@@ -78,18 +89,11 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
       ))}
 
       {/*
-       * Legibility scrim. The fig sets dark type on a bright photo, so the
-       * wash is strongest behind the headline column and clears to the right
-       * to let the image show through.
+       * Legibility scrim. The fig fills the whole hero frame with
+       * #0F0F0F at 60% over the photo and sets every piece of type in
+       * white — a flat wash, not a directional gradient.
        */}
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-r from-white/92 via-white/70 to-transparent"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-gradient-to-t from-white/70 via-transparent to-transparent"
-      />
+      <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/60" />
 
       <div className="container-rif relative flex min-h-[560px] flex-col justify-center py-24 md:min-h-[700px] lg:min-h-[800px]">
         <div key={slide.id} className="max-w-3xl animate-fade-up">
@@ -97,37 +101,44 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
             {pick(slide.kicker, locale)}
           </p>
 
-          {/* fig: 84px Bold, second line in #F58220 */}
-          <h1 className="mt-6 text-[42px] font-bold leading-[1.05] tracking-[-0.02em] text-ink-900 md:text-[64px] lg:text-[84px]">
+          {/* fig: 96px SemiBold, white — one colour, no orange split */}
+          <h1 className="mt-6 max-w-[864px] text-[40px] font-semibold leading-[1.12] tracking-[-0.02em] text-white md:text-[68px] lg:text-[96px]">
             {pick(slide.title, locale)}
-            {slide.titleAccent ? (
-              <>
-                <br />
-                <span className="text-accent-500">
-                  {pick(slide.titleAccent, locale)}
-                </span>
-              </>
-            ) : null}
+            {slide.titleAccent ? ` ${pick(slide.titleAccent, locale)}` : null}
           </h1>
 
-          {/* fig: 20px italic, bullet-wrapped tagline */}
-          <p className="mt-6 text-[16px] italic text-ink-700 md:text-[20px]">
-            • {pick(slide.lead, locale)} •
+          {/* fig: 24px Bold white, no bullets, no italic */}
+          <p className="mt-8 max-w-[679px] text-[17px] font-bold leading-[1.45] text-white md:text-[24px]">
+            {pick(slide.lead, locale)}
           </p>
-
-          <div className="mt-10 flex flex-wrap gap-4">
-            <ButtonLink href="/products" size="lg">
-              {t("heroCtaProducts")}
-            </ButtonLink>
-            <ButtonLink href="/contact" variant="accent" size="lg">
-              {t("heroCtaContact")}
-            </ButtonLink>
-          </div>
         </div>
       </div>
 
+      {/*
+       * fig: a translucent strip under the headline listing what RIF
+       * finances, numbered 01–04 and split by hairline rules. It replaces
+       * the pair of CTA buttons the hero used to carry.
+       */}
+      <div className="container-rif relative pb-10">
+        <ul className="grid grid-cols-1 gap-px overflow-hidden rounded-[12px] bg-white/20 sm:grid-cols-2 lg:grid-cols-4">
+          {financingTypes.map((f, i) => (
+            <li
+              key={f.en}
+              className="flex items-start gap-3 bg-white/5 px-5 py-4 backdrop-blur-sm"
+            >
+              <span className="text-[16px] leading-tight text-white/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="text-[16px] font-bold leading-[1.2] text-white md:text-[20px]">
+                {locale === "id" ? f.id : f.en}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       {slides.length > 1 && (
-        <div className="container-rif relative pb-10">
+        <div className="container-rif relative pb-14">
           <div className="flex items-center gap-4">
             <div className="flex gap-2">
               <button

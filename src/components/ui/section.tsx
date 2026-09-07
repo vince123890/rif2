@@ -1,3 +1,4 @@
+import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
@@ -80,13 +81,11 @@ export function FeaturePanel({
  * the exact rhythm measured in the fig.
  */
 export function SectionHeading({
-  eyebrow,
   title,
   lead,
   align = "center",
   tone = "dark",
 }: {
-  eyebrow?: string;
   title: string;
   lead?: string;
   align?: "center" | "left";
@@ -99,25 +98,28 @@ export function SectionHeading({
         align === "center" ? "mx-auto text-center" : "text-left",
       )}
     >
-      {eyebrow ? (
-        <p
-          className={cn(
-            "text-[15px] tracking-[0.02em] md:text-[16px]",
-            tone === "light" ? "text-white/80" : "text-brand-600",
-          )}
-        >
-          {eyebrow}
-        </p>
-      ) : null}
-
-      <h2
+      {/*
+       * fig: the Japanese/English eyebrow is gone. Each section title is
+       * flanked by the Resona blossom instead — 40×36 either side, with the
+       * title centred between them.
+       */}
+      <div
         className={cn(
-          "mt-4 text-[30px] font-bold leading-[1.15] md:text-[40px]",
-          tone === "light" ? "text-white" : "text-ink-900",
+          "flex items-center gap-5",
+          align === "center" ? "justify-center" : "justify-start",
         )}
       >
-        {title}
-      </h2>
+        <Blossom />
+        <h2
+          className={cn(
+            "text-[30px] font-bold leading-[1.15] md:text-[40px]",
+            tone === "light" ? "text-white" : "text-ink-900",
+          )}
+        >
+          {title}
+        </h2>
+        <Blossom />
+      </div>
 
       {lead ? (
         <p
@@ -130,5 +132,19 @@ export function SectionHeading({
         </p>
       ) : null}
     </div>
+  );
+}
+
+/** The Resona blossom used as a title ornament (fig: 40×36 either side). */
+function Blossom() {
+  return (
+    <Image
+      src="/brand/resona-blossom.png"
+      alt=""
+      width={40}
+      height={36}
+      aria-hidden
+      className="h-[26px] w-auto shrink-0 md:h-9"
+    />
   );
 }

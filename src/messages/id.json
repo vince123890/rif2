@@ -46,7 +46,7 @@
     "openMenu": "Buka menu",
     "closeMenu": "Tutup menu",
     "search": "Cari",
-    "searchPlaceholder": "Cari ...",
+    "searchPlaceholder": "Cari halaman, produk, dan berita…",
     "language": "Bahasa",
     "breadcrumb": "Remah roti",
     "skipToContent": "Lewati ke konten utama",
@@ -57,7 +57,15 @@
     "noData": "Belum ada data untuk ditampilkan.",
     "zoomIn": "Perbesar",
     "zoomOut": "Perkecil",
-    "resetZoom": "Atur ulang"
+    "resetZoom": "Atur ulang",
+    "searchCount": "{count, plural, =0 {Tidak ada hasil} other {# hasil}}",
+    "searchPage": "Halaman",
+    "searchProduct": "Produk",
+    "searchNews": "Berita",
+    "detail": "Detail",
+    "previous": "Sebelumnya",
+    "next": "Berikutnya",
+    "viewMore": "Lihat Selengkapnya"
   },
   "home": {
     "heroKicker": "PEMBIAYAAN KORPORASI TERPERCAYA",

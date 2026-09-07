@@ -46,7 +46,7 @@
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "search": "Search",
-    "searchPlaceholder": "Search ...",
+    "searchPlaceholder": "Search pages, products and news…",
     "language": "Language",
     "breadcrumb": "Breadcrumb",
     "skipToContent": "Skip to main content",
@@ -57,7 +57,15 @@
     "noData": "No data available yet.",
     "zoomIn": "Zoom in",
     "zoomOut": "Zoom out",
-    "resetZoom": "Reset"
+    "resetZoom": "Reset",
+    "searchCount": "{count, plural, =0 {No results} one {1 result} other {# results}}",
+    "searchPage": "Page",
+    "searchProduct": "Product",
+    "searchNews": "News",
+    "detail": "Detail",
+    "previous": "Previous",
+    "next": "Next",
+    "viewMore": "View More"
   },
   "home": {
     "heroKicker": "TRUSTED CORPORATE FINANCING",

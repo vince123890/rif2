@@ -11,8 +11,12 @@ import { ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 /**
- * Tabbed product panel — the "Pembiayaan Investasi / Modal Kerja / Anjak Piutang"
- * card from the existing site (FR-HM-02, FR-PS-01..03).
+ * Tabbed product panel — the "Pembiayaan Investasi / Modal Kerja / Anjak
+ * Piutang" card (FR-HM-02, FR-PS-01..03).
+ *
+ * Styled from the fig, which drops the bordered card and underlined tabs in
+ * favour of a floating pill rail (r=34) holding one pill per product (r=100);
+ * the selected pill fills green with white Bold type.
  */
 export function ProductTabs({ products }: { products: Product[] }) {
   const t = useTranslations("common");
@@ -23,27 +27,33 @@ export function ProductTabs({ products }: { products: Product[] }) {
   const product = products[active];
 
   return (
-    <div className="overflow-hidden rounded-[16px] border border-brand-200 bg-white shadow-sm">
-      {/* Tab list */}
-      <div role="tablist" aria-label="Products" className="flex flex-wrap gap-1 border-b border-ink-200 px-4 pt-4 sm:px-8">
-        {products.map((p, i) => (
-          <button
-            key={p.slug}
-            role="tab"
-            id={`tab-${p.slug}`}
-            aria-selected={i === active}
-            aria-controls={`panel-${p.slug}`}
-            onClick={() => setActive(i)}
-            className={cn(
-              "relative -mb-px border-b-2 px-4 py-3 text-[15px] transition-colors",
-              i === active
-                ? "border-brand-600 font-bold text-brand-600"
-                : "border-transparent text-ink-500 hover:text-ink-800",
-            )}
-          >
-            {pick(p.name, locale)}
-          </button>
-        ))}
+    <div>
+      {/* Tab rail — fig: pills inside a pill, centred above the panel */}
+      <div className="flex justify-center">
+        <div
+          role="tablist"
+          aria-label="Products"
+          className="inline-flex max-w-full flex-wrap justify-center gap-2 rounded-[34px] bg-white p-3 shadow-sm"
+        >
+          {products.map((p, i) => (
+            <button
+              key={p.slug}
+              role="tab"
+              id={`tab-${p.slug}`}
+              aria-selected={i === active}
+              aria-controls={`panel-${p.slug}`}
+              onClick={() => setActive(i)}
+              className={cn(
+                "rounded-full px-5 py-2.5 text-[16px] transition-colors md:text-[20px]",
+                i === active
+                  ? "bg-brand-600 font-bold text-white"
+                  : "text-ink-900 hover:bg-brand-50",
+              )}
+            >
+              {pick(p.name, locale)}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Panel */}
@@ -51,9 +61,9 @@ export function ProductTabs({ products }: { products: Product[] }) {
         role="tabpanel"
         id={`panel-${product.slug}`}
         aria-labelledby={`tab-${product.slug}`}
-        className="grid gap-8 p-6 sm:p-8 lg:grid-cols-2 lg:gap-12"
+        className="mt-12 grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-16"
       >
-        <div className="relative aspect-4/3 overflow-hidden rounded-[12px] bg-ink-100">
+        <div className="relative order-2 aspect-square overflow-hidden rounded-[24px] bg-ink-100 lg:order-none">
           <Image
             src={product.image}
             alt={pick(product.name, locale)}
@@ -64,7 +74,7 @@ export function ProductTabs({ products }: { products: Product[] }) {
         </div>
 
         <div className="flex flex-col">
-          <h3 className="text-[22px] font-normal leading-snug text-ink-900 md:text-[26px]">
+          <h3 className="text-[24px] font-bold leading-snug text-brand-600 md:text-[32px]">
             {pick(product.summary, locale)}
           </h3>
 
@@ -89,8 +99,14 @@ export function ProductTabs({ products }: { products: Product[] }) {
             ))}
           </div>
 
+          {/* fig: the CTA fills the column width rather than hugging its label */}
           <div className="mt-8">
-            <ButtonLink href={`/products/${product.slug}`} variant="accent">
+            <ButtonLink
+              href={`/products/${product.slug}`}
+              variant="accent"
+              size="lg"
+              className="w-full"
+            >
               {t("more")}
             </ButtonLink>
           </div>

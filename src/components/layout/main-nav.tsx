@@ -2,10 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
+import { ChevronDown, ChevronRight, Menu, Search, X } from "lucide-react";
 
 import { Link, usePathname } from "@/i18n/routing";
-import { site } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Logo } from "./logo";
 import { LanguageSwitcher } from "./language-switcher";
@@ -17,7 +16,13 @@ export type NavItem = {
   children?: NavItem[];
 };
 
-export function MainNav({ items }: { items: NavItem[] }) {
+export function MainNav({
+  items,
+  brandName,
+}: {
+  items: NavItem[];
+  brandName: string;
+}) {
   const t = useTranslations("common");
   const pathname = usePathname();
   const [open, setOpen] = useState<string | null>(null);
@@ -59,18 +64,46 @@ export function MainNav({ items }: { items: NavItem[] }) {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  return (
-    <div ref={navRef} className="bg-brand-600 shadow-sm">
-      <div className="container-rif flex h-16 items-center justify-between lg:h-[52px]">
-        {/* Mobile brand */}
-        <Link href="/" className="lg:hidden" aria-label={site.name}>
-          <Logo tone="light" />
-        </Link>
+  /*
+   * The fig's rail carries no "Home" entry — the brand lockup on the left
+   * is the home link — and eight labels will not fit inside a 1312px pill.
+   * Mobile keeps the full list, where it is a stacked drawer.
+   */
+  const desktopItems = items.filter((i) => i.href !== "/");
 
-        {/* Desktop menu */}
-        <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center">
-            {items.map((item) => {
+  return (
+    /*
+     * fig: a floating pill (1312×72, radius 36, #006F4F) inset from the
+     * frame and overlapping the hero, not a full-bleed bar. `absolute` on
+     * desktop lets the dark hero photo run underneath it.
+     */
+    <div
+      ref={navRef}
+      /*
+       * The pill overlays the page rather than pushing it down, so the
+       * hero photo runs underneath it. `sticky` (not `absolute`) keeps it
+       * in flow: a zero-height absolute header would let the next section
+       * paint over it, which is exactly what happened to the inner-page
+       * banner. The negative margin pulls the following content back up by
+       * the pill's height so the overlay effect is preserved.
+       */
+      className="lg:sticky lg:top-6 lg:z-50 lg:-mb-[96px] lg:bg-transparent"
+    >
+      <div className="bg-brand-600 shadow-sm lg:container-rif lg:mx-auto lg:rounded-[36px] lg:bg-brand-600 lg:px-3 lg:shadow-lg">
+        <div className="container-rif flex h-16 items-center justify-between gap-2 lg:h-[72px] lg:flex-nowrap lg:px-0">
+          {/* Brand lockup — inside the pill on desktop, per the fig */}
+          <Link
+            href="/"
+            aria-label={brandName}
+            className="shrink-0 lg:pl-3"
+          >
+            <Logo tone="light" />
+          </Link>
+
+          {/* Desktop menu */}
+          <nav aria-label="Main" className="hidden min-w-0 flex-1 lg:block">
+            <ul className="flex flex-nowrap items-center justify-end xl:justify-center">
+            {desktopItems.map((item) => {
               const hasKids = !!item.children?.length;
               const expanded = open === item.key;
 
@@ -84,7 +117,7 @@ export function MainNav({ items }: { items: NavItem[] }) {
                       onClick={() => setOpen(expanded ? null : item.key)}
                       onMouseEnter={() => setOpen(item.key)}
                       className={cn(
-                        "flex items-center gap-1 px-3 py-4 text-[14px] font-medium transition-colors",
+                        "flex items-center gap-1 whitespace-nowrap px-2 py-4 text-[13.5px] font-medium transition-colors xl:px-3 xl:text-[14px]",
                         isActive(item.href) || expanded
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -104,7 +137,7 @@ export function MainNav({ items }: { items: NavItem[] }) {
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "block px-3 py-4 text-[14px] font-medium transition-colors",
+                        "block whitespace-nowrap px-2 py-4 text-[13.5px] font-medium transition-colors xl:px-3 xl:text-[14px]",
                         isActive(item.href)
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -132,25 +165,36 @@ export function MainNav({ items }: { items: NavItem[] }) {
           </ul>
         </nav>
 
-        <div className="flex items-center gap-1">
-          <LanguageSwitcher />
-          <button
-            type="button"
-            className="rounded-[12px] p-2 text-white transition-colors hover:bg-white/10 lg:hidden"
-            aria-label={mobileOpen ? t("closeMenu") : t("openMenu")}
-            aria-expanded={mobileOpen}
-            onClick={() => setMobileOpen((v) => !v)}
-          >
-            {mobileOpen ? (
-              <X className="h-6 w-6" aria-hidden />
-            ) : (
-              <Menu className="h-6 w-6" aria-hidden />
-            )}
-          </button>
-        </div>
-      </div>
+          <div className="flex items-center gap-1 lg:pr-1">
+            <LanguageSwitcher />
 
-      {mobileOpen && <MobileMenu items={items} isActive={isActive} />}
+            {/* fig: a search icon sits at the trailing edge of the pill. */}
+            <Link
+              href="/search"
+              aria-label={t("search")}
+              className="grid h-11 w-11 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
+            >
+              <Search className="h-5 w-5" aria-hidden />
+            </Link>
+
+            <button
+              type="button"
+              className="rounded-[12px] p-2 text-white transition-colors hover:bg-white/10 lg:hidden"
+              aria-label={mobileOpen ? t("closeMenu") : t("openMenu")}
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen((v) => !v)}
+            >
+              {mobileOpen ? (
+                <X className="h-6 w-6" aria-hidden />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {mobileOpen && <MobileMenu items={items} isActive={isActive} />}
+      </div>
     </div>
   );
 }

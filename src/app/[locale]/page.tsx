@@ -1,6 +1,5 @@
 import Image from "next/image";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ArrowRight } from "lucide-react";
 
 import {
   getArticles,
@@ -9,15 +8,11 @@ import {
   getProducts,
   getSustainabilityReports,
 } from "@/lib/content";
-import { Link } from "@/i18n/routing";
 import { HeroCarousel } from "@/components/home/hero-carousel";
 import { ProductTabs } from "@/components/content/product-tabs";
 import { ArticleCard } from "@/components/content/article-card";
-import {
-  FeaturePanel,
-  Section,
-  SectionHeading,
-} from "@/components/ui/section";
+import { ReportCarousel } from "@/components/content/report-carousel";
+import { Section, SectionHeading } from "@/components/ui/section";
 import { ButtonLink } from "@/components/ui/button";
 
 export default async function HomePage({
@@ -46,9 +41,10 @@ export default async function HomePage({
    * and update when RIF confirms them.
    */
   const macroIndicators = [
-    { value: "5.03%", label: t("macroGdp") },
-    { value: "1.57%", label: t("macroInflation") },
-    { value: "USD 29.04B", label: t("macroTrade") },
+    { value: "1.57%", label: t("macroInflation"), emphasis: false },
+    // fig sets GDP growth larger than its neighbours
+    { value: "5.03%", label: t("macroGdp"), emphasis: true },
+    { value: "USD 29.04B", label: t("macroTrade"), emphasis: false },
   ];
 
   const stats = [
@@ -88,57 +84,97 @@ export default async function HomePage({
        */}
 
       {/* ---- 3. MESSAGE FROM THE MANAGEMENT ---- */}
-      <Section tone="white">
-        <div className="container-rif grid items-center gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+      <Section tone="canvas">
+        <div className="container-rif">
+          <SectionHeading title={t("managementTitle")} />
+
           {/*
-           * RIF's own team portrait, shot as a cutout on white. It sits on
-           * the brand tint rather than a photo crop so the figures keep
-           * their full height instead of being cropped at the torso.
+           * fig: a photo panel on the left and, on the right, the message
+           * set in white directly over a dark image — not black type on a
+           * white card. Both panels are radius 12.
            */}
-          <div className="relative aspect-4/3 overflow-hidden rounded-[16px] bg-brand-50">
-            <Image
-              src="/images/team-batik.png"
-              alt=""
-              fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
-              className="object-contain object-bottom"
-            />
-          </div>
-          <div>
-            <p className="eyebrow">{t("managementKicker")}</p>
-            <h2 className="mt-4 text-[28px] font-bold leading-tight text-ink-900 md:text-[36px]">
-              {locale === "id"
-                ? "Para Pemegang Saham dan Pemangku Kepentingan yang terhormat,"
-                : "Dear Shareholders and Stakeholders,"}
-            </h2>
-            <p className="mt-6 text-[16px] leading-[1.9] text-ink-700">
-              {locale === "id"
-                ? "Perekonomian global menunjukkan kinerja yang bervariasi, dipengaruhi oleh tensi geopolitik, fragmentasi perdagangan, serta dinamika kebijakan moneter di berbagai negara. Dalam situasi ketidakpastian ini, Indonesia berhasil mencatatkan pertumbuhan ekonomi yang terjaga, ditopang oleh sektor jasa keuangan yang tetap resilien."
-                : "The global economy has shown varied performance, influenced by geopolitical tensions, trade fragmentation, and monetary policy dynamics across countries. Amid this uncertainty, Indonesia has recorded steady economic growth, supported by a resilient financial services sector."}
-            </p>
+          <div className="mt-14 grid gap-6 lg:grid-cols-[652fr_600fr]">
+            <div className="relative min-h-[320px] overflow-hidden rounded-[12px] bg-brand-50 lg:min-h-[531px]">
+              <Image
+                src="/images/team-batik.png"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 52vw, 100vw"
+                className="object-contain object-bottom"
+              />
+            </div>
 
-            {/*
-             * Macro indicators, as laid out in the fig's management section.
-             * TODO(RIF): these figures came from the design file, not from a
-             * cited source — confirm them (and their reference period) with
-             * RIF before go-live, or drop the strip.
-             */}
-            <dl className="mt-9 grid grid-cols-3 gap-6 border-t border-ink-200 pt-7">
-              {macroIndicators.map((m) => (
-                <div key={m.label}>
-                  <dt className="sr-only">{m.label}</dt>
-                  <dd className="text-[22px] font-bold leading-tight text-brand-600 md:text-[26px]">
-                    {m.value}
-                  </dd>
-                  <p className="mt-1 text-[14px] text-ink-500">{m.label}</p>
+            <div className="relative overflow-hidden rounded-[12px] bg-brand-800">
+              <Image
+                src="/images/management-message.jpg"
+                alt=""
+                fill
+                sizes="(min-width: 1024px) 48vw, 100vw"
+                className="object-cover"
+              />
+              <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/70" />
+
+              <div className="relative flex h-full flex-col p-6 md:p-8">
+                <h3 className="text-[18px] font-normal leading-[1.5] text-white md:text-[20px]">
+                  {locale === "id"
+                    ? "Menjaga Pertumbuhan di Tengah Dinamika Global"
+                    : "Sustaining Growth Amid Global Dynamics"}
+                </h3>
+
+                <p className="mt-6 text-[15px] leading-[1.6] text-white/90 md:text-[20px]">
+                  {locale === "id"
+                    ? "Para Pemegang Saham dan Pemangku Kepentingan yang terhormat, di tengah ketidakpastian ekonomi global, Indonesia berhasil mencatatkan pertumbuhan ekonomi yang terjaga, ditopang oleh sektor jasa keuangan yang tetap resilien."
+                    : "Dear respected Shareholders and Stakeholders, amid global economic uncertainty, Indonesia has maintained steady economic growth, supported by a financial services sector that remains resilient."}
+                </p>
+
+                {/*
+                 * Macro indicators, laid out as in the fig: values in brand
+                 * green, hairline rules between them.
+                 *
+                 * TODO(RIF): these figures came from the design file with no
+                 * cited source — confirm them and their reference period
+                 * before go-live, or drop the strip.
+                 */}
+                <dl className="mt-8 flex flex-wrap items-start gap-x-8 gap-y-4 divide-ink-300">
+                  {macroIndicators.map((m, i) => (
+                    <div
+                      key={m.label}
+                      className={i > 0 ? "border-ink-300/40 sm:border-l sm:pl-8" : ""}
+                    >
+                      <dt className="sr-only">{m.label}</dt>
+                      <dd
+                        className={
+                          m.emphasis
+                            ? "text-[28px] font-bold leading-tight text-white md:text-[40px]"
+                            : "text-[20px] font-bold leading-tight text-white md:text-[24px]"
+                        }
+                      >
+                        {m.value}
+                      </dd>
+                      <p
+                        className={
+                          m.emphasis
+                            ? "mt-1 text-[16px] font-bold text-white md:text-[24px]"
+                            : "mt-1 text-[14px] text-white/70"
+                        }
+                      >
+                        {m.label}
+                      </p>
+                    </div>
+                  ))}
+                </dl>
+
+                <div className="mt-auto pt-8">
+                  <ButtonLink
+                    href="/about/management-message"
+                    variant="accent"
+                    size="lg"
+                    className="w-full"
+                  >
+                    {tc("more")}
+                  </ButtonLink>
                 </div>
-              ))}
-            </dl>
-
-            <div className="mt-9">
-              <ButtonLink href="/about/management-message" variant="accent">
-                {tc("more")}
-              </ButtonLink>
+              </div>
             </div>
           </div>
         </div>
@@ -148,7 +184,6 @@ export default async function HomePage({
       <Section tone="canvas">
         <div className="container-rif">
           <SectionHeading
-            eyebrow={t("productsKicker")}
             title={t("productsTitle")}
             lead={t("productsLead")}
           />
@@ -163,54 +198,56 @@ export default async function HomePage({
         </div>
       </Section>
 
-      {/* ---- 5. SUSTAINABILITY REPORT — dark green panel (fig: radius 50) ---- */}
-      <div className="bg-canvas pt-20 md:pt-24 lg:pt-28">
-        <FeaturePanel>
-          <SectionHeading
-            eyebrow={t("sustainabilityKicker")}
-            title={t("sustainabilityTitle")}
-            lead={t("sustainabilityLead")}
-            tone="light"
-          />
-          <ReportYearGrid
-            reports={sustainability.slice(0, 3)}
-            href="/corporate-secretary/sustainability-report"
-            label={t("sustainabilityTitle")}
-            cta={t("sustainabilityCta")}
-          />
-        </FeaturePanel>
-      </div>
+      {/*
+       * ---- 5 & 6. REPORTS ----
+       * fig: two separate sections on the plain page ground, each a
+       * carousel of report-cover cards — not the dark green feature panel
+       * the page used before.
+       */}
+      <Section tone="white">
+        <div className="container-rif">
+          <SectionHeading title={t("sustainabilityTitle")} />
+          <div className="mt-14">
+            <ReportCarousel
+              reports={sustainability.slice(0, 4).map((d) => ({
+                year: d.year,
+                href: "/corporate-secretary/sustainability-report",
+              }))}
+              label={t("sustainabilityTitle")}
+              allHref="/corporate-secretary/sustainability-report"
+            />
+          </div>
+        </div>
+      </Section>
 
-      {/* ---- 6. FINANCIAL REPORT ---- */}
-      <div className="bg-canvas py-20 md:py-24 lg:py-28">
-        <FeaturePanel>
-          <SectionHeading
-            eyebrow={t("financialKicker")}
-            title={t("financialTitle")}
-            lead={t("financialLead")}
-            tone="light"
-          />
-          <ReportYearGrid
-            reports={financial.slice(0, 3)}
-            href="/corporate-secretary/financial-report"
-            label={t("financialTitle")}
-            cta={t("financialCta")}
-          />
-        </FeaturePanel>
-      </div>
+      <Section tone="canvas">
+        <div className="container-rif">
+          <SectionHeading title={t("financialTitle")} />
+          <div className="mt-14">
+            <ReportCarousel
+              reports={financial.slice(0, 4).map((d) => ({
+                year: d.year,
+                href: "/corporate-secretary/financial-report",
+              }))}
+              label={t("financialTitle")}
+              allHref="/corporate-secretary/financial-report"
+            />
+          </div>
+        </div>
+      </Section>
 
       {/* ---- 7. NEWS — peach wash (fig: #EDB886 @ 10%) ---- */}
       <Section tone="peach">
         <div className="container-rif">
           <SectionHeading
-            eyebrow={t("newsKicker")}
             title={t("newsTitle")}
             lead={t("newsLead")}
           />
 
-          <div className="mt-14 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {/* fig: stacked horizontal cards, image beside copy */}
+          <div className="mt-14 grid gap-8 lg:grid-cols-2">
             {articles.map((a) => (
-              <ArticleCard key={a.slug} article={a} />
+              <ArticleCard key={a.slug} article={a} layout="horizontal" />
             ))}
           </div>
 
@@ -222,66 +259,6 @@ export default async function HomePage({
         </div>
       </Section>
 
-    </>
-  );
-}
-
-/**
- * Year tiles for a report section, sitting on the dark green panel.
- *
- * The fig shows each year as its own cover-like tile rather than the single
- * card with year pills the page used before, so the two report sections can
- * stand alone.
- */
-function ReportYearGrid({
-  reports,
-  href,
-  label,
-  cta,
-}: {
-  reports: { year: number }[];
-  href: string;
-  label: string;
-  cta: string;
-}) {
-  if (!reports.length) return null;
-
-  return (
-    <>
-      <ul className="mx-auto mt-14 grid max-w-4xl gap-6 sm:grid-cols-3">
-        {reports.map((r) => (
-          <li key={r.year}>
-            <Link
-              href={href}
-              className="group flex h-full flex-col rounded-[16px] bg-white/95 p-7 transition-transform duration-300 hover:-translate-y-1"
-            >
-              <span className="text-[13px] font-bold uppercase tracking-[0.14em] text-brand-600">
-                {label}
-              </span>
-              <span className="mt-3 text-[30px] font-bold leading-none text-ink-900 md:text-[40px]">
-                {r.year}
-              </span>
-              <span className="mt-auto inline-flex items-center gap-2 pt-8 text-[15px] font-bold text-accent-500 transition-colors group-hover:text-accent-600">
-                {cta}
-                <ArrowRight
-                  className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                  aria-hidden
-                />
-              </span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-12 text-center">
-        <Link
-          href={href}
-          className="inline-flex items-center gap-2 text-[15px] font-bold text-white underline underline-offset-4 transition-colors hover:text-accent-300"
-        >
-          {cta}
-          <ArrowRight className="h-4 w-4" aria-hidden />
-        </Link>
-      </div>
     </>
   );
 }

@@ -33,7 +33,7 @@ export async function ArticleCard({
   );
 
   const thumb = (
-    <div className="relative aspect-16/10 overflow-hidden rounded-[16px] bg-ink-100">
+    <div className="relative aspect-square overflow-hidden rounded-[24px] bg-ink-100">
       <Image
         src={article.image}
         alt={pick(article.title, locale)}
@@ -41,25 +41,32 @@ export async function ArticleCard({
         sizes="(min-width: 1024px) 33vw, 100vw"
         className="object-cover transition-transform duration-500 group-hover:scale-105"
       />
-      <span className="absolute left-4 top-4 rounded-full bg-white/95 px-3 py-1 text-[12px] font-bold text-brand-600 backdrop-blur">
-        {categoryLabel}
-      </span>
+
     </div>
   );
 
   if (layout === "horizontal") {
+    /*
+     * fig: image and copy side by side in equal halves, both radius 24,
+     * with the category as a solid green pill next to the date.
+     */
     return (
-      <article className="group grid gap-6 sm:grid-cols-[300px_1fr]">
+      <article className="group grid items-stretch gap-6 sm:grid-cols-2">
         <Link href={href} tabIndex={-1} aria-hidden>
           {thumb}
         </Link>
-        <div>
-          <time
-            dateTime={article.publishedAt}
-            className="text-[13px] text-ink-500"
-          >
-            {formatDate(article.publishedAt, locale)}
-          </time>
+        <div className="flex flex-col rounded-[24px] bg-ink-100/70 p-6">
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="rounded-full bg-brand-600 px-3 py-1 text-[12px] text-white">
+              {categoryLabel}
+            </span>
+            <time
+              dateTime={article.publishedAt}
+              className="text-[12px] text-ink-500"
+            >
+              {formatDate(article.publishedAt, locale)}
+            </time>
+          </div>
           <h3 className="mt-2 text-[22px] font-bold leading-snug text-ink-900 md:text-[24px]">
             <Link href={href} className="transition-colors hover:text-brand-600">
               {pick(article.title, locale)}
@@ -70,7 +77,7 @@ export async function ArticleCard({
           </p>
           <Link
             href={href}
-            className="mt-5 inline-flex items-center gap-2 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600"
+            className="mt-auto inline-flex items-center gap-2 pt-5 text-[14px] font-bold text-accent-500 transition-colors hover:text-accent-600"
           >
             {t("readingMore")}
             <ArrowRight
@@ -89,13 +96,18 @@ export async function ArticleCard({
         {thumb}
       </Link>
       <div className="flex flex-1 flex-col p-6">
-        <time
-          dateTime={article.publishedAt}
-          className="text-[13px] text-ink-500"
-        >
-          {formatDate(article.publishedAt, locale)}
-        </time>
-        <h3 className="mt-2 text-[20px] font-bold leading-snug text-ink-900">
+        <div className="flex flex-wrap items-center gap-3">
+          <span className="rounded-full bg-brand-600 px-3 py-1 text-[12px] text-white">
+            {categoryLabel}
+          </span>
+          <time
+            dateTime={article.publishedAt}
+            className="text-[12px] text-ink-500"
+          >
+            {formatDate(article.publishedAt, locale)}
+          </time>
+        </div>
+        <h3 className="mt-3 text-[20px] font-bold leading-snug text-ink-900">
           <Link href={href} className="transition-colors hover:text-brand-600">
             {pick(article.title, locale)}
           </Link>

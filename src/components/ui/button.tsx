@@ -3,16 +3,17 @@ import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 
 /**
- * Buttons follow the fig: radius 12 for the standard pill-less button
- * (e.g. "See more product" — 203×64 green, radius 12), radius 8 for the
- * small inline "Read more", and radius 100 for circular controls.
+ * Buttons follow `docs/Resona Indonesia Finance.fig`, which uses one shape
+ * throughout: a full pill at radius 100. The primary call to action ("Learn
+ * More") is 58px tall with 20px Bold white type on #F58220, and stretches to
+ * the width of its column rather than hugging its label.
  */
 
 type Variant = "primary" | "accent" | "outline" | "ghost" | "onDark";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-[12px] font-bold transition-all duration-200 " +
+  "inline-flex items-center justify-center gap-2 rounded-full font-bold transition-all duration-200 " +
   "focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
@@ -26,9 +27,9 @@ const variants: Record<Variant, string> = {
 };
 
 const sizes: Record<Size, string> = {
-  sm: "h-10 rounded-[8px] px-4 text-[14px]",
-  md: "h-12 px-6 text-[15px]",
-  lg: "h-16 px-8 text-[16px]", // fig: 64px tall
+  sm: "h-10 px-5 text-[14px]",
+  md: "h-12 px-7 text-[15px]",
+  lg: "h-[58px] px-9 text-[17px] md:text-[20px]", // fig: 58px tall, 20px Bold
 };
 
 type CommonProps = {
