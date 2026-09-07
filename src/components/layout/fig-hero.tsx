@@ -25,7 +25,7 @@ export function FigHero({
   title,
   subtitle,
   variant = "bleed",
-  image = "/images/office-tower.jpg",
+  image = "/images/inner-hero.jpg",
 }: {
   /** Rendered as-is; pass "\n" to force the fig's two-line break. */
   title: string;

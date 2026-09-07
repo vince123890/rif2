@@ -83,7 +83,7 @@ export async function CompanyProfilePage({
       <FigHero
         variant="bleed"
         title={tCp("heroTitle")}
-        image="/images/office-tower.jpg"
+        image="/images/inner-hero.jpg"
       />
 
       {/*

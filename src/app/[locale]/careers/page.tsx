@@ -4,8 +4,7 @@ import { Briefcase, MapPin } from "lucide-react";
 import { getVacancies, pick, pickList } from "@/lib/content";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { ButtonLink } from "@/components/ui/button";
 import { RichText } from "@/components/ui/rich-text";
 import { formatDate } from "@/lib/utils";
@@ -30,30 +29,17 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, t, vacancies] = await Promise.all([
-    getTranslations("nav"),
+  const [t, vacancies] = await Promise.all([
     getTranslations("careers"),
     getVacancies(),
   ]);
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("careers"), banner?.accentWords).accent}
-      title={splitTitle(tNav("careers"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-    >
-      <h2 className="text-[30px] font-normal text-brand-600 md:text-[36px]">
-        {t("available")}
-      </h2>
-
+    <InnerPage titleKey="careers" heading={t("available")}>
       {vacancies.length === 0 ? (
         /* FR-CR-02 — "Not Available" state */
-        <div className="mt-10 rounded-[16px] border border-dashed border-ink-200 bg-ink-100 px-6 py-16 text-center">
+        <div className="rounded-[16px] border border-dashed border-ink-200 bg-ink-100 px-6 py-16 text-center">
           <Briefcase className="mx-auto h-10 w-10 text-ink-300" aria-hidden />
           <p className="mt-4 text-[22px] font-normal text-ink-800">
             {t("notAvailable")}
@@ -128,6 +114,6 @@ export default async function Page({
           ))}
         </ul>
       )}
-    </ContentPage>
+    </InnerPage>
   );
 }

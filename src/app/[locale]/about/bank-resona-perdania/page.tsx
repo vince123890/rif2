@@ -5,8 +5,7 @@ import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { RichText } from "@/components/ui/rich-text";
 
 const ROUTE = "/about/bank-resona-perdania";
@@ -29,22 +28,11 @@ export default async function Page({
   setRequestLocale(locale);
 
   const page = getStaticPage("bank-resona-perdania")!;
-  const [tNav, t] = await Promise.all([
-    getTranslations("nav"),
-    getTranslations("common"),
-  ]);
+  const t = await getTranslations("common");
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(page.title, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(page.title, locale), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      crumbs={[{ label: tNav("about"), href: "/about/management-message" }]}
-    >
+    <InnerPage titleKey="bank-resona-perdania">
       <RichText html={pick(page.body, locale)} />
 
       {/* FR-AB-13 — external link to the parent company, new tab */}
@@ -58,6 +46,6 @@ export default async function Page({
         {t("clickHere")}
         <span className="sr-only"> ({t("externalLink")})</span>
       </a>
-    </ContentPage>
+    </InnerPage>
   );
 }
