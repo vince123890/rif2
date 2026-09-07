@@ -41,10 +41,9 @@ export default async function HomePage({
    * and update when RIF confirms them.
    */
   const macroIndicators = [
-    { value: "1.57%", label: t("macroInflation"), emphasis: false },
-    // fig sets GDP growth larger than its neighbours
-    { value: "5.03%", label: t("macroGdp"), emphasis: true },
-    { value: "USD 29.04B", label: t("macroTrade"), emphasis: false },
+    { value: "1.57%", label: t("macroInflation") },
+    { value: "5.03%", label: t("macroGdp") },
+    { value: "USD 29.04B", label: t("macroTrade") },
   ];
 
   const stats = [
@@ -89,75 +88,56 @@ export default async function HomePage({
           <SectionHeading title={t("managementTitle")} />
 
           {/*
-           * fig: a photo panel on the left and, on the right, the message
-           * set in white directly over a dark image — not black type on a
-           * white card. Both panels are radius 12.
+           * A single raised white card holding the photo on the left and the
+           * message on the right. The .fig node data sets this copy in white
+           * over the photo, but the rendered design the client supplied puts
+           * it as dark type on white — the render is what we follow.
            */}
-          <div className="mt-14 grid gap-6 lg:grid-cols-[652fr_600fr]">
-            <div className="relative min-h-[320px] overflow-hidden rounded-[12px] bg-brand-50 lg:min-h-[531px]">
-              <Image
-                src="/images/team-batik.png"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 52vw, 100vw"
-                className="object-contain object-bottom"
-              />
-            </div>
+          <div className="mt-10 overflow-hidden rounded-[16px] bg-white shadow-[0_20px_60px_-30px_rgba(0,0,0,0.35)]">
+            <div className="grid lg:grid-cols-[652fr_600fr]">
+              <div className="relative min-h-[280px] lg:min-h-[420px]">
+                <Image
+                  src="/images/team-collaboration.jpg"
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 52vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
 
-            <div className="relative overflow-hidden rounded-[12px] bg-brand-800">
-              <Image
-                src="/images/management-message.jpg"
-                alt=""
-                fill
-                sizes="(min-width: 1024px) 48vw, 100vw"
-                className="object-cover"
-              />
-              <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/70" />
-
-              <div className="relative flex h-full flex-col p-6 md:p-8">
-                <h3 className="text-[18px] font-normal leading-[1.5] text-white md:text-[20px]">
+              <div className="flex flex-col p-7 md:p-10">
+                <h3 className="text-[22px] font-bold leading-[1.3] text-brand-600 md:text-[28px]">
                   {locale === "id"
                     ? "Menjaga Pertumbuhan di Tengah Dinamika Global"
                     : "Sustaining Growth Amid Global Dynamics"}
                 </h3>
 
-                <p className="mt-6 text-[15px] leading-[1.6] text-white/90 md:text-[20px]">
+                <p className="mt-5 text-[14px] leading-[1.7] text-ink-500 md:text-[15px]">
                   {locale === "id"
-                    ? "Para Pemegang Saham dan Pemangku Kepentingan yang terhormat, di tengah ketidakpastian ekonomi global, Indonesia berhasil mencatatkan pertumbuhan ekonomi yang terjaga, ditopang oleh sektor jasa keuangan yang tetap resilien."
-                    : "Dear respected Shareholders and Stakeholders, amid global economic uncertainty, Indonesia has maintained steady economic growth, supported by a financial services sector that remains resilient."}
+                    ? "Para Pemegang Saham dan Pemangku Kepentingan yang terhormat, di tengah ketidakpastian ekonomi global, Indonesia mempertahankan fundamental ekonomi yang solid: pertumbuhan 5,03%, inflasi terkendali 1,57%, dan surplus perdagangan USD 29,04 miliar. Ketahanan ini turut menopang stabilitas sektor jasa keuangan dan momentum pertumbuhan industri pembiayaan nasional."
+                    : "Dear respected Shareholders and Stakeholders, amid global economic uncertainty, Indonesia has maintained solid economic fundamentals, recording 5.03% growth, controlled inflation at 1.57%, and a trade surplus of USD 29.04 billion. This resilience has also supported the stability of the financial services sector and sustained the growth momentum of the national financing industry."}
                 </p>
 
                 {/*
-                 * Macro indicators, laid out as in the fig: values in brand
-                 * green, hairline rules between them.
+                 * Macro indicators, split by hairline rules.
                  *
-                 * TODO(RIF): these figures came from the design file with no
-                 * cited source — confirm them and their reference period
-                 * before go-live, or drop the strip.
+                 * TODO(RIF): these figures came from the design with no cited
+                 * source — confirm them and their reference period before
+                 * go-live, or drop the strip.
                  */}
-                <dl className="mt-8 flex flex-wrap items-start gap-x-8 gap-y-4 divide-ink-300">
+                <dl className="mt-8 grid grid-cols-3 gap-4">
                   {macroIndicators.map((m, i) => (
                     <div
                       key={m.label}
-                      className={i > 0 ? "border-ink-300/40 sm:border-l sm:pl-8" : ""}
+                      className={
+                        i > 0 ? "border-l border-ink-200 pl-4" : undefined
+                      }
                     >
                       <dt className="sr-only">{m.label}</dt>
-                      <dd
-                        className={
-                          m.emphasis
-                            ? "text-[28px] font-bold leading-tight text-white md:text-[40px]"
-                            : "text-[20px] font-bold leading-tight text-white md:text-[24px]"
-                        }
-                      >
+                      <dd className="text-[18px] font-bold leading-tight text-accent-500 md:text-[22px]">
                         {m.value}
                       </dd>
-                      <p
-                        className={
-                          m.emphasis
-                            ? "mt-1 text-[16px] font-bold text-white md:text-[24px]"
-                            : "mt-1 text-[14px] text-white/70"
-                        }
-                      >
+                      <p className="mt-1 text-[12px] text-ink-400 md:text-[13px]">
                         {m.label}
                       </p>
                     </div>
@@ -167,7 +147,6 @@ export default async function HomePage({
                 <div className="mt-auto pt-8">
                   <ButtonLink
                     href="/about/management-message"
-                    variant="accent"
                     size="lg"
                     className="w-full"
                   >

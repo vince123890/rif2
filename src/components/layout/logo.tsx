@@ -34,7 +34,7 @@ export function Logo({
         width={252}
         height={320}
         priority
-        className="h-11 w-auto shrink-0"
+        className="h-9 w-auto shrink-0 lg:h-10"
       />
 
       <span

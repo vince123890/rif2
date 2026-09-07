@@ -95,14 +95,14 @@ export function MainNav({
           <Link
             href="/"
             aria-label={brandName}
-            className="mr-4 shrink-0 lg:pl-2"
+            className="shrink-0 lg:pl-2"
           >
-            <Logo tone="light" wordmarkClassName="hidden" />
+            <Logo tone="light" wordmarkClassName="text-[15px] xl:text-[16px]" />
           </Link>
 
           {/* Desktop menu */}
           <nav aria-label="Main" className="hidden min-w-0 flex-1 lg:block">
-            <ul className="flex flex-nowrap items-center justify-end">
+            <ul className="flex flex-nowrap items-center justify-between">
             {desktopItems.map((item) => {
               const hasKids = !!item.children?.length;
               const expanded = open === item.key;
@@ -117,7 +117,7 @@ export function MainNav({
                       onClick={() => setOpen(expanded ? null : item.key)}
                       onMouseEnter={() => setOpen(item.key)}
                       className={cn(
-                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-medium transition-colors xl:px-2.5 xl:text-[14px]",
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium transition-colors xl:px-2 xl:text-[13.5px]",
                         isActive(item.href) || expanded
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -137,7 +137,7 @@ export function MainNav({
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "block whitespace-nowrap px-1.5 py-4 text-[13px] font-medium transition-colors xl:px-2.5 xl:text-[14px]",
+                        "block whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium transition-colors xl:px-2 xl:text-[13.5px]",
                         isActive(item.href)
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
