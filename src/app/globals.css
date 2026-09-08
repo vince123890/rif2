@@ -184,22 +184,23 @@
   }
 
   /*
-   * Blossom list — fig `Desktop - 9` sets the Mission points behind a 28px
-   * blossom rather than a disc, with the opening verb in accent orange and
-   * the rest in muted grey. Opt in with `prose-blossom` on the wrapper.
+   * Hex-marked list — fig `Desktop - 9` (`Group 119`) sets the Mission
+   * points behind a 28px six-sided mark: a solid #006F4F hexagon with three
+   * white hairlines nested inside it, not a disc. The opening verb is in
+   * accent orange and the rest in muted grey. Opt in with `prose-hex`.
    */
-  .prose-blossom ul {
+  .prose-hex ul {
     @apply list-none space-y-2.5 pl-0;
   }
-  .prose-blossom ul > li {
+  .prose-hex ul > li {
     @apply relative pl-10 text-ink-500;
   }
-  .prose-blossom ul > li::before {
+  .prose-hex ul > li::before {
     content: "";
     @apply absolute left-0 top-[0.15em] h-7 w-7 bg-contain bg-center bg-no-repeat;
-    background-image: url("/brand/resona-blossom.png");
+    background-image: url("/brand/bullet-hex.svg");
   }
-  .prose-blossom ul > li > strong {
+  .prose-hex ul > li > strong {
     @apply font-normal text-accent-500;
   }
   .prose-rif table {

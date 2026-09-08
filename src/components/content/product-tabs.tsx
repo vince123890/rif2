@@ -74,7 +74,7 @@ export function ProductTabs({ products }: { products: Product[] }) {
             {pick(product.summary, locale)}
           </h3>
 
-          {/* fig `Frame 113`: blossom bullets at 28px, 24px copy in green */}
+          {/* fig `Frame 113`: 28px hex marks, 24px copy in green */}
           <ul className="mt-6 space-y-2.5">
             {pickList(product.highlights, locale).map((item) => (
               <li
@@ -82,7 +82,7 @@ export function ProductTabs({ products }: { products: Product[] }) {
                 className="flex items-center gap-2.5 text-[18px] font-bold text-brand-600 md:text-[24px]"
               >
                 <Image
-                  src="/brand/resona-blossom.png"
+                  src="/brand/bullet-hex.svg"
                   alt=""
                   width={28}
                   height={28}

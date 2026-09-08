@@ -57,10 +57,10 @@ export default async function Page({
                 {pick(page.title, locale)}
               </h2>
               <div className="mt-6">
-                {/* fig: only the Mission list takes the blossom bullets */}
+                {/* fig: only the Mission list takes the hex bullets */}
                 <RichText
                   html={pick(page.body, locale)}
-                  className={page.key === "mission" ? "prose-blossom" : undefined}
+                  className={page.key === "mission" ? "prose-hex" : undefined}
                 />
               </div>
             </div>
