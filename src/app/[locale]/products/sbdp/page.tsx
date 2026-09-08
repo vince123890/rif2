@@ -1,9 +1,8 @@
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 
 import { getSbdpDocuments } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { DocumentList } from "@/components/content/document-list";
 
 const ROUTE = "/products/sbdp";
@@ -26,24 +25,12 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, documents] = await Promise.all([
-    getTranslations("nav"),
-    getSbdpDocuments(),
-  ]);
+  const documents = await getSbdpDocuments();
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("sbdp"), banner?.accentWords).accent}
-      title={splitTitle(tNav("sbdp"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-      crumbs={[{ label: tNav("products"), href: "/products" }]}
-    >
+    <InnerPage titleKey="sbdp" sectionKey="products" sectionHref="/products">
       <DocumentList documents={documents} groupByMonth />
-    </ContentPage>
+    </InnerPage>
   );
 }

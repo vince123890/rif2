@@ -3,8 +3,7 @@ import { ExternalLink, MapPin, Phone } from "lucide-react";
 
 import { site } from "@/config/site";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 
 const ROUTE = "/contact";
 
@@ -26,8 +25,7 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, t, tc] = await Promise.all([
-    getTranslations("nav"),
+  const [t, tc] = await Promise.all([
     getTranslations("contact"),
     getTranslations("common"),
   ]);
@@ -46,23 +44,25 @@ export default async function Page({
     },
   ];
 
-  const banner = getBanner(ROUTE, locale);
+
+  const channels = [
+    {
+      kind: t("verbal"),
+      note: t("verbalNote"),
+      ways: [t("byPhoneChannel"), t("byVisit")],
+    },
+    {
+      kind: t("written"),
+      note: t("writtenNote"),
+      ways: [t("byEmail"), t("byPost")],
+    },
+  ];
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("contact"), banner?.accentWords).accent}
-      title={splitTitle(tNav("contact"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-    >
+    <InnerPage titleKey="contact" sectionKey="home" sectionHref="/" heading={t("title")}>
       <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
         <div>
-          <h2 className="text-[30px] font-normal text-brand-600 md:text-[36px]">
-            {t("title")}
-          </h2>
-          <p className="mt-3 text-[16px] text-ink-700">{t("lead")}</p>
+          <p className="text-[16px] text-ink-700">{t("lead")}</p>
 
           <dl className="mt-8 space-y-6">
             <div className="flex gap-4">
@@ -142,6 +142,68 @@ export default async function Page({
           </a>
         </div>
       </div>
-    </ContentPage>
+
+      {/*
+       * FR-CT-06 — the complaint mechanism the existing site carries under
+       * the contact details: how a complaint may be raised, what a written
+       * one must include, and how far it can be escalated.
+       */}
+      <section className="mt-10 border-t border-ink-200 pt-10">
+        <h2 className="text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
+          {t("mechanismTitle")}
+        </h2>
+        <p className="mt-4 text-justify text-[15px] leading-[1.6] text-ink-500 md:text-[16px]">
+          {t("mechanismIntro")}
+        </p>
+
+        <h3 className="mt-8 text-[18px] font-bold text-ink-900 md:text-[20px]">
+          {t("channelsTitle")}
+        </h3>
+
+        <div className="mt-5 grid gap-5 md:grid-cols-2">
+          {channels.map((c) => (
+            <div
+              key={c.kind}
+              className="rounded-[16px] border border-brand-200 bg-brand-50 p-6"
+            >
+              <p className="text-[16px] font-bold text-brand-700">{c.kind}</p>
+              <p className="mt-1 text-[14px] leading-[1.5] text-ink-500">
+                {c.note}
+              </p>
+              <ul className="mt-4 space-y-2">
+                {c.ways.map((w) => (
+                  <li
+                    key={w}
+                    className="rounded-[10px] bg-white px-4 py-2.5 text-[14px] leading-[1.5] text-ink-700"
+                  >
+                    {w}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 rounded-[16px] bg-ink-100 p-6 md:p-8">
+          <p className="text-[16px] font-bold text-ink-900">{t("docsTitle")}</p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-[14px] leading-[1.6] text-ink-700 md:text-[15px]">
+            <li>{t("doc1")}</li>
+            <li>{t("doc2")}</li>
+            <li>{t("doc3")}</li>
+            <li>{t("doc4")}</li>
+            <li>{t("doc5")}</li>
+          </ul>
+        </div>
+
+        <h3 className="mt-10 text-[18px] font-bold text-ink-900 md:text-[20px]">
+          {t("flowTitle")}
+        </h3>
+        <ol className="mt-4 list-decimal space-y-3 rounded-[16px] bg-brand-50 p-6 pl-10 text-[14px] leading-[1.6] text-ink-700 md:p-8 md:pl-12 md:text-[15px]">
+          <li>{t("flow1")}</li>
+          <li>{t("flow2")}</li>
+          <li>{t("flow3")}</li>
+        </ol>
+      </section>
+    </InnerPage>
   );
 }

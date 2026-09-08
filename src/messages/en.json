@@ -66,7 +66,8 @@
     "previous": "Previous",
     "next": "Next",
     "viewMore": "View More",
-    "learnMore": "Learn More"
+    "learnMore": "Learn More",
+    "all": "All"
   },
   "home": {
     "heroTitle": "Beyond Finance,",
@@ -113,7 +114,28 @@
     "surveyIntro": "The Customer Complaint Handling Satisfaction Questionnaire can be accessed via the following link:",
     "surveyLink": "Customer Satisfaction Questionnaire",
     "formIntro": "Send us your enquiry through the following form:",
-    "formLink": "Contact Form"
+    "formLink": "Contact Form",
+    "mechanismTitle": "Customer Complaint Mechanism",
+    "mechanismIntro": "In accordance with Financial Services Authority regulations, PT Resona Indonesia Finance is required to inform customers of the complaint mechanism and to provide the means by which customers may raise complaints about the products and services it offers.",
+    "channelsTitle": "How to submit and handle a customer complaint",
+    "verbal": "Verbal",
+    "verbalNote": "Resolved within 5 working days of the complaint being received.",
+    "written": "Written",
+    "writtenNote": "Resolved within 10 working days of the complete documents being received.",
+    "byPhoneChannel": "Call the office at (021) 5701956",
+    "byVisit": "Visit the office of PT Resona Indonesia Finance",
+    "byEmail": "Email pengaduan@rif.co.id",
+    "byPost": "Send a letter to the office of PT Resona Indonesia Finance, delivered in person or by post",
+    "docsTitle": "A written complaint must be accompanied by the following documents:",
+    "doc1": "Identity of the lessee and/or their representative, together with a contact number;",
+    "doc2": "A special power of attorney (for a representative of the lessee);",
+    "doc3": "The type and date of the financial transaction;",
+    "doc4": "The matter complained of; and",
+    "doc5": "Documents directly related to the matter complained of (if any).",
+    "flowTitle": "Complaint submission and resolution flow",
+    "flow1": "PT Resona Indonesia Finance endeavours to resolve a complaint within a maximum of 10 working days.",
+    "flow2": "Where a complaint cannot be resolved within 10 working days, the customer will be informed that it will be resolved within the following 10 working days.",
+    "flow3": "Where the resolution does not satisfy the customer, the complaint may be taken further through facilitation or mediation by the Financial Services Authority (OJK) and/or resolved out of court through the Alternative Dispute Resolution Institution for the Financial Services Sector (LAPS SJK)."
   },
   "news": {
     "categories": "Categories",
@@ -169,5 +191,25 @@
   "csr": {
     "intro1": "In line with the spirit of sustainable finance, Financial Services Institutions have contributed to the initiative of Sustainable Development Goals and help overcome climate challenge through their activities, products and services. One of the Company’s approaches to fulfill duty is through Corporate Social Responsibility (“CSR”).",
     "intro2": "The Company’s CSR program aims to have a positive impact on the community and the environment, as well as establish a mutual benefit synergy among the stakeholders. Furthermore, the Company’s CSR activities aim to improve community welfare. This improvement is important because Company believes that the sustainable growth development can occur amid a prosperous society."
+  },
+  "gcg": {
+    "heroSubtitle": "How the Company keeps its business honest, transparent and accountable",
+    "antiFraud": "The Company's anti-fraud strategy sets out how fraud is prevented, detected, investigated and reported, covering every employee and every line of business. It rests on four pillars — prevention, detection, investigation and reporting, and monitoring and evaluation — so that risks are caught early and handled consistently.",
+    "integrityPact": "The integrity pact is a written commitment from management and staff to work honestly, avoid conflicts of interest, and refuse gratification in any form. It binds everyone involved in procurement and in dealings with customers and partners.",
+    "goodCorporateGovernance": "Good corporate governance at the Company follows the principles of transparency, accountability, responsibility, independence and fairness, applied through a clear division of duties between the Board of Commissioners, the Board of Directors and their supporting committees.",
+    "amlCft": "The Anti-Money Laundering and Counter-Terrorism Financing policy sets out customer due diligence, transaction monitoring and reporting duties in line with OJK regulations, so the Company is not used as a channel for unlawful funds."
+  },
+  "corporateSecretary": {
+    "heroSubtitle": "Reports, plans and disclosures the Company publishes for its stakeholders",
+    "sustainabilityReport": "The sustainability report sets out how the Company applies sustainable finance in its business — the programmes run through the year, their effect on the community and the environment, and the targets carried into the next period.",
+    "financialReport": "Audited financial statements for each reporting year, covering the balance sheet, income statement, cash flows and the accompanying notes, presented in line with prevailing accounting standards.",
+    "businessStrategy": "The Company's business strategy and future plan describe the direction of the financing business, the markets it serves, and the steps planned to grow soundly while keeping risk within appetite."
+  },
+  "productsSection": {
+    "heroSubtitle": "Financing facilities for investment, working capital and receivables",
+    "investmentFinancing": "Investment financing carried out through finance lease and sale and leaseback, so fixed-asset investment can go ahead without tying up working capital. Long tenors and flexible repayment let customers match instalments to their own cash flow.",
+    "workingCapital": "Working capital financing provided through business capital facility schemes, funding the day-to-day needs that keep operations running — from raw materials and inventory to receivables that have yet to be collected.",
+    "factoring": "Factoring turns trade receivables into cash ahead of their due date, easing the gap between delivery and payment so the business can keep trading without waiting out its own invoices.",
+    "sbdp": "The Basic Lending Rate (SBDP) published each month sets out the reference rate the Company uses for its financing facilities, in line with the Financial Services Authority's transparency requirements."
   }
 }

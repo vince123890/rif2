@@ -66,7 +66,8 @@
     "previous": "Sebelumnya",
     "next": "Berikutnya",
     "viewMore": "Lihat Selengkapnya",
-    "learnMore": "Selengkapnya"
+    "learnMore": "Selengkapnya",
+    "all": "Semua"
   },
   "home": {
     "heroTitle": "Beyond Finance,",
@@ -113,7 +114,28 @@
     "surveyIntro": "Angket Kepuasan Penanganan Pengaduan Nasabah dapat diakses melalui link berikut:",
     "surveyLink": "Angket Kepuasan Nasabah",
     "formIntro": "Sampaikan pertanyaan Anda melalui formulir berikut:",
-    "formLink": "Formulir Kontak"
+    "formLink": "Formulir Kontak",
+    "mechanismTitle": "Mekanisme Pengaduan Nasabah",
+    "mechanismIntro": "Sesuai Peraturan Otoritas Jasa Keuangan, PT Resona Indonesia Finance wajib menginformasikan mekanisme dan menyediakan media penanganan Pengaduan Nasabah yang dapat digunakan oleh Nasabah untuk menyampaikan Pengaduan terkait produk dan layanan yang dimiliki oleh PT Resona Indonesia Finance.",
+    "channelsTitle": "Cara Menyampaikan dan Penanganan Pengaduan Nasabah",
+    "verbal": "Lisan",
+    "verbalNote": "Selesai dalam waktu 5 hari kerja sejak Pengaduan diterima.",
+    "written": "Tertulis",
+    "writtenNote": "Selesai dalam waktu 10 hari kerja sejak dokumen lengkap diterima.",
+    "byPhoneChannel": "Telepon ke Kantor (021) 5701956",
+    "byVisit": "Datang ke Kantor PT Resona Indonesia Finance",
+    "byEmail": "eMail ke pengaduan@rif.co.id",
+    "byPost": "Surat menyurat ke Kantor PT Resona Indonesia Finance, diantar langsung atau melalui pos",
+    "docsTitle": "Pengaduan secara tertulis wajib dilengkapi dokumen sebagai berikut:",
+    "doc1": "Identitas Penerima Sewa dan/atau Perwakilan Penerima Sewa beserta nomor kontak yang bersangkutan;",
+    "doc2": "Surat Kuasa Khusus (bagi Perwakilan Penerima Sewa);",
+    "doc3": "Jenis dan Tanggal Transaksi Keuangan;",
+    "doc4": "Permasalahan yang diadukan; dan",
+    "doc5": "Dokumen yang berkaitan langsung dengan permasalahan yang diadukan (jika ada).",
+    "flowTitle": "Alur Penyampaian dan Penyelesaian Pengaduan Nasabah",
+    "flow1": "PT Resona Indonesia Finance mengupayakan penyelesaian Pengaduan dalam waktu maksimal 10 hari kerja.",
+    "flow2": "Apabila Pengaduan tidak dapat diselesaikan dalam waktu 10 hari kerja, Nasabah akan memperoleh informasi bahwa Pengaduannya akan segera diselesaikan dalam waktu 10 hari kerja berikutnya.",
+    "flow3": "Dalam hal penyelesaian Pengaduan belum memuaskan Nasabah, upaya penyelesaian Pengaduan dapat dilanjutkan melalui Fasilitasi/Mediasi oleh Otoritas Jasa Keuangan (OJK) dan/atau penyelesaian di luar pengadilan yaitu Lembaga Alternatif Penyelesaian Sengketa Sektor Jasa Keuangan (LAPS SJK)."
   },
   "news": {
     "categories": "Kategori",
@@ -169,5 +191,25 @@
   "csr": {
     "intro1": "Sejalan dengan semangat keuangan berkelanjutan, Lembaga Jasa Keuangan turut berkontribusi pada inisiatif Tujuan Pembangunan Berkelanjutan serta membantu mengatasi tantangan iklim melalui kegiatan, produk, dan layanannya. Salah satu upaya Perusahaan dalam memenuhi tanggung jawab tersebut adalah melalui Tanggung Jawab Sosial Perusahaan (“CSR”).",
     "intro2": "Program CSR Perusahaan bertujuan memberikan dampak positif bagi masyarakat dan lingkungan, sekaligus membangun sinergi yang saling menguntungkan di antara para pemangku kepentingan. Lebih jauh, kegiatan CSR Perusahaan ditujukan untuk meningkatkan kesejahteraan masyarakat. Peningkatan ini penting karena Perusahaan meyakini bahwa pembangunan yang tumbuh berkelanjutan dapat terjadi di tengah masyarakat yang sejahtera."
+  },
+  "gcg": {
+    "heroSubtitle": "Bagaimana Perusahaan menjaga usahanya tetap jujur, terbuka, dan dapat dipertanggungjawabkan",
+    "antiFraud": "Strategi anti-fraud Perusahaan mengatur cara kecurangan dicegah, dideteksi, diselidiki, dan dilaporkan, mencakup seluruh karyawan dan setiap lini usaha. Strategi ini bertumpu pada empat pilar — pencegahan, deteksi, investigasi dan pelaporan, serta pemantauan dan evaluasi — agar risiko terdeteksi sejak dini dan ditangani secara konsisten.",
+    "integrityPact": "Pakta integritas adalah komitmen tertulis dari manajemen dan karyawan untuk bekerja secara jujur, menghindari benturan kepentingan, dan menolak gratifikasi dalam bentuk apa pun. Pakta ini mengikat semua pihak yang terlibat dalam pengadaan maupun dalam hubungan dengan nasabah dan mitra.",
+    "goodCorporateGovernance": "Tata kelola perusahaan yang baik di Perusahaan berpedoman pada prinsip keterbukaan, akuntabilitas, tanggung jawab, independensi, dan kewajaran, yang diterapkan melalui pembagian tugas yang jelas antara Dewan Komisaris, Direksi, dan komite-komite pendukungnya.",
+    "amlCft": "Kebijakan Anti Pencucian Uang dan Pencegahan Pendanaan Terorisme mengatur uji tuntas nasabah, pemantauan transaksi, dan kewajiban pelaporan sesuai ketentuan OJK, sehingga Perusahaan tidak dimanfaatkan sebagai sarana aliran dana yang melawan hukum."
+  },
+  "corporateSecretary": {
+    "heroSubtitle": "Laporan, rencana, dan keterbukaan informasi yang Perusahaan terbitkan bagi para pemangku kepentingan",
+    "sustainabilityReport": "Laporan keberlanjutan memaparkan penerapan keuangan berkelanjutan dalam usaha Perusahaan — program yang dijalankan sepanjang tahun, dampaknya bagi masyarakat dan lingkungan, serta sasaran yang dibawa ke periode berikutnya.",
+    "financialReport": "Laporan keuangan yang telah diaudit untuk setiap tahun pelaporan, mencakup neraca, laporan laba rugi, arus kas, dan catatan atas laporan keuangan, disajikan sesuai standar akuntansi yang berlaku.",
+    "businessStrategy": "Strategi bisnis dan rencana masa depan Perusahaan menguraikan arah usaha pembiayaan, pasar yang dilayani, serta langkah yang direncanakan untuk tumbuh secara sehat dengan risiko yang terkendali."
+  },
+  "productsSection": {
+    "heroSubtitle": "Fasilitas pembiayaan untuk investasi, modal kerja, dan piutang usaha",
+    "investmentFinancing": "Pembiayaan investasi yang dilakukan melalui sewa pembiayaan serta jual dan sewa balik, sehingga investasi aset tetap dapat berjalan tanpa mengikat modal kerja. Jangka waktu yang panjang dan pembayaran yang fleksibel memungkinkan pelanggan menyesuaikan angsuran dengan arus kasnya.",
+    "workingCapital": "Pembiayaan modal kerja yang disediakan melalui skema Fasilitas Modal Usaha, membiayai kebutuhan sehari-hari yang menjaga operasional tetap berjalan — mulai dari bahan baku dan persediaan hingga piutang yang belum tertagih.",
+    "factoring": "Anjak piutang mengubah piutang usaha menjadi kas sebelum jatuh tempo, memperkecil jarak antara pengiriman dan pembayaran sehingga usaha dapat terus berjalan tanpa menunggu tagihannya sendiri.",
+    "sbdp": "Suku Bunga Dasar Pembiayaan (SBDP) yang diterbitkan setiap bulan memuat suku bunga acuan yang Perusahaan gunakan untuk fasilitas pembiayaannya, sesuai ketentuan keterbukaan dari Otoritas Jasa Keuangan."
   }
 }

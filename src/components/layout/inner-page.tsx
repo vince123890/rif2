@@ -20,12 +20,23 @@ export async function InnerPage({
   heading,
   /** Pass "\n" to force the fig's two-line banner break. */
   bannerTitle,
+  /**
+   * Section this page sits under, shown as the first crumb. Defaults to
+   * About Us, which is where the shell started.
+   */
+  sectionKey = "about",
+  sectionHref = "/about",
+  /** Rendered under the breadcrumb, e.g. a tab rail or a filter. */
+  toolbar,
   children,
   bare = false,
 }: {
   titleKey: string;
   heading?: string;
   bannerTitle?: string;
+  sectionKey?: string;
+  sectionHref?: string;
+  toolbar?: ReactNode;
   children: ReactNode;
   /** Skip the white panel for pages that draw their own cards. */
   bare?: boolean;
@@ -55,10 +66,12 @@ export async function InnerPage({
 
         <FigCrumbs
           crumbs={[
-            { label: tNav("about"), href: "/about" },
+            { label: tNav(sectionKey), href: sectionHref },
             { label },
           ]}
         />
+
+        {toolbar ? <div className="container-rif pt-6">{toolbar}</div> : null}
 
         <div className="container-rif pt-8">
           {bare ? (

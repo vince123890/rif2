@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 
 import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { RichText } from "@/components/ui/rich-text";
 import { DocumentActions } from "@/components/content/document-actions";
 
@@ -37,23 +36,12 @@ export default async function Page({
   const page = getStaticPage(PAGE_KEY);
   if (!page) notFound();
 
-  const tNav = await getTranslations("nav");
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(page.title, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(page.title, locale), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      crumbs={[
-    { label: tNav("gcg"), href: "/gcg/anti-fraud" },
-      ]}
-    >
+    <InnerPage titleKey="anti-fraud" sectionKey="gcg" sectionHref="/gcg">
       <RichText html={pick(page.body, locale)} />
       {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
-    </ContentPage>
+    </InnerPage>
   );
 }

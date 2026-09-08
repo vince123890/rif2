@@ -2,9 +2,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { getFinancialReports } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
-import { DocumentList } from "@/components/content/document-list";
+import { InnerPage } from "@/components/layout/inner-page";
+import { ReportGrid } from "@/components/content/report-grid";
 
 const ROUTE = "/corporate-secretary/financial-report";
 
@@ -31,24 +30,15 @@ export default async function Page({
     getFinancialReports(),
   ]);
 
-  const banner = getBanner(ROUTE, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("financial-report"), banner?.accentWords).accent}
-      title={splitTitle(tNav("financial-report"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-      crumbs={[
-        {
-          label: tNav("corporate-secretary"),
-          href: "/corporate-secretary/sustainability-report",
-        },
-      ]}
+    <InnerPage
+      titleKey="financial-report"
+      sectionKey="corporate-secretary"
+      sectionHref="/corporate-secretary"
+      bare
     >
-      <DocumentList documents={documents} />
-    </ContentPage>
+      <ReportGrid documents={documents} coverLabel={tNav("financial-report")} />
+    </InnerPage>
   );
 }

@@ -1,13 +1,12 @@
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { getTranslations, setRequestLocale } from "next-intl/server";
+import { setRequestLocale } from "next-intl/server";
 import { Check } from "lucide-react";
 
 import { getProduct, getProducts, pick, pickList } from "@/lib/content";
 import { routing } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { RichText } from "@/components/ui/rich-text";
 
 export async function generateStaticParams() {
@@ -47,20 +46,10 @@ export default async function Page({
   const product = await getProduct(slug);
   if (!product) notFound();
 
-  const tNav = await getTranslations("nav");
 
-  const banner = getBanner(`/products/${slug}`, locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(product.name, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(product.name, locale), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image ?? product.image}
-      route={`/products/${slug}`}
-      wide
-      crumbs={[{ label: tNav("products"), href: "/products" }]}
-    >
+    <InnerPage titleKey={product.slug} sectionKey="products" sectionHref="/products">
       <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-14">
         <div>
           <div className="relative aspect-4/3 overflow-hidden rounded-[16px] bg-ink-100">
@@ -97,6 +86,6 @@ export default async function Page({
           <RichText html={pick(product.body, locale)} className="mt-7" />
         </div>
       </div>
-    </ContentPage>
+    </InnerPage>
   );
 }

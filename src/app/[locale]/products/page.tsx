@@ -1,10 +1,7 @@
 import { getTranslations, setRequestLocale } from "next-intl/server";
 
-import { getProducts } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
-import { ProductTabs } from "@/components/content/product-tabs";
+import { SectionLanding, type LandingRow } from "@/components/layout/section-landing";
 
 const ROUTE = "/products";
 
@@ -17,6 +14,7 @@ export async function generateMetadata({
   return buildMetadata({ locale, titleKey: "products", path: ROUTE });
 }
 
+/** Product & Service landing — the About-Us shape from `Desktop - 8`. */
 export default async function Page({
   params,
 }: {
@@ -25,29 +23,43 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const [tNav, products] = await Promise.all([
+  const [tNav, t] = await Promise.all([
     getTranslations("nav"),
-    getProducts(),
+    getTranslations("productsSection"),
   ]);
 
-  const banner = getBanner(ROUTE, locale);
+  const rows: LandingRow[] = [
+    {
+      key: "investment-financing",
+      title: tNav("investment-financing"),
+      body: t("investmentFinancing"),
+      href: "/products/investment-financing",
+      images: ["/images/investment-growth.png"],
+    },
+    {
+      key: "working-capital",
+      title: tNav("working-capital"),
+      body: t("workingCapital"),
+      href: "/products/working-capital",
+      images: ["/images/financing-forklift.png", "/images/office-lounge.jpg"],
+    },
+    {
+      key: "factoring",
+      title: tNav("factoring"),
+      body: t("factoring"),
+      href: "/products/factoring",
+      images: ["/images/financing-truck.png"],
+    },
+    {
+      key: "sbdp",
+      title: tNav("sbdp"),
+      body: t("sbdp"),
+      href: "/products/sbdp",
+      images: ["/images/office-tower.jpg", "/images/team-laptop.jpg"],
+    },
+  ];
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(tNav("products"), banner?.accentWords).accent}
-      title={splitTitle(tNav("products"), banner?.accentWords).rest}
-      subtitle={banner?.subtitle}
-      image={banner?.image}
-      route={ROUTE}
-      wide
-    >
-      <p className="mb-8 text-[16px] text-ink-700">
-        PT Resona Indonesia Finance{" "}
-        {locale === "id"
-          ? "menyediakan Fasilitas Pembiayaan berupa:"
-          : "provides financing facilities in the form of:"}
-      </p>
-      <ProductTabs products={products} />
-    </ContentPage>
+    <SectionLanding titleKey="products" subtitle={t("heroSubtitle")} rows={rows} />
   );
 }
