@@ -58,7 +58,8 @@ export default async function Page({
             <Discs className="-right-16 -top-24" />
             <div className="relative">
               {/* fig `Frame 5`: 32px green section heading */}
-              <h2 className="text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
+              {/* fig `Frame 5`: a 5px green rule down the left of every heading */}
+              <h2 className="border-l-[5px] border-brand-600 pl-6 text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
                 {pick(page!.title, locale)}
               </h2>
               <div className="mt-6">

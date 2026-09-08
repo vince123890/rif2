@@ -1,14 +1,12 @@
-import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
 
 import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { Discs } from "@/components/content/journey-timeline";
 import { RichText } from "@/components/ui/rich-text";
-import { DocumentActions } from "@/components/content/document-actions";
 
-const PAGE_KEY = "vision-mission";
 const ROUTE = "/about/company-profile/vision-mission";
 
 export async function generateMetadata({
@@ -17,7 +15,7 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const page = getStaticPage(PAGE_KEY);
+  const page = getStaticPage("vision");
   return buildMetadata({
     locale,
     title: pick(page?.title, locale),
@@ -25,6 +23,13 @@ export async function generateMetadata({
   });
 }
 
+/**
+ * "Company Overview" — `Desktop - 9`.
+ *
+ * The fig gives Vision, Mission and Company At A Glance a white panel each
+ * rather than running them together under one heading, so this tab draws
+ * three cards.
+ */
 export default async function Page({
   params,
 }: {
@@ -33,15 +38,31 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const page = getStaticPage(PAGE_KEY);
-  if (!page) notFound();
-
-
+  const panels = ["vision", "mission", "at-a-glance"]
+    .map((key) => getStaticPage(key))
+    .filter((p) => p !== undefined);
 
   return (
-    <CompanyProfilePage route={ROUTE}>
-      <RichText html={pick(page.body, locale)} />
-      {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
+    <CompanyProfilePage route={ROUTE} bare>
+      <div className="space-y-6">
+        {panels.map((page) => (
+          <section
+            key={page.key}
+            className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12"
+          >
+            <Discs className="-right-16 -top-24" />
+            <div className="relative">
+              {/* fig `Frame 5`: 32px green heading behind a 5px green rule */}
+              <h2 className="border-l-[5px] border-brand-600 pl-6 text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
+                {pick(page.title, locale)}
+              </h2>
+              <div className="mt-6">
+                <RichText html={pick(page.body, locale)} />
+              </div>
+            </div>
+          </section>
+        ))}
+      </div>
     </CompanyProfilePage>
   );
 }

@@ -25,24 +25,27 @@ export const staticPages: Record<string, StaticPage> = {
     },
   },
 
-  "vision-mission": {
-    key: "vision-mission",
-    title: { id: "Visi dan Misi", en: "Vision and Mission" },
+  "vision": {
+    key: "vision",
+    title: { id: "Visi", en: "Vision" },
     body: {
-      id: `<h2>Visi</h2>
-<p>Menjadi Perusahaan Pembiayaan yang sehat dan memiliki daya saing.</p>
-<h2>Misi</h2>
-<ul>
+      id: `<p>Menjadi Perusahaan Pembiayaan yang sehat dan memiliki daya saing.</p>`,
+      en: `<p>To become a sound and competitive financing company.</p>`,
+    },
+  },
+
+  "mission": {
+    key: "mission",
+    title: { id: "Misi", en: "Mission" },
+    body: {
+      id: `<ul>
 <li>Menciptakan lingkungan kerja yang kondusif dan berdaya kreatif produktif bagi Sumber Daya Manusia RIF;</li>
 <li>Mengoptimalkan pelayanan prima kepada Nasabah;</li>
 <li>Menjunjung tinggi penerapan Tata Kelola Perusahaan yang baik dalam penyelenggaraan usaha;</li>
 <li>Memaksimalkan nilai RIF bagi seluruh Pemangku Kepentingan;</li>
-<li>Meningkatkan kontribusi RIF untuk pertumbuhan ekonomi nasional, langsung jawab sosial dan kelestarian lingkungan.</li>
+<li>Meningkatkan kontribusi RIF untuk pertumbuhan ekonomi nasional, tanggung jawab sosial dan kelestarian lingkungan.</li>
 </ul>`,
-      en: `<h2>Vision</h2>
-<p>To become a sound and competitive financing company.</p>
-<h2>Mission</h2>
-<ul>
+      en: `<ul>
 <li>Create a conducive working environment that is creative and productive for RIF's human resources;</li>
 <li>Optimise excellent service to customers;</li>
 <li>Uphold the implementation of good corporate governance in conducting business;</li>
