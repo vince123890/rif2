@@ -2,7 +2,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 
 import { getArticles, getProducts, pick } from "@/lib/content";
 import { visibleNavigation, type NavNode } from "@/config/navigation";
-import { PageHero } from "@/components/layout/page-hero";
+import { InnerPage } from "@/components/layout/inner-page";
 import { SearchClient, type SearchDoc } from "@/components/content/search-client";
 import { buildMetadata } from "@/lib/seo";
 
@@ -82,9 +82,17 @@ export default async function SearchPage({
   );
 
   return (
-    <>
-      <PageHero title={t("search")} image="/images/office-tower.jpg" />
+    /*
+     * Same shell as every other inner page: a full-bleed banner, a plain
+     * breadcrumb back to the homepage, then the results in the white panel.
+     */
+    <InnerPage
+      titleKey="search"
+      sectionKey="home"
+      sectionHref="/"
+      heading={t("search")}
+    >
       <SearchClient docs={unique} />
-    </>
+    </InnerPage>
   );
 }

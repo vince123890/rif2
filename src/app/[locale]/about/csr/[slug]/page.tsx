@@ -6,8 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { getCsrActivities, getCsrActivity, pick } from "@/lib/content";
 import { routing, Link } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { RichText } from "@/components/ui/rich-text";
 import { formatDate } from "@/lib/utils";
 
@@ -50,19 +49,13 @@ export default async function Page({
 
   const tNav = await getTranslations("nav");
 
-  const banner = getBanner("/about/csr", locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(item.title, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(item.title, locale), banner?.accentWords).rest}
-      subtitle={pick(item.summary, locale)}
+    <InnerPage
+      title={pick(item.title, locale)}
+      sectionKey="csr"
+      sectionHref="/about/csr"
       image={item.image}
-      route="/about/csr"
-      crumbs={[
-        { label: tNav("about"), href: "/about/management-message" },
-        { label: tNav("csr"), href: "/about/csr" },
-      ]}
     >
       <time dateTime={item.date} className="text-[14px] text-ink-500">
         {formatDate(item.date, locale)}
@@ -91,6 +84,6 @@ export default async function Page({
         <ArrowLeft className="h-4 w-4" aria-hidden />
         {tNav("csr")}
       </Link>
-    </ContentPage>
+    </InnerPage>
   );
 }

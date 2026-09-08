@@ -16,6 +16,7 @@ import { Discs } from "@/components/content/journey-timeline";
 export async function InnerPage({
   /** Route this page sits at, used for the breadcrumb's last crumb. */
   titleKey,
+  title,
   /** Heading above the body; defaults to the page title. */
   heading,
   /** Pass "\n" to force the fig's two-line banner break. */
@@ -28,28 +29,37 @@ export async function InnerPage({
   sectionHref = "/about",
   /** Rendered under the breadcrumb, e.g. a tab rail or a filter. */
   toolbar,
+  /** Banner photo; detail pages pass the article's own image. */
+  image = "/images/inner-hero.jpg",
   children,
   bare = false,
 }: {
-  titleKey: string;
+  /**
+   * Key under `nav.*`. Detail pages whose title is content rather than a
+   * menu entry pass `title` instead.
+   */
+  titleKey?: string;
+  /** Literal title, for detail pages. Wins over `titleKey`. */
+  title?: string;
   heading?: string;
   bannerTitle?: string;
   sectionKey?: string;
   sectionHref?: string;
   toolbar?: ReactNode;
+  image?: string;
   children: ReactNode;
   /** Skip the white panel for pages that draw their own cards. */
   bare?: boolean;
 }) {
   const tNav = await getTranslations("nav");
-  const label = tNav(titleKey);
+  const label = title ?? (titleKey ? tNav(titleKey) : "");
 
   return (
     <>
       <FigHero
         variant="bleed"
         title={bannerTitle ?? label}
-        image="/images/inner-hero.jpg"
+        image={image}
       />
 
       <div className="relative isolate bg-canvas pb-16 md:pb-24">

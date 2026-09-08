@@ -47,8 +47,8 @@ export function SearchClient({ docs }: { docs: SearchDoc[] }) {
   }, [docs, terms]);
 
   return (
-    <section className="bg-canvas py-20 md:py-24 lg:py-28">
-      <div className="container-rif max-w-3xl">
+    <div>
+      <div>
         <label htmlFor="site-search" className="sr-only">
           {t("search")}
         </label>
@@ -106,6 +106,6 @@ export function SearchClient({ docs }: { docs: SearchDoc[] }) {
           ))}
         </ul>
       </div>
-    </section>
+    </div>
   );
 }

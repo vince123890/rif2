@@ -7,8 +7,7 @@ import { getArticle, getArticles, pick } from "@/lib/content";
 import { routing, Link } from "@/i18n/routing";
 import { buildMetadata } from "@/lib/seo";
 import { site } from "@/config/site";
-import { getBanner, splitTitle } from "@/config/page-banners";
-import { ContentPage } from "@/components/layout/content-page";
+import { InnerPage } from "@/components/layout/inner-page";
 import { RichText } from "@/components/ui/rich-text";
 import { formatDate } from "@/lib/utils";
 
@@ -69,16 +68,13 @@ export default async function Page({
     publisher: { "@type": "Organization", name: site.name },
   };
 
-  const banner = getBanner("/news", locale);
 
   return (
-    <ContentPage
-      titleAccent={splitTitle(pick(article.title, locale), banner?.accentWords).accent}
-      title={splitTitle(pick(article.title, locale), banner?.accentWords).rest}
-      subtitle={pick(article.excerpt, locale)}
+    <InnerPage
+      title={pick(article.title, locale)}
+      sectionKey="news"
+      sectionHref="/news"
       image={article.image}
-      route="/news"
-      crumbs={[{ label: tNav("news"), href: "/news" }]}
     >
       <script
         type="application/ld+json"
@@ -127,6 +123,6 @@ export default async function Page({
         <ArrowLeft className="h-4 w-4" aria-hidden />
         {t("backToList")}
       </Link>
-    </ContentPage>
+    </InnerPage>
   );
 }
