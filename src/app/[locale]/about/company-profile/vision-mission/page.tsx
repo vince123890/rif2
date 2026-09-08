@@ -57,7 +57,11 @@ export default async function Page({
                 {pick(page.title, locale)}
               </h2>
               <div className="mt-6">
-                <RichText html={pick(page.body, locale)} />
+                {/* fig: only the Mission list takes the blossom bullets */}
+                <RichText
+                  html={pick(page.body, locale)}
+                  className={page.key === "mission" ? "prose-blossom" : undefined}
+                />
               </div>
             </div>
           </section>

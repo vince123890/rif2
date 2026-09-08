@@ -37,20 +37,25 @@ export const staticPages: Record<string, StaticPage> = {
   "mission": {
     key: "mission",
     title: { id: "Misi", en: "Mission" },
+    /*
+     * fig `Desktop - 9`: each point is a blossom bullet whose opening verb
+     * is set in #F58220 and the rest in #6E6E6E. `<strong>` carries that
+     * split so the copy stays one editable string.
+     */
     body: {
       id: `<ul>
-<li>Menciptakan lingkungan kerja yang kondusif dan berdaya kreatif produktif bagi Sumber Daya Manusia RIF;</li>
-<li>Mengoptimalkan pelayanan prima kepada Nasabah;</li>
-<li>Menjunjung tinggi penerapan Tata Kelola Perusahaan yang baik dalam penyelenggaraan usaha;</li>
-<li>Memaksimalkan nilai RIF bagi seluruh Pemangku Kepentingan;</li>
-<li>Meningkatkan kontribusi RIF untuk pertumbuhan ekonomi nasional, tanggung jawab sosial dan kelestarian lingkungan.</li>
+<li><strong>Menciptakan</strong> lingkungan kerja yang kondusif dan berdaya kreatif produktif bagi Sumber Daya Manusia RIF;</li>
+<li><strong>Mengoptimalkan</strong> pelayanan prima kepada Nasabah;</li>
+<li><strong>Menjunjung</strong> tinggi penerapan Tata Kelola Perusahaan yang baik dalam penyelenggaraan usaha;</li>
+<li><strong>Memaksimalkan</strong> nilai RIF bagi seluruh Pemangku Kepentingan;</li>
+<li><strong>Meningkatkan</strong> kontribusi RIF untuk pertumbuhan ekonomi nasional, tanggung jawab sosial dan kelestarian lingkungan.</li>
 </ul>`,
       en: `<ul>
-<li>Create a conducive working environment that is creative and productive for RIF's human resources;</li>
-<li>Optimise excellent service to customers;</li>
-<li>Uphold the implementation of good corporate governance in conducting business;</li>
-<li>Maximise RIF's value for all stakeholders;</li>
-<li>Increase RIF's contribution to national economic growth, social responsibility, and environmental sustainability.</li>
+<li><strong>Creating</strong> a conducive work environment and a productive creative culture for RIF Human Resources;</li>
+<li><strong>Upholding</strong> the implementation of good Corporate Governance in business operations;</li>
+<li><strong>Optimizing</strong> excellent service to Customers;</li>
+<li><strong>Maximizing</strong> RIF's value for all Stakeholders;</li>
+<li><strong>Increasing</strong> RIF's contribution to national economic growth, social responsibility and environmental sustainability.</li>
 </ul>`,
     },
   },
