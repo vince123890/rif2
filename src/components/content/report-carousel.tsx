@@ -236,7 +236,7 @@ export function ReportCarousel({
 
         <Link
           href={allHref}
-          className="ml-auto hidden items-center gap-2 text-[15px] font-bold text-brand-600 underline underline-offset-4 transition-colors hover:text-brand-700 sm:inline-flex"
+          className="ml-auto hidden items-center gap-2 text-[16px] font-bold text-brand-600 underline underline-offset-4 transition-colors hover:text-brand-700 sm:inline-flex"
         >
           {t("viewMore")}
           <ArrowRight className="h-4 w-4" aria-hidden />

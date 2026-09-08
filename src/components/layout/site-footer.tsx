@@ -99,7 +99,11 @@ export async function SiteFooter() {
         <div className="container-rif grid gap-12 py-16 lg:grid-cols-[415fr_538fr] lg:gap-24">
           {/* Brand, contact details, and the office map */}
           <div>
-            <Logo tone="light" />
+            {/* fig `Frame 175`: the footer wordmark is 32px Lato Regular */}
+            <Logo
+              tone="light"
+              wordmarkClassName="text-[22px] md:text-[32px]"
+            />
 
             {/* fig/capture: address and contact lines carry small outline icons */}
             <p className="mt-8 flex max-w-[420px] items-start gap-3 text-[15px] leading-[1.5] md:text-[16px]">

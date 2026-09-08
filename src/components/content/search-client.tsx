@@ -90,7 +90,7 @@ export function SearchClient({ docs }: { docs: SearchDoc[] }) {
                     {d.title}
                   </p>
                   {d.body ? (
-                    <p className="mt-1.5 line-clamp-2 text-[15px] text-ink-500">
+                    <p className="mt-1.5 line-clamp-2 text-[16px] text-ink-500">
                       {d.body}
                     </p>
                   ) : null}

@@ -39,7 +39,9 @@ export function Logo({
 
       <span
         className={cn(
-          "text-[19px] font-black leading-tight tracking-tight",
+          /* fig: the wordmark is Lato Regular — 16px in the header pill,
+             32px in the footer — never a black weight. */
+          "text-[19px] font-normal leading-tight tracking-tight",
           light ? "text-white" : "text-ink-900",
           wordmarkClassName,
         )}

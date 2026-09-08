@@ -67,7 +67,7 @@ export default async function Page({
             {pickList(product.highlights, locale).map((item) => (
               <li
                 key={item}
-                className="flex items-start gap-3 text-[15px] text-ink-700"
+                className="flex items-start gap-3 text-[16px] text-ink-700"
               >
                 <Check
                   className="mt-0.5 h-5 w-5 shrink-0 text-brand-600"

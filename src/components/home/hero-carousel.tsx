@@ -94,53 +94,43 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
        */}
       <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/60" />
 
-      <div className="container-rif relative flex min-h-[520px] flex-col justify-center pb-6 pt-28 md:min-h-[620px] lg:min-h-[660px] lg:pt-32">
-        <div key={slide.id} className="max-w-3xl animate-fade-up">
+      <div className="container-rif relative flex min-h-[520px] flex-col items-center justify-center pb-6 pt-28 text-center md:min-h-[620px] lg:min-h-[660px] lg:pt-32">
+        <div key={slide.id} className="animate-fade-up">
           {/*
-           * fig: the headline runs three colours — the opening clause in
-           * white, then one word in accent orange and the closing word in
-           * brand green. `title` / `titleAccent` in the content carry the
-           * first two parts; `titleTail` the green one.
+           * fig `Frame 74`: 864x216 centred, 96px SemiBold white on a
+           * 108px line box (-0.42px tracking). The multi-colour treatment
+           * this used to draw was ours — the design sets it all in white.
            */}
-          <h1 className="max-w-[900px] text-[36px] font-semibold leading-[1.08] tracking-[-0.02em] text-white md:text-[56px] lg:text-[76px] xl:text-[88px]">
+          <h1 className="mx-auto max-w-[864px] text-[36px] font-semibold leading-[1.125] tracking-[-0.42px] text-white md:text-[64px] lg:text-[96px]">
             {pick(slide.title, locale)}
-            {slide.titleAccent ? (
-              <>
-                {" "}
-                <span className="text-accent-500">
-                  {pick(slide.titleAccent, locale)}
-                </span>
-              </>
-            ) : null}
-            {slide.titleTail ? (
-              <>
-                {" "}
-                <span className="text-brand-600">
-                  {pick(slide.titleTail, locale)}
-                </span>
-              </>
-            ) : null}
+            {slide.titleAccent ? <> {pick(slide.titleAccent, locale)}</> : null}
+            {slide.titleTail ? <> {pick(slide.titleTail, locale)}</> : null}
           </h1>
 
-          {/* fig: 24px Bold white, set right under the headline block */}
-          <p className="mt-6 max-w-[679px] self-end text-[17px] font-bold leading-[1.45] text-white md:text-[24px] md:text-right">
+          {/*
+           * fig `Frame 73`: 679px wide, 24px Bold white on a 100% line
+           * box, centred under the headline.
+           */}
+          <p className="mx-auto mt-6 max-w-[679px] text-[17px] font-bold leading-[1.2] text-white md:text-[24px]">
             {pick(slide.lead, locale)}
           </p>
         </div>
       </div>
 
       {/*
-       * fig: the four financing types sit directly on the photo — no panel,
-       * no fill, just hairline rules between the columns. They double as the
-       * carousel's controls, which is why the hero carries no arrows or dots.
+       * fig `Frame 71`: the four financing types sit on a translucent
+       * panel — 1312x82, filled #0F0F0F at 5% with a 5px background blur,
+       * 16px gap, and 1px #D9D9D9 hairlines between the columns. They
+       * double as the carousel's controls, which is why the hero carries
+       * no arrows or dots.
        */}
       <div className="container-rif relative pb-14">
-        <ul className="grid grid-cols-2 gap-y-6 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-4 rounded-[12px] bg-[#0F0F0F]/5 p-3 backdrop-blur-[5px] lg:grid-cols-4 lg:gap-4 lg:px-3 lg:py-[17px]">
           {financingTypes.map((f, i) => (
             <li
               key={f.en}
               className={
-                i > 0 ? "lg:border-l lg:border-white/25" : undefined
+                i > 0 ? "lg:border-l lg:border-[#D9D9D9]" : undefined
               }
             >
               <button
@@ -149,7 +139,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 aria-current={i === index}
                 aria-label={locale === "id" ? f.id : f.en}
                 className={cn(
-                  "flex w-full items-start gap-3 px-2 text-left transition-opacity lg:px-6",
+                  "flex w-full items-start gap-1 px-2 text-left transition-opacity lg:px-6",
                   i === index ? "opacity-100" : "opacity-60 hover:opacity-90",
                 )}
               >

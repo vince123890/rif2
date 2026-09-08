@@ -72,14 +72,14 @@ export default async function Page({
         />
       </div>
 
-      <p className="mt-8 text-[17px] leading-relaxed text-ink-700">
+      <p className="mt-8 text-[16px] leading-relaxed text-ink-700">
         {pick(item.summary, locale)}
       </p>
       <RichText html={pick(item.body, locale)} className="mt-5" />
 
       <Link
         href="/about/csr"
-        className="mt-10 inline-flex items-center gap-2 text-[15px] font-medium text-brand-600 transition-colors hover:text-brand-700"
+        className="mt-10 inline-flex items-center gap-2 text-[16px] font-medium text-brand-600 transition-colors hover:text-brand-700"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden />
         {tNav("csr")}

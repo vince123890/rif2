@@ -44,7 +44,7 @@ export default async function Page({
           <p className="mt-4 text-[22px] font-normal text-ink-800">
             {t("notAvailable")}
           </p>
-          <p className="mx-auto mt-2 max-w-md text-[15px] text-ink-500">
+          <p className="mx-auto mt-2 max-w-md text-[16px] text-ink-500">
             {t("emptyState")}
           </p>
           <div className="mt-8">
@@ -94,7 +94,7 @@ export default async function Page({
                 </h4>
                 <RichText
                   html={pick(v.description, locale)}
-                  className="mt-2 text-[15px]"
+                  className="mt-2 text-[16px]"
                 />
 
                 {pickList(v.requirements, locale).length > 0 && (
@@ -102,7 +102,7 @@ export default async function Page({
                     <h4 className="mt-6 text-[16px] font-bold text-ink-900">
                       {t("requirements")}
                     </h4>
-                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-[15px] text-ink-700 marker:text-brand-400">
+                    <ul className="mt-2 list-disc space-y-1.5 pl-5 text-[16px] text-ink-700 marker:text-brand-400">
                       {pickList(v.requirements, locale).map((r) => (
                         <li key={r}>{r}</li>
                       ))}

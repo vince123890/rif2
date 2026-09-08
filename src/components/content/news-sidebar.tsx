@@ -32,7 +32,7 @@ export async function NewsSidebar({
 
   const rowCls = (active: boolean) =>
     cn(
-      "flex items-center justify-between gap-3 py-2 text-[15px] transition-colors",
+      "flex items-center justify-between gap-3 py-2 text-[16px] transition-colors",
       active ? "font-bold text-brand-600" : "text-ink-700 hover:text-brand-600",
     );
 

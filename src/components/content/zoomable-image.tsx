@@ -130,7 +130,7 @@ export function ZoomableImage({
         className="fixed inset-0 z-[80] flex flex-col gap-4 bg-ink-900/95 p-4 md:p-8"
       >
         <div className="flex items-center justify-between">
-          <p className="text-[15px] font-medium text-white">{alt}</p>
+          <p className="text-[16px] font-medium text-white">{alt}</p>
           {controls}
         </div>
         <div className="min-h-0 flex-1 overflow-auto">{canvas}</div>

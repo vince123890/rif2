@@ -144,9 +144,14 @@
 }
 
 @layer components {
-  /* 1440px frame with a 1240px content band (measured in the fig) */
+  /*
+   * 1440px frame with a 1312px content band: the fig insets every section
+   * 64px a side (1440 - 64x2), and the header/hero pill sits on the same
+   * band. Measured off the decoded node tree, where 64 is by far the most
+   * common child x-offset and 1312/1313 the most common child width.
+   */
   .container-rif {
-    @apply mx-auto w-full max-w-[1240px] px-5 sm:px-8 lg:px-10;
+    @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-16;
   }
 
   /*

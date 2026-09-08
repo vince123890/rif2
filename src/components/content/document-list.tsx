@@ -53,7 +53,7 @@ export function DocumentList({
       <div className="mb-10 flex flex-wrap items-center gap-3">
         <label
           htmlFor="year-filter"
-          className="text-[15px] font-medium text-ink-700"
+          className="text-[16px] font-medium text-ink-700"
         >
           {t("sortByYear")}
         </label>
@@ -63,7 +63,7 @@ export function DocumentList({
           onChange={(e) =>
             setYear(e.target.value === "all" ? "all" : Number(e.target.value))
           }
-          className="h-11 min-w-[180px] rounded-[12px] border border-ink-200 bg-white px-3 text-[15px] text-ink-800 transition-colors hover:border-brand-600 focus:border-brand-600"
+          className="h-11 min-w-[180px] rounded-[12px] border border-ink-200 bg-white px-3 text-[16px] text-ink-800 transition-colors hover:border-brand-600 focus:border-brand-600"
         >
           <option value="all">{t("allYears")}</option>
           {years.map((y) => (
@@ -92,7 +92,7 @@ export function DocumentList({
                         key={doc.id}
                         className="rounded-[12px] border border-ink-200 bg-white p-4 transition-shadow hover:shadow-md"
                       >
-                        <p className="text-[15px] font-bold text-ink-900">
+                        <p className="text-[16px] font-bold text-ink-900">
                           {doc.month ? monthName(doc.month) : pick(doc.title, locale)}
                         </p>
                         <p className="mt-0.5 text-[13px] text-ink-500">{y}</p>

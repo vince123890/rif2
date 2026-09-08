@@ -158,7 +158,7 @@ export function MainNav({
                          * `underline-offset` puts it clear of the descenders
                          * so it reads as a marker, not a text decoration.
                          */
-                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href) || expanded
                           ? "text-accent-300"
                           : "text-white hover:text-accent-300",
@@ -180,7 +180,7 @@ export function MainNav({
                       href={item.href}
                       onMouseEnter={() => setOpen(null)}
                       className={cn(
-                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[12.5px] font-medium underline-offset-[6px] transition-colors xl:px-2 xl:text-[13.5px]",
+                        "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href)
                           ? "text-accent-300 underline decoration-accent-300 decoration-2"
                           : "text-white hover:text-accent-300",
@@ -334,7 +334,7 @@ function MobileMenu({
                 <Link
                   href={item.href}
                   className={cn(
-                    "flex-1 py-3.5 text-[15px] font-medium",
+                    "flex-1 py-3.5 text-[16px] font-medium",
                     isActive(item.href)
                       ? "text-accent-300 underline decoration-accent-300 decoration-2 underline-offset-[6px]"
                       : "text-white",

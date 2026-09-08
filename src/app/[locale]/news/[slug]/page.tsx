@@ -118,7 +118,7 @@ export default async function Page({
 
       <Link
         href="/news"
-        className="mt-10 inline-flex items-center gap-2 text-[15px] font-medium text-brand-600 transition-colors hover:text-brand-700"
+        className="mt-10 inline-flex items-center gap-2 text-[16px] font-medium text-brand-600 transition-colors hover:text-brand-700"
       >
         <ArrowLeft className="h-4 w-4" aria-hidden />
         {t("backToList")}

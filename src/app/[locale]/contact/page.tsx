@@ -101,14 +101,14 @@ export default async function Page({
           <div className="mt-10 space-y-6 border-t border-ink-200 pt-8">
             {links.map((l) => (
               <div key={l.label}>
-                <p className="text-[15px] leading-relaxed text-ink-700">
+                <p className="text-[16px] leading-relaxed text-ink-700">
                   {l.intro}
                 </p>
                 <a
                   href={l.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-2 text-[15px] font-bold text-brand-600 underline underline-offset-4 transition-colors hover:text-brand-700"
+                  className="mt-2 inline-flex items-center gap-2 text-[16px] font-bold text-brand-600 underline underline-offset-4 transition-colors hover:text-brand-700"
                 >
                   {l.label}
                   <ExternalLink className="h-4 w-4" aria-hidden />
