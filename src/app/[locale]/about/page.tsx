@@ -155,7 +155,8 @@ export default async function AboutPage({
                    */
                   <div className="relative mx-auto aspect-[459/452] w-full max-w-[459px]">
                     {/* Rectangle 5 — 338x412, flush left, 9.1% down */}
-                    <div className="absolute left-0 top-[9.1%] h-[91.2%] w-[73.6%] overflow-hidden rounded-[9px]">
+                    {/* fig `Rectangle 5`: tilted -7deg */}
+                    <div className="absolute left-0 top-[9.1%] h-[91.2%] w-[73.6%] -rotate-[7deg] overflow-hidden rounded-[9px] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.45)]">
                       <Image
                         src={row.images[0]}
                         alt=""
@@ -165,7 +166,8 @@ export default async function AboutPage({
                       />
                     </div>
                     {/* Rectangle 6 — 222x271, overlapping the lower right */}
-                    <div className="absolute left-[52.3%] top-[32.5%] h-[60%] w-[48.4%] overflow-hidden rounded-[9px]">
+                    {/* fig `Rectangle 6`: tilted +10deg, overlapping */}
+                    <div className="absolute left-[52.3%] top-[32.5%] h-[60%] w-[48.4%] rotate-[10deg] overflow-hidden rounded-[9px] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.45)]">
                       <Image
                         src={row.images[1]}
                         alt=""
@@ -176,8 +178,12 @@ export default async function AboutPage({
                     </div>
                   </div>
                 ) : (
-                  /* fig `Rectangle 5`: a single 451x550 photo, radius 12 */
-                  <div className="relative mx-auto aspect-[451/550] w-full max-w-[451px] overflow-hidden rounded-[12px]">
+                  /*
+                   * fig `Rectangle 5`: a 451x550 photo tilted +7deg. It starts 46px
+                   * above its row, so it breaks the band edge, and clears the
+                   * bottom by 96px rather than filling the height.
+                   */
+                  <div className="relative z-10 mx-auto aspect-[451/550] w-full max-w-[451px] rotate-[7deg] overflow-hidden rounded-[12px] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.45)] lg:-mt-[46px] lg:mb-[96px]">
                     <Image
                       src={row.images[0]}
                       alt=""
