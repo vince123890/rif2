@@ -89,11 +89,36 @@
     "financialTitle": "Laporan Keuangan",
     "macroGdp": "Pertumbuhan PDB",
     "macroInflation": "Inflasi",
-    "macroTrade": "Surplus Perdagangan"
+    "macroTrade": "Surplus Perdagangan",
+    "heroLead": "Bank Perdania resmi beroperasi di Jakarta, Indonesia berdasarkan Surat Keputusan Menteri Keuangan Republik Indonesia.",
+    "productsEyebrow": "PRODUK & LAYANAN",
+    "productsHeading": "Solusi & Kapabilitas Kami",
+    "managementEyebrow": "SAMBUTAN MANAGEMENT",
+    "managementHeading": "Pesan dari Pimpinan",
+    "managementSalutation": "Para Pemegang Saham dan Pemangku Kepentingan yang terhormat,",
+    "managementCta": "Baca Selengkapnya",
+    "reportsEyebrow": "LAPORAN TAHUNAN",
+    "reportsHeading": "Transparansi Kinerja",
+    "tabSustainability": "Laporan Keberlanjutan",
+    "tabFinancial": "Laporan Keuangan",
+    "newsEyebrow": "BERITA & INFORMASI",
+    "newsHeading": "Berita Terkini",
+    "seeMore": "Lihat Lainnya",
+    "prevSlide": "Slide sebelumnya",
+    "nextSlide": "Slide berikutnya"
   },
   "footer": {
     "ojk": "PT Resona Indonesia Finance berizin dan diawasi oleh Otoritas Jasa Keuangan (OJK)",
-    "rights": "PT Resona Indonesia Finance. All Rights Reserved."
+    "rights": "PT Resona Indonesia Finance. All Rights Reserved.",
+    "colAbout": "ABOUT PERDANIA",
+    "colProduct": "PRODUCT & SERVICE",
+    "colInvestor": "INVESTOR RELATIONS",
+    "colGcg": "GCG",
+    "phoneLabel": "Phone Number",
+    "faxLabel": "Fax Number",
+    "customerReport": "Customer Report",
+    "customerQuestionnaire": "Customer Questionnaire",
+    "legalBlurb": "PT Resona Indonesia Finance didirikan pada tanggal 15 Agustus 1984 berdasarkan akta No. 157 tanggal 15 Agustus 1984 yang dibuat dihadapan Lieyono, S.H., sebagai pengganti dari Musjaffak yang merupakan pengganti dari Misahardi Wilamarta S.H., notaris di Jakarta. PT Resona Indonesia Finance tergabung dalam kelompok Resona Grup."
   },
   "careers": {
     "title": "Lowongan Tersedia",

@@ -24,70 +24,68 @@ export type Crumb = { label: string; href?: string };
 export function FigHero({
   title,
   subtitle,
-  variant = "bleed",
-  image = "/images/inner-hero.jpg",
+  image = "/fig/menu-hero.png",
 }: {
-  /** Rendered as-is; pass "\n" to force the fig's two-line break. */
+  /** Rendered as-is; pass "\n" to force a hard break. */
   title: string;
   subtitle?: string;
-  variant?: "card" | "bleed";
   image?: string;
+  /**
+   * Kept for callers that still pass it; the fig now draws one banner for
+   * every inner page, so the variant no longer changes anything.
+   */
+  variant?: "card" | "bleed";
 }) {
-  const photo = (
-    <>
-      <Image
-        src={image}
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-      {/* fig: #0F0F0F at 80% — a flat wash, not a gradient */}
-      <div aria-hidden className="absolute inset-0 bg-[#0F0F0F]/80" />
-    </>
-  );
-
-  if (variant === "card") {
-    return (
-      /* Photo runs to the top of the page with the nav floating over it. */
-      <section className="bg-canvas">
-        <div className="relative isolate overflow-hidden">
-          {photo}
-          <div className="relative flex min-h-[380px] flex-col items-center justify-center px-6 py-20 pt-32 text-center md:min-h-[520px] lg:min-h-[668px] lg:pt-40">
-            <h1 className="max-w-[900px] text-[44px] font-bold leading-[1.12] text-white md:text-[68px] lg:text-[96px]">
-              {title}
-            </h1>
-            {subtitle ? (
-              <p className="mt-6 max-w-[679px] text-[16px] font-bold leading-[1.2] text-white md:text-[20px] lg:text-[24px]">
-                {subtitle}
-              </p>
-            ) : null}
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
     /*
-     * fig `Desktop - 5`: a full-bleed 1440x600 band that runs to the top of
-     * the page with the nav pill floating over it — the same treatment the
-     * homepage hero gets, so the two read as one system. The band's own
-     * top padding keeps the title clear of the pill.
+     * fig `list menu` / `Rectangle 108`: a flat 1440×800 #037756 band that
+     * runs to the top of the page with the nav pill floating over it, with
+     * an oversized pale blossom bleeding out of the left edge.
+     *
+     *   - `Group 168`  : 60px Lato Bold title at (80, 190), 20px lead at
+     *                    x=675 on the same row
+     *   - `Mask group` : a 1280×368 photo card at (80, 352), radius 32
      */
-    <section className="relative isolate">
-      {photo}
-      <div className="container-rif relative flex min-h-[380px] flex-col justify-center py-20 pt-32 md:min-h-[480px] lg:min-h-[600px] lg:pt-40">
-        {/* fig: orange, left-aligned, hard line break kept from the design */}
-        <h1 className="whitespace-pre-line text-[44px] font-bold leading-[1.12] text-accent-500 md:text-[68px] lg:text-[96px]">
-          {title}
-        </h1>
-        {subtitle ? (
-          <p className="mt-6 max-w-[679px] text-[16px] font-bold leading-[1.2] text-white md:text-[24px]">
-            {subtitle}
-          </p>
-        ) : null}
+    <section className="relative isolate overflow-hidden bg-[#037756]">
+      {/* fig `Group 30`: a 1262px blossom in #F1F5F5, off the left edge */}
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -left-[26%] -top-[62%] block h-[1262px] w-[1262px] bg-[#F1F5F5] opacity-[0.10]"
+        style={{
+          WebkitMaskImage: "url(/brand/resona-blossom.png)",
+          maskImage: "url(/brand/resona-blossom.png)",
+          WebkitMaskSize: "contain",
+          maskSize: "contain",
+          WebkitMaskRepeat: "no-repeat",
+          maskRepeat: "no-repeat",
+        }}
+      />
+
+      <div className="relative mx-auto w-full max-w-[1440px] px-5 pb-12 pt-[150px] sm:px-8 lg:px-20 lg:pb-[80px] lg:pt-[190px]">
+        {/* fig `Group 168`: title left, lead right, on one 1280px row */}
+        <div className="grid gap-6 lg:grid-cols-[590fr_605fr] lg:items-start lg:gap-[85px]">
+          <h1 className="whitespace-pre-line text-[36px] font-bold leading-none text-white md:text-[48px] lg:text-[60px]">
+            {title}
+          </h1>
+
+          {subtitle ? (
+            <p className="max-w-[605px] text-[16px] leading-[1.5] text-white md:text-[20px]">
+              {subtitle}
+            </p>
+          ) : null}
+        </div>
+
+        {/* fig `Mask group`: the 1280×368 photo card, radius 32 */}
+        <div className="relative mt-10 aspect-[1280/368] w-full overflow-hidden rounded-[32px] lg:mt-[50px]">
+          <Image
+            src={image}
+            alt=""
+            fill
+            priority
+            sizes="(min-width: 1024px) 1280px, 100vw"
+            className="object-cover"
+          />
+        </div>
       </div>
     </section>
   );

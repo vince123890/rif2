@@ -89,11 +89,36 @@
     "financialTitle": "Financial Report",
     "macroGdp": "GDP Growth",
     "macroInflation": "Inflation",
-    "macroTrade": "Trade Surplus"
+    "macroTrade": "Trade Surplus",
+    "heroLead": "Bank Perdania officially commenced operations in Jakarta, Indonesia under the Decree of the Minister of Finance of the Republic of Indonesia.",
+    "productsEyebrow": "PRODUCTS & SERVICES",
+    "productsHeading": "Our Solutions & Capabilities",
+    "managementEyebrow": "MESSAGE FROM MANAGEMENT",
+    "managementHeading": "Message from the Leadership",
+    "managementSalutation": "Dear respected Shareholders and Stakeholders,",
+    "managementCta": "Read More",
+    "reportsEyebrow": "ANNUAL REPORTS",
+    "reportsHeading": "Performance Transparency",
+    "tabSustainability": "Sustainability Report",
+    "tabFinancial": "Financial Report",
+    "newsEyebrow": "NEWS & INFORMATION",
+    "newsHeading": "Latest News",
+    "seeMore": "See More",
+    "prevSlide": "Previous slide",
+    "nextSlide": "Next slide"
   },
   "footer": {
     "ojk": "PT Resona Indonesia Finance is licensed and supervised by the Indonesia Financial Services Authority (OJK)",
-    "rights": "PT Resona Indonesia Finance. All Rights Reserved."
+    "rights": "PT Resona Indonesia Finance. All Rights Reserved.",
+    "colAbout": "ABOUT PERDANIA",
+    "colProduct": "PRODUCT & SERVICE",
+    "colInvestor": "INVESTOR RELATIONS",
+    "colGcg": "GCG",
+    "phoneLabel": "Phone Number",
+    "faxLabel": "Fax Number",
+    "customerReport": "Customer Report",
+    "customerQuestionnaire": "Customer Questionnaire",
+    "legalBlurb": "PT Resona Indonesia Finance was established on 15 August 1984 under deed No. 157 of 15 August 1984, drawn up before Lieyono, S.H., substituting for Musjaffak, himself substituting for Misahardi Wilamarta S.H., notary in Jakarta. PT Resona Indonesia Finance is part of the Resona Group."
   },
   "careers": {
     "title": "Available Jobs",

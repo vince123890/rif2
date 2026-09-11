@@ -81,6 +81,15 @@ export function MainNav({
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   /*
+   * The pill is translucent over the dark hero and solid white once the
+   * page scrolls, so the labels have to flip with it. Below lg the bar is
+   * still the solid green drawer header, where white always applies.
+   */
+  const linkTone = scrolled
+    ? "text-white lg:text-ink-900 lg:hover:text-brand-600"
+    : "text-white hover:text-accent-300";
+
+  /*
    * The fig's rail opens straight on "About Us" — the brand lockup is the
    * home link there — but RIF asked for an explicit Home entry, so the
    * desktop rail now shows the list whole.
@@ -103,30 +112,37 @@ export function MainNav({
        * banner. The negative margin pulls the following content back up by
        * the pill's height so the overlay effect is preserved.
        */
-      className="lg:sticky lg:top-6 lg:z-50 lg:-mb-[96px] lg:bg-transparent"
+      className="lg:sticky lg:top-10 lg:z-50 lg:-mb-[120px] lg:bg-transparent"
     >
       <div
         /*
-         * fig `Frame 58`: the pill is 1416 wide inset 12px from the 1440
-         * frame — the same box as the banner beneath it, so the two line
-         * up. It is wider than `container-rif`, hence its own max-width.
+         * fig `Frame 4`: a 1360×80 pill inset 40px from the 1440 frame, at
+         * radius 24, filled #FFFFFF with a 10px background blur — a light
+         * bar floating over the dark hero, not the solid green one the
+         * previous design used.
+         *
+         * It stays translucent at the top of the page so the hero photo
+         * reads through it, and turns opaque once the page scrolls and
+         * lighter content passes underneath.
          */
         className={cn(
-          "shadow-sm transition-colors duration-300 lg:mx-auto lg:w-[calc(100%-2rem)] lg:max-w-[1416px] lg:rounded-[36px] lg:px-6 lg:shadow-lg",
-          /* EXPERIMENT: see the `scrolled` note above. */
+          "transition-colors duration-300 lg:mx-auto lg:w-[calc(100%-5rem)] lg:max-w-[1360px] lg:rounded-[24px] lg:px-6 lg:backdrop-blur-[10px]",
           scrolled
-            ? "bg-brand-600 lg:bg-brand-600"
-            : "bg-brand-600 lg:bg-transparent lg:shadow-none",
+            ? "bg-brand-600 lg:bg-white lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
+            : "bg-brand-600 lg:bg-white/10 lg:shadow-none lg:ring-1 lg:ring-white/20",
         )}
       >
-        <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-[72px] lg:flex-nowrap lg:gap-5 lg:px-0">
+        <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-20 lg:flex-nowrap lg:gap-5 lg:px-0">
           {/* Brand lockup — inside the pill on desktop, per the fig */}
           <Link
             href="/"
             aria-label={brandName}
             className="shrink-0 lg:pl-2"
           >
-            <Logo tone="light" wordmarkClassName="text-[15px] xl:text-[16px]" />
+            <Logo
+              tone={scrolled ? "dark" : "light"}
+              wordmarkClassName="text-[15px] xl:text-[16px]"
+            />
           </Link>
 
           {/* Desktop menu */}
@@ -160,10 +176,10 @@ export function MainNav({
                          */
                         "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href) || expanded
-                          ? "text-accent-300"
-                          : "text-white hover:text-accent-300",
+                          ? "text-accent-500"
+                          : linkTone,
                         isActive(item.href) &&
-                          "underline decoration-accent-300 decoration-2",
+                          "underline decoration-accent-500 decoration-2",
                       )}
                     >
                       {item.label}
@@ -182,8 +198,8 @@ export function MainNav({
                       className={cn(
                         "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href)
-                          ? "text-accent-300 underline decoration-accent-300 decoration-2"
-                          : "text-white hover:text-accent-300",
+                          ? "text-accent-500 underline decoration-accent-500 decoration-2"
+                          : linkTone,
                       )}
                     >
                       {item.label}
@@ -224,7 +240,12 @@ export function MainNav({
             <Link
               href="/search"
               aria-label={t("search")}
-              className="grid h-11 w-11 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
+              className={cn(
+                "grid h-11 w-11 place-items-center rounded-full transition-colors",
+                scrolled
+                  ? "text-ink-900 hover:bg-black/5 lg:text-ink-900"
+                  : "text-white hover:bg-white/10",
+              )}
             >
               <Search className="h-5 w-5" aria-hidden />
             </Link>
