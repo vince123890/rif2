@@ -1,148 +1,119 @@
-"use client";
-
-import { useMemo, useState } from "react";
 import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 
 import { milestones } from "@/lib/content/milestones";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * "Our Journey" — `Frame 203` in `Desktop - 10`.
+ * Company history — the `history` frame in the fig.
  *
- * A white card (r=24) holding three columns: a rail of years down the left
- * that selects the entry, the entry's month/year/body in the middle, and a
- * 550x536 photo (r=24) on the right. Picking a year scrolls the story to
- * the first milestone of that year, which is what the fig's "Scroll to
- * Explore" disc hints at.
+ * A single rail runs down the centre of the 1440 frame at x=717 (2px wide)
+ * with six entries hung off it, alternating side on a ~446px rhythm:
+ *
+ *   odd  entries — photo left (x=125), copy right (x=781)
+ *   even entries — copy left (x=80), photo right (x=781)
+ *
+ * Each entry carries a 46×46 node on the rail, a 32px Lato Bold date, a
+ * 20px #6E6E6E body and a 530×350 photo at radius 32. `Group 180…185` is
+ * the short dash linking the node to its date.
+ *
+ * Rendered server-side: the fig's timeline is static, so unlike the old
+ * year-picker version there is nothing here that needs client JS.
  */
-export function JourneyTimeline({ image }: { image: string }) {
-  const locale = useLocale();
-  const t = useTranslations("companyProfile");
-  const [active, setActive] = useState(0);
+export async function JourneyTimeline({ image }: { image: string }) {
+  const locale = await getLocale();
 
-  /* fig `Frame 206`: the rail lists each distinct year once. */
-  const years = useMemo(() => {
-    const seen = new Map<string, number>();
-    milestones.forEach((m, i) => {
-      if (!seen.has(m.year)) seen.set(m.year, i);
-    });
-    return [...seen.entries()];
-  }, []);
-
-  const current = milestones[active];
-  const activeYear = current.year;
+  /* The fig repeats one photo down the rail; callers may pass their own. */
+  const photos = [image, "/fig/history-1.jpg"];
 
   return (
-    <div className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-8 lg:p-10">
-      {/* fig `Frame 8`: three nested discs bleeding off the top-right */}
-      <Discs className="-right-16 -top-24" />
+    <div className="relative">
+      {/*
+       * fig `Container`: a 2px rail down the centre. Hidden below lg,
+       * where the entries stack into one column and a centre rail would
+       * have nothing to sit between.
+       */}
+      <div
+        aria-hidden
+        className="absolute inset-y-0 left-1/2 hidden w-0.5 -translate-x-1/2 bg-brand-600/20 lg:block"
+      />
 
-      <div className="relative grid items-center gap-8 lg:grid-cols-[56px_450fr_550fr] lg:gap-10">
-        {/*
-         * Year rail — fig `Frame 206`: a 56px column of 18px years on a
-         * 32px rhythm, centred against the card rather than pinned to its
-         * top. The years are a legend for the story beside them, so they
-         * stay much smaller than the headline year.
-         */}
-        <ul className="flex items-center gap-4 overflow-x-auto lg:flex-col lg:items-start lg:justify-center lg:gap-0 lg:overflow-visible">
-          {years.map(([year, index]) => (
-            <li key={year} className="lg:leading-[32px]">
-              <button
-                type="button"
-                onClick={() => setActive(index)}
-                aria-current={year === activeYear}
+      <ol className="space-y-12 lg:space-y-0">
+        {milestones.map((m, i) => {
+          /* fig: the first entry puts its photo on the left. */
+          const photoLeft = i % 2 === 0;
+          const date = `${m.month[locale as "id" | "en"] ?? m.month.id} ${m.year}`;
+
+          return (
+            <li
+              key={`${m.year}-${m.month.id}`}
+              className="relative lg:grid lg:grid-cols-2 lg:gap-x-[126px] lg:pb-[96px]"
+            >
+              {/* fig `Frame 109`: the 46px node centred on the rail */}
+              <span
+                aria-hidden
+                className="absolute left-1/2 top-2 hidden h-[46px] w-[46px] -translate-x-1/2 place-items-center rounded-full border-4 border-white bg-brand-600 shadow-[0_0_0_4px_rgba(0,111,79,0.12)] lg:grid"
+              >
+                <span className="h-3 w-3 rounded-full bg-white" />
+              </span>
+
+              {/* Photo — fig `Mask group`, 530×350 at radius 32 */}
+              <Reveal
                 className={cn(
-                  "text-[16px] font-bold leading-[1.1] transition-colors md:text-[18px]",
-                  year === activeYear
-                    ? "text-ink-900"
-                    : "text-ink-500 hover:text-ink-700",
+                  photoLeft ? "lg:col-start-1" : "lg:col-start-2 lg:row-start-1",
                 )}
               >
-                {year}
-              </button>
-            </li>
-          ))}
-        </ul>
+                <div
+                  className={cn(
+                    "relative aspect-[530/350] w-full overflow-hidden rounded-[32px]",
+                    "lg:max-w-[530px]",
+                    photoLeft ? "lg:ml-auto" : "lg:mr-auto",
+                  )}
+                >
+                  <Image
+                    src={photos[i % photos.length]}
+                    alt=""
+                    fill
+                    sizes="(min-width: 1024px) 530px, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+              </Reveal>
 
-        {/*
-         * Story — fig `Frame 203`. The frame data sets month and year in
-         * near-black, but the rendered design RIF supplied colours the
-         * month orange and the year brand green, which is what we follow.
-         */}
-        <div className="flex flex-col justify-center">
-          <p className="text-[20px] font-bold leading-[1.2] text-accent-500 md:text-[24px]">
-            {current.month[locale === "id" ? "id" : "en"]}
-          </p>
-          <p className="text-[44px] font-bold leading-[1.1] text-brand-600 md:text-[64px]">
-            {current.year}
-          </p>
-          <p className="mt-4 max-w-[350px] text-[15px] leading-[1.6] text-ink-700 md:text-[16px]">
-            {current.body[locale === "id" ? "id" : "en"]}
-          </p>
-
-          {/* Step through the milestones within (and across) the years */}
-          <div className="mt-8 flex items-center gap-3">
-            {milestones.map((m, i) => (
-              <button
-                key={`${m.year}-${i}`}
-                type="button"
-                onClick={() => setActive(i)}
-                aria-label={`${m.month[locale === "id" ? "id" : "en"]} ${m.year}`}
-                aria-current={i === active}
+              {/* Copy — fig: 32px date over a 20px body */}
+              <Reveal
+                delay={110}
                 className={cn(
-                  "h-2.5 rounded-full transition-all",
-                  i === active ? "w-8 bg-brand-600" : "w-2.5 bg-brand-200",
+                  "mt-6 lg:mt-0 lg:self-center",
+                  photoLeft ? "lg:col-start-2" : "lg:col-start-1 lg:row-start-1",
                 )}
-              />
-            ))}
-          </div>
-        </div>
+              >
+                <div
+                  className={cn(
+                    "lg:max-w-[580px]",
+                    photoLeft ? "lg:mr-auto" : "lg:ml-auto",
+                  )}
+                >
+                  <p className="text-[24px] font-bold leading-[1.2] text-ink-900 md:text-[32px]">
+                    {date}
+                  </p>
 
-        {/* Photo — fig `Frame 204`: 550x536, radius 24 */}
-        <div className="relative">
-          <div className="relative aspect-[550/536] overflow-hidden rounded-[24px] bg-ink-100">
-            <Image
-              src={image}
-              alt=""
-              fill
-              sizes="(min-width: 1024px) 42vw, 100vw"
-              className="object-cover"
-            />
-          </div>
+                  {/* fig `Group 180`: a short dash under the date */}
+                  <span
+                    aria-hidden
+                    className="mt-3 block h-1 w-[91px] rounded-full bg-accent-500"
+                  />
 
-          {/*
-           * fig `Frame 208`: a 150px green disc straddling the photo's
-           * right edge. It labels the gesture rather than performing it —
-           * the year rail and the dots are what actually move the story.
-           */}
-          <div
-            aria-hidden
-            className="absolute -right-6 top-1/2 hidden h-[150px] w-[150px] -translate-y-1/2 place-items-center whitespace-pre-line rounded-full bg-brand-600 text-center text-[16px] font-bold leading-[1.2] text-white lg:grid"
-          >
-            {t("scrollToExplore")}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/**
- * fig `Frame 8` — 219/164/110px discs in the three lightest greens, used as
- * a corner ornament on every Company Profile panel.
- */
-export function Discs({ className }: { className?: string }) {
-  return (
-    <div
-      aria-hidden
-      className={cn("pointer-events-none absolute hidden lg:block", className)}
-    >
-      <div className="relative h-[219px] w-[219px] rounded-full bg-brand-50">
-        <div className="absolute left-[27px] top-[27px] h-[164px] w-[164px] rounded-full bg-brand-100">
-          <div className="absolute left-[27px] top-[27px] h-[110px] w-[110px] rounded-full bg-brand-200" />
-        </div>
-      </div>
+                  <p className="mt-5 text-[16px] leading-[1.5] text-ink-500 md:text-[20px]">
+                    {m.body[locale as "id" | "en"] ?? m.body.id}
+                  </p>
+                </div>
+              </Reveal>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }
