@@ -81,13 +81,33 @@ export function MainNav({
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   /*
-   * The pill is translucent over the dark hero and solid white once the
-   * page scrolls, so the labels have to flip with it. Below lg the bar is
-   * still the solid green drawer header, where white always applies.
+   * fig draws the pill two ways, and which one a page gets depends on the
+   * banner underneath it:
+   *
+   *   white (`Frame 4` on `home page`, `Frame 87` on `list menu`) — over
+   *         the dark hero photo and the green section banner, where a
+   *         light bar reads as a floating panel.
+   *   green (`Frame 4` on `detail`/`award`/`news`/`list doc`/`history`/
+   *         `manajemen`) — over the cream #F8F3EF banner, where a white
+   *         pill would disappear into the ground.
+   *
+   * Section landings (`/about`, `/products`, …) carry the green banner, so
+   * they take the white pill; everything deeper sits on cream.
    */
-  const linkTone = scrolled
-    ? "text-white lg:text-ink-900 lg:hover:text-brand-600"
-    : "text-white hover:text-accent-300";
+  const SECTION_LANDINGS = [
+    "/",
+    "/about",
+    "/products",
+    "/gcg",
+    "/corporate-secretary",
+  ];
+  const onLightBanner = !SECTION_LANDINGS.includes(pathname);
+
+  const linkTone = onLightBanner
+    ? "text-white hover:text-accent-300"
+    : scrolled
+      ? "text-white lg:text-ink-900 lg:hover:text-brand-600"
+      : "text-white hover:text-accent-300";
 
   /*
    * The fig's rail opens straight on "About Us" — the brand lockup is the
@@ -127,9 +147,13 @@ export function MainNav({
          */
         className={cn(
           "transition-colors duration-300 lg:mx-auto lg:w-[calc(100%-5rem)] lg:max-w-[1360px] lg:rounded-[24px] lg:px-6 lg:backdrop-blur-[10px]",
-          scrolled
-            ? "bg-brand-600 lg:bg-white lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
-            : "bg-brand-600 lg:bg-white/10 lg:shadow-none lg:ring-1 lg:ring-white/20",
+          "bg-brand-600",
+          onLightBanner
+            ? /* fig: solid #006F4F over the cream banner */
+              "lg:bg-brand-600 lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
+            : scrolled
+              ? "lg:bg-white lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
+              : "lg:bg-white/10 lg:shadow-none lg:ring-1 lg:ring-white/20",
         )}
       >
         <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-20 lg:flex-nowrap lg:gap-5 lg:px-0">
@@ -140,7 +164,9 @@ export function MainNav({
             className="shrink-0 lg:pl-2"
           >
             <Logo
-              tone={scrolled ? "dark" : "light"}
+              /* White lockup on the green pill; full colour once the pill
+                 turns white on scroll over a dark banner. */
+              tone={!onLightBanner && scrolled ? "dark" : "light"}
               wordmarkClassName="text-[15px] xl:text-[16px]"
             />
           </Link>
@@ -176,10 +202,10 @@ export function MainNav({
                          */
                         "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href) || expanded
-                          ? "text-accent-500"
+                          ? "text-accent-300"
                           : linkTone,
                         isActive(item.href) &&
-                          "underline decoration-accent-500 decoration-2",
+                          "underline decoration-accent-300 decoration-2",
                       )}
                     >
                       {item.label}
@@ -198,7 +224,7 @@ export function MainNav({
                       className={cn(
                         "flex items-center gap-1 whitespace-nowrap px-1.5 py-4 text-[13px] font-normal underline-offset-[6px] transition-colors xl:px-2 xl:text-[16px]",
                         isActive(item.href)
-                          ? "text-accent-500 underline decoration-accent-500 decoration-2"
+                          ? "text-accent-300 underline decoration-accent-300 decoration-2"
                           : linkTone,
                       )}
                     >
@@ -242,8 +268,8 @@ export function MainNav({
               aria-label={t("search")}
               className={cn(
                 "grid h-11 w-11 place-items-center rounded-full transition-colors",
-                scrolled
-                  ? "text-ink-900 hover:bg-black/5 lg:text-ink-900"
+                !onLightBanner && scrolled
+                  ? "text-white lg:text-ink-900 lg:hover:bg-black/5"
                   : "text-white hover:bg-white/10",
               )}
             >

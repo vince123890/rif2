@@ -5,7 +5,6 @@ import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
-import { Discs } from "@/components/content/journey-timeline";
 import { RichText } from "@/components/ui/rich-text";
 import { DocumentActions } from "@/components/content/document-actions";
 
@@ -55,7 +54,6 @@ export default async function Page({
             key={page!.key}
             className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12"
           >
-            <Discs className="-right-16 -top-24" />
             <div className="relative">
               {/* fig `Frame 5`: 32px green section heading */}
               {/* fig `Frame 5`: a 5px green rule down the left of every heading */}

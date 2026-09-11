@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { FigHero, FigCrumbs, FigTabs } from "./fig-hero";
-import { Discs } from "@/components/content/journey-timeline";
 
 /**
  * Shell for the Company Profile sections — `Desktop - 9…12` in the fig.
@@ -81,27 +80,25 @@ export async function CompanyProfilePage({
     <>
       {/* fig `Desktop - 5`: full-bleed band, title orange over two lines */}
       <FigHero
-        variant="bleed"
+        variant="cream"
         title={tCp("heroTitle")}
-        image="/images/inner-hero.jpg"
+        image="/fig/inner-banner.webp"
       />
 
       {/*
-       * fig: the page ground is #F9FAFB with the blossom sheet tiled over
-       * it as a PATTERN fill at 5% — the wash behind the breadcrumb, the
-       * tab rail and the gaps between panels.
+       * fig `image 134`/`image 135`: a gold seigaiha sheet tiled behind
+       * the whole page — the ground under the breadcrumb, the tab rail and
+       * the gaps between panels.
        */}
       <div className="relative isolate bg-canvas pb-16 md:pb-24">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.05]"
           style={{
-            backgroundImage: "url(/brand/blossom-pattern.png)",
-            /*
-             * fig `Frame 124`: the PATTERN fill draws a 1330x1183 tile at
-             * scale 0.3, i.e. 399x355 on the page. The asset ships at 2x.
-             */
-            backgroundSize: "399px auto",
+            backgroundImage: "url(/fig/pattern-seigaiha.webp)",
+            /* The repeating unit inside the fig's 956x1645 artwork;
+               the fig paints it at 5% opacity. */
+            backgroundSize: "96px 176px",
             backgroundRepeat: "repeat",
           }}
         />
@@ -126,10 +123,8 @@ export async function CompanyProfilePage({
           {bare ? (
             children
           ) : (
-            <div className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12">
-              {/* fig `Frame 8`: nested discs bleeding off the top-right */}
-              <Discs className="-right-16 -top-24" />
-              <div className="relative">{children}</div>
+            <div className="relative overflow-hidden rounded-[32px] bg-white p-6 md:p-10 lg:p-12">
+              {children}
             </div>
           )}
         </div>

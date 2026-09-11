@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { FigHero, FigCrumbs } from "./fig-hero";
-import { Discs } from "@/components/content/journey-timeline";
 
 /**
  * Shell for the About-Us children — `Desktop - 15…19` in the fig.
@@ -21,6 +20,8 @@ export async function InnerPage({
   heading,
   /** Pass "\n" to force the fig's two-line banner break. */
   bannerTitle,
+  /** 20px #6E6E6E line under the banner title (fig sets one per page). */
+  lead,
   /**
    * Section this page sits under, shown as the first crumb. Defaults to
    * About Us, which is where the shell started.
@@ -30,7 +31,7 @@ export async function InnerPage({
   /** Rendered under the breadcrumb, e.g. a tab rail or a filter. */
   toolbar,
   /** Banner photo; detail pages pass the article's own image. */
-  image = "/images/inner-hero.jpg",
+  image = "/fig/inner-banner.webp",
   children,
   bare = false,
 }: {
@@ -43,6 +44,7 @@ export async function InnerPage({
   title?: string;
   heading?: string;
   bannerTitle?: string;
+  lead?: string;
   sectionKey?: string;
   sectionHref?: string;
   toolbar?: ReactNode;
@@ -57,19 +59,26 @@ export async function InnerPage({
   return (
     <>
       <FigHero
-        variant="bleed"
+        variant="cream"
         title={bannerTitle ?? label}
+        subtitle={lead}
         image={image}
       />
 
       <div className="relative isolate bg-canvas pb-16 md:pb-24">
-        {/* fig `Frame 124`: blossom sheet tiled at 399px, 5% over #F9FAFB */}
+        {/*
+         * fig `image 134`/`image 135`: a gold seigaiha (wave-scale) sheet
+         * tiled behind every inner page. The fig lays the full 956×1645
+         * artwork down twice; the repeating unit inside it measures
+         * 96×176, so that is what ships — same pattern, a fraction of the
+         * bytes.
+         */}
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04]"
+          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.05]"
           style={{
-            backgroundImage: "url(/brand/blossom-pattern.png)",
-            backgroundSize: "399px auto",
+            backgroundImage: "url(/fig/pattern-seigaiha.webp)",
+            backgroundSize: "96px 176px",
             backgroundRepeat: "repeat",
           }}
         />
@@ -88,7 +97,6 @@ export async function InnerPage({
             children
           ) : (
             <section className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12">
-              <Discs className="-right-16 -top-24" />
               <div className="relative">
                 {/* fig `Frame 5`: 32px green heading over the body */}
                 {/* fig `Frame 5`: a 5px green rule down the left of every heading */}

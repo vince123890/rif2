@@ -202,7 +202,9 @@
     "tPrivacy": "Terms of Privacy",
     "tBankResona": "Bank Resona Perdania",
     "tNews": "News",
-    "tCareer": "Career"
+    "tCareer": "Career",
+    "tManagementMessage": "Message from the Management",
+    "managementMessage": "Management's reflections on the company's journey, its commitments and the strategic direction of Resona Indonesia Finance as the financing industry evolves."
   },
   "companyProfile": {
     "heroTitle": "Company\nProfile",

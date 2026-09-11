@@ -3,7 +3,6 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
 import { ZoomableImage } from "@/components/content/zoomable-image";
-import { Discs } from "@/components/content/journey-timeline";
 
 const ROUTE = "/about/company-profile/organization-structure";
 
@@ -57,7 +56,6 @@ export default async function Page({
             key={panel.key}
             className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12"
           >
-            <Discs className="-right-16 -top-24" />
             <div className="relative">
               {/* fig `Frame 5`: a 5px green rule down the left of every heading */}
               <h2 className="border-l-[5px] border-brand-600 pl-6 text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
