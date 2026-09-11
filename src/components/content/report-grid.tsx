@@ -1,31 +1,36 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
-import { useLocale, useTranslations } from "next-intl";
+import { useTranslations } from "next-intl";
+import { Download } from "lucide-react";
 
 import type { DocumentItem } from "@/lib/content";
-import { pick } from "@/lib/content";
+import { Reveal } from "@/components/ui/reveal";
 import { cn } from "@/lib/utils";
 
 /**
- * Report grid — `Desktop - 24` (Financial) and `Desktop - 30/31`
- * (Sustainability).
+ * Report grid — the `list doc` frame in the fig.
  *
- * A rail of year pills ("All" plus one per year) over a grid of 500x600
- * cards: an #EDEDED cover carrying the Resona lockup and the report name in
- * orange, then a footer strip with the year and a green "Detail" pill that
- * opens the PDF.
+ * The same 410×480 card the homepage uses, laid out three-up over as many
+ * rows as the set needs (`Rectangle 113…125` runs two rows of three on a
+ * 434×504 pitch):
+ *
+ *   - `Rectangle 116` : a 286×96 #F2F8F6 plate behind the year
+ *   - `Rectangle 34`  : a 134×189 blossom block at 30%, top-right
+ *   - the year        : 80px Lato Black Italic in #006F4F
+ *   - `Line 5`        : an 80×4 orange rule under the title
+ *   - `Frame 127`     : Download (outlined) + View PDF, 64px tall at r12
+ *
+ * A "Sort by Year" rail sits above the grid.
  */
 export function ReportGrid({
   documents,
-  /** Shown on the cover, e.g. "Financial Report". */
+  /** Shown as each card's title, e.g. "Financial Report". */
   coverLabel,
 }: {
   documents: DocumentItem[];
   coverLabel: string;
 }) {
-  const locale = useLocale();
   const t = useTranslations("common");
   const [year, setYear] = useState<number | null>(null);
 
@@ -38,103 +43,134 @@ export function ReportGrid({
 
   return (
     <div>
-      {/* fig `Frame 83`: pills on a near-transparent rail */}
-      <div className="mb-8 inline-flex flex-wrap items-center gap-1 rounded-[34px] bg-white/5 p-2">
-        <button
-          type="button"
-          onClick={() => setYear(null)}
-          aria-current={year === null}
-          className={cn(
-            "rounded-full px-5 py-2.5 text-[16px] transition-colors md:text-[20px]",
-            year === null
-              ? "bg-accent-500 font-bold text-white"
-              : "text-ink-900 hover:bg-white/60",
-          )}
-        >
-          {t("all")}
-        </button>
-        {years.map((y) => (
-          <button
-            key={y}
-            type="button"
-            onClick={() => setYear(y)}
-            aria-current={year === y}
-            className={cn(
-              "rounded-full px-5 py-2.5 text-[16px] transition-colors md:text-[20px]",
-              year === y
-                ? "bg-accent-500 font-bold text-white"
-                : "text-ink-900 hover:bg-white/60",
-            )}
-          >
-            {y}
-          </button>
-        ))}
-      </div>
+      {/* Year filter — fig `Frame 282`, right-aligned over the grid */}
+      {years.length > 1 ? (
+        <div className="mb-8 flex flex-wrap items-center justify-end gap-3">
+          <span className="text-[18px] text-ink-900 md:text-[24px]">
+            {t("sortByYear")}
+          </span>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {shown.map((doc) => (
-          <article
-            key={doc.id}
-            /* fig `Frame 145`: 500x600 white card, radius 24 */
-            className="group overflow-hidden rounded-[24px] bg-white p-3"
-          >
-            <div className="relative aspect-[475/456] overflow-hidden rounded-[12px] bg-ink-100">
-              {doc.thumbnail ? (
-                <Image
-                  src={doc.thumbnail}
-                  alt=""
-                  fill
-                  sizes="(min-width: 1024px) 30vw, 100vw"
-                  className="object-cover"
-                />
-              ) : (
-                /* fig cover: lockup, then the report name in orange */
-                <div className="relative flex h-full flex-col p-6">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/brand/resona-mark.png"
-                      alt=""
-                      width={34}
-                      height={34}
-                      className="h-8 w-auto"
-                    />
-                    <span className="text-[14px] font-bold text-brand-600 lg:text-[16px]">
-                      Resona Indonesia Finance
-                    </span>
-                  </div>
-                  <p className="mt-4 text-[22px] font-bold leading-[1.15] text-accent-500 lg:text-[28px]">
-                    {coverLabel}
-                  </p>
-                  {/* fig `Vector`: the mark bleeding out of the lower right */}
-                  <Image
-                    src="/brand/resona-mark.png"
-                    alt=""
-                    aria-hidden
-                    width={352}
-                    height={363}
-                    className="pointer-events-none absolute -bottom-10 -right-10 w-[62%] opacity-10"
-                  />
-                </div>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              onClick={() => setYear(null)}
+              aria-pressed={year === null}
+              className={cn(
+                "rounded-full px-4 py-2 text-[14px] transition-colors md:text-[16px]",
+                year === null
+                  ? "bg-brand-600 text-white"
+                  : "bg-white text-ink-900 ring-1 ring-ink-200 hover:bg-brand-50",
               )}
-            </div>
+            >
+              {t("all")}
+            </button>
 
-            <div className="flex items-center justify-between gap-3 px-3 py-4">
-              <p className="text-[22px] font-bold text-ink-700 lg:text-[30px]">
-                {doc.year}
-              </p>
-              <a
-                href={doc.file.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={pick(doc.title, locale)}
-                className="rounded-full bg-brand-600 px-5 py-2.5 text-[14px] font-bold text-white transition-colors hover:bg-brand-700 lg:text-[20px]"
+            {years.map((y) => (
+              <button
+                key={y}
+                type="button"
+                onClick={() => setYear(y)}
+                aria-pressed={year === y}
+                className={cn(
+                  "rounded-full px-4 py-2 text-[14px] transition-colors md:text-[16px]",
+                  year === y
+                    ? "bg-brand-600 text-white"
+                    : "bg-white text-ink-900 ring-1 ring-ink-200 hover:bg-brand-50",
+                )}
               >
-                {t("detail")}
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
+                {y}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+
+      {shown.length ? (
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {shown.map((d, i) => (
+            <Reveal key={d.id} delay={(i % 3) * 90}>
+              <article className="relative flex h-full flex-col overflow-hidden rounded-[32px] bg-white p-6 shadow-[0_10px_40px_-24px_rgba(0,0,0,0.25)] transition-shadow duration-300 hover:shadow-[0_24px_60px_-28px_rgba(0,0,0,0.35)]">
+                {/* fig `Rectangle 34`: blossom block, top-right at 30% */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute right-6 top-5 h-[189px] w-[134px] bg-[url('/brand/blossom-pattern.png')] bg-contain bg-right-top bg-no-repeat opacity-30"
+                />
+
+                {/* fig `Rectangle 116` + the 80px Black Italic year */}
+                <div className="relative">
+                  <span
+                    aria-hidden
+                    className="absolute -left-6 top-4 h-24 w-[286px] max-w-[calc(100%+3rem)] bg-[#F2F8F6]"
+                  />
+                  <p className="relative py-2 text-[56px] font-black italic leading-none text-brand-600 md:text-[80px]">
+                    {d.year}
+                  </p>
+                </div>
+
+                <h3 className="mt-10 text-[22px] font-bold leading-none text-ink-900 md:text-[28px]">
+                  {coverLabel}
+                </h3>
+
+                <span
+                  aria-hidden
+                  className="mt-6 block h-1 w-20 rounded-full bg-accent-500"
+                />
+
+                {/* fig `Frame 127`: 64px actions at radius 12 */}
+                <div className="mt-auto flex flex-wrap gap-3 pt-8">
+                  <a
+                    href={d.file.url}
+                    download
+                    className="inline-flex h-14 items-center gap-3 rounded-[12px] border border-brand-600 px-6 text-[16px] leading-[1.7] text-brand-600 transition-colors duration-200 hover:bg-brand-50 md:text-[20px]"
+                  >
+                    <Download className="h-6 w-6 text-accent-500" aria-hidden />
+                    {t("download")}
+                  </a>
+
+                  <a
+                    href={d.file.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex h-14 items-center gap-3 rounded-[12px] px-6 text-[16px] leading-[1.7] text-brand-600 transition-colors duration-200 hover:bg-brand-50 md:text-[20px]"
+                  >
+                    <PdfIcon />
+                    {t("viewPdf")}
+                  </a>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      ) : (
+        <p className="text-center text-[16px] text-ink-500">{t("noData")}</p>
+      )}
     </div>
+  );
+}
+
+/** fig `pdf-file 1` — a white sheet with the red PDF tab. */
+function PdfIcon() {
+  return (
+    <svg aria-hidden viewBox="0 0 24 24" className="h-6 w-6 shrink-0">
+      <path
+        d="M4.2 0h11.3L20.5 5v19H4.2z"
+        fill="#FFFEFE"
+        stroke="#BBBBBA"
+        strokeWidth=".8"
+      />
+      <path d="M15.5 0L20.5 5h-5z" fill="#BBBBBA" />
+      <rect x="2.8" y="9" width="15.2" height="11" rx="2" fill="#B43331" />
+      <text
+        x="10.4"
+        y="17.2"
+        textAnchor="middle"
+        fontSize="6.4"
+        fontWeight="700"
+        fill="#FFFFFF"
+        fontFamily="Lato, sans-serif"
+      >
+        PDF
+      </text>
+    </svg>
   );
 }
