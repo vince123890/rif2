@@ -18,6 +18,13 @@
  */
 
 @theme {
+  /*
+   * `fig:` — the width at which the design file stops being a reference and
+   * becomes the layout. At and above it the homepage renders as the literal
+   * 1440-wide fig canvas; below it the responsive flow layout takes over.
+   */
+  --breakpoint-fig: 1440px;
+
   /* ---- Green (primary) — fig "Green (Primary)/Green 0…9" ---- */
   --color-brand-50: #e6f1ed; /* Green 0 */
   --color-brand-100: #cce2dc; /* Green 1 */

@@ -1,0 +1,128 @@
+y=68        x=373      w=66      h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: About Us
+y=68        x=483      w=203     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Good Corporate Governance
+y=68        x=730      w=142     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Corporate Secretary
+y=68        x=916      w=155     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Products and Services
+y=68        x=1284     w=22      h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: EN
+y=70        x=1257     w=14      h=20     Lato Regular             14/20px ls=0% ['#FFFFFF']            None    :: 🇺🇸 
+y=96        x=373      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=96        x=483      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=96        x=730      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=96        x=916      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=96        x=1248     w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=100       x=371      w=109     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: About Perdania
+y=100       x=524      w=140     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Products & Services
+y=100       x=708      w=163     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Tata Kelola Perusahaan
+y=100       x=915      w=126     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            None    :: Investor Relations
+y=115       x=90       w=16.98   h=5      Lato SemiBold            4/7.53px ls=0px ['#FFFFFF']            CENTER  :: RESONA
+y=128       x=371      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=128       x=524      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=128       x=708      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=128       x=915      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=220       x=80       w=641     h=168    Lato Regular             70/100% ls=0% ['#FFFFFF']            None    :: Beyond Finance, for a Brighter Future.
+y=290       x=935      w=425     h=90     Lato Regular             20/1.5RAW ls=0% ['#FFFFFF']            None    :: Bank Perdania resmi beroperasi di Jakarta,  | Indonesia berdasarkan Surat Keputusan Menteri Keuangan 
+y=1018      x=530      w=207     h=24     Lato Regular             16/1.5RAW ls=0% ['#F58220']            CENTER  :: SAMBUTAN MANAGEMENT
+y=1054      x=530      w=360     h=48     Lato Bold                40/100% ls=0% ['#0F0F0F']            None    :: Pesan dari Pimpinan
+y=1094.74   x=112      w=60.37   h=17.93  Lato SemiBold            14/7.53px ls=0px ['#F58220']            CENTER  :: RESONA
+y=1158      x=530      w=830     h=29     Lato Bold                24/100% ls=0% ['#0F0F0F']            None    :: Para Pemegang Saham dan Pemangku Kepentingan yang terhormat,
+y=1203      x=530      w=830     h=234    Lato Regular             16/1.6RAW ls=0% ['#6E6E6E']            None    :: Perekonomian global menunjukkan kinerja yang bervariasi, dipengaruhi oleh tensi geopolitik, fragmentasi perdag
+y=1484      x=553      w=168     h=34     Lato Regular             20/1.7RAW ls=0% ['#FFFFFF']            None    :: Baca Selengkapnya
+y=1750      x=640      w=160     h=24     Lato Regular             16/1.5RAW ls=0% ['#FFFFFF']            CENTER  :: PRODUK & LAYANAN
+y=1786      x=495      w=451     h=48     Lato Bold                40/100% ls=0% ['#FFFFFF']            None    :: Solusi & Kapabilitas Kami
+y=2173      x=264      w=319     h=38     Lato Bold                32/100% ls=0% ['#FFFFFF']            None    :: Modal Kerja
+y=2255      x=264      w=912     h=58     Lato Regular             24/100% ls=0% ['#FFFFFF']            None    :: Pembiayaan Modal Kerja yang dilakukan dengan cara Pembiayaan Fasilitas Modal Usaha.
+y=2337      x=298      w=253     h=30     Lato Regular             20/1.5RAW ls=0% ['#FFFFFF']            None    :: Alat Berat
+y=2375      x=298      w=253     h=30     Lato Regular             20/1.5RAW ls=0% ['#FFFFFF']            None    :: Mesin Industri
+y=2413      x=298      w=253     h=30     Lato Regular             20/1.5RAW ls=0% ['#FFFFFF']            None    :: Mesin TI
+y=2451      x=298      w=253     h=30     Lato Regular             20/1.5RAW ls=0% ['#FFFFFF']            None    :: Kendaraan Operasional
+y=2713      x=642      w=157     h=24     Lato Regular             16/1.5RAW ls=0% ['#F58220']            CENTER  :: LAPORAN TAHUNAN
+y=2749      x=540      w=361     h=48     Lato Bold                40/100% ls=0% ['#0F0F0F']            None    :: Transparansi Kinerja
+y=2892      x=513.5    w=202     h=34     Lato Bold                20/1.7RAW ls=0% ['#FFFFFF']            None    :: Laporan Keberlanjutan
+y=2892      x=763.5    w=163     h=34     Lato Regular             20/1.7RAW ls=0% ['#0F0F0F']            None    :: Laporan Keuangan
+y=2991      x=130      w=186     h=96     Lato Black Italic        80/100% ls=0% ['#006F4F']            None    :: 2025
+y=2991      x=564      w=186     h=96     Lato Black Italic        80/100% ls=0% ['#006F4F']            None    :: 2024
+y=2991      x=998      w=186     h=96     Lato Black Italic        80/100% ls=0% ['#006F4F']            None    :: 2023
+y=3185      x=104      w=249     h=68     Lato Bold                28/100% ls=0% ['#0F0F0F']            None    :: Laporan Keberlanjutan
+y=3185      x=538      w=249     h=68     Lato Bold                28/100% ls=0% ['#0F0F0F']            None    :: Laporan Keberlanjutan
+y=3185      x=972      w=249     h=68     Lato Bold                28/100% ls=0% ['#0F0F0F']            None    :: Laporan Keberlanjutan
+y=3374      x=164.5    w=91      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: Download
+y=3374      x=353      w=88      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: View PDF
+y=3374      x=598.5    w=91      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: Download
+y=3374      x=787      w=88      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: View PDF
+y=3374      x=1032.5   w=91      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: Download
+y=3374      x=1221     w=88      h=34     Lato Regular             20/1.7RAW ls=0% ['#006F4F']            None    :: View PDF
+y=3516      x=662.5    w=116     h=34     Lato Regular             20/1.7RAW ls=0% ['#FFFFFF']            None    :: Lihat Lainnya
+y=3765      x=640      w=160     h=24     Lato Regular             16/1.5RAW ls=0% ['#F58220']            CENTER  :: BERITA & INFORMASI
+y=3801      x=602      w=236     h=48     Lato Bold                40/100% ls=0% ['#0F0F0F']            None    :: Berita Terkini
+y=3968      x=541      w=352     h=90     Lato Bold                20/1.5RAW ls=0% ['#0F0F0F']            None    :: Kinerja Keuangan Triwulan III Bank Resona Perdania Tunjukkan Pertumbuhan Baik
+y=4074      x=541      w=352     h=126    Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Our latest digital banking platform launches in three new markets, offering enhanced mobile banking capabiliti
+y=4217      x=973      w=362     h=60     Lato Bold                20/1.5RAW ls=0% ['#0F0F0F']            None    :: Kinerja Keuangan Triwulan III Bank Resona Perdania Tunjukkan Pertum...
+y=4293      x=973      w=362     h=63     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Our latest digital banking platform launches in three new markets, offering enhanced mobile banking capabiliti
+y=4381.5    x=565      w=82      h=21     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Dec 15, 2024
+y=4381.5    x=802      w=67      h=21     Lato Regular             14/1.5RAW ls=0% ['#006F4F']            None    :: Read more
+y=4381.5    x=997      w=82      h=21     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Dec 15, 2024
+y=4381.5    x=1244     w=67      h=21     Lato Regular             14/1.5RAW ls=0% ['#006F4F']            None    :: Read more
+y=4409.5    x=802      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=4409.5    x=1244     w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=4759      x=105      w=362     h=60     Lato Bold                20/1.5RAW ls=0% ['#0F0F0F']            None    :: Kinerja Keuangan Triwulan III Bank Resona Perdania Tunjukkan Pertum...
+y=4759      x=539      w=362     h=60     Lato Bold                20/1.5RAW ls=0% ['#0F0F0F']            None    :: Kinerja Keuangan Triwulan III Bank Resona Perdania Tunjukkan Pertum...
+y=4759      x=973      w=362     h=60     Lato Bold                20/1.5RAW ls=0% ['#0F0F0F']            None    :: Kinerja Keuangan Triwulan III Bank Resona Perdania Tunjukkan Pertum...
+y=4835      x=105      w=362     h=63     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Our latest digital banking platform launches in three new markets, offering enhanced mobile banking capabiliti
+y=4835      x=539      w=362     h=63     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Our latest digital banking platform launches in three new markets, offering enhanced mobile banking capabiliti
+y=4835      x=973      w=362     h=63     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Our latest digital banking platform launches in three new markets, offering enhanced mobile banking capabiliti
+y=4923.5    x=129      w=82      h=21     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Dec 15, 2024
+y=4923.5    x=376      w=67      h=21     Lato Regular             14/1.5RAW ls=0% ['#006F4F']            None    :: Read more
+y=4923.5    x=563      w=82      h=21     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Dec 15, 2024
+y=4923.5    x=810      w=67      h=21     Lato Regular             14/1.5RAW ls=0% ['#006F4F']            None    :: Read more
+y=4923.5    x=997      w=82      h=21     Lato Regular             14/1.5RAW ls=0% ['#6E6E6E']            None    :: Dec 15, 2024
+y=4923.5    x=1244     w=67      h=21     Lato Regular             14/1.5RAW ls=0% ['#006F4F']            None    :: Read more
+y=4951.5    x=376      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=4951.5    x=810      w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=4951.5    x=1244     w=65      h=20     Inter Regular            14/20px ls=0% ['#000000']            None    :: Loading...
+y=5043      x=662.5    w=116     h=34     Lato Regular             20/1.7RAW ls=0% ['#FFFFFF']            None    :: Lihat Lainnya
+y=5427.85   x=52.83    w=37.85   h=14.4   Lato SemiBold            5.02/7.53px ls=0px ['#FFFFFF']            None    :: RESONA
+y=5432      x=50       w=589     h=84     Lato Italic              14/1.5RAW ls=0% ['#FFFFFF @0.7']       None    :: PT Resona Indonesia Finance didirikan pada tanggal 15 Agustus 1984 berdasarkan akta No. 157 tanggal 15 Agustus
+y=5445      x=809      w=108     h=24     Lato Bold                16/1.5RAW ls=0% ['#FFFFFF']            None    :: Phone Number
+y=5445      x=1162.5   w=87      h=24     Lato Bold                16/1.5RAW ls=0% ['#FFFFFF']            None    :: Fax Number
+y=5471      x=809      w=111     h=24     Lato Bold                16/1.5RAW ls=0% ['#338C72']            None    :: 021 - 570 1956
+y=5471      x=1162.5   w=111     h=24     Lato Bold                16/1.5RAW ls=0% ['#338C72']            None    :: 021 - 570 1961
+y=5521      x=809      w=122     h=24     Lato Bold                16/1.5RAW ls=0% ['#FFFFFF']            None    :: Customer Report
+y=5521      x=1162.5   w=175     h=24     Lato Bold                16/1.5RAW ls=0% ['#FFFFFF']            None    :: Customer Questionnaire
+y=5540      x=86       w=354     h=42     Lato Regular             14/1.5RAW ls=0% ['#FFFFFF']            None    :: Sampoerna Strategic Square South Tower, Level 9 Jl. Jend.Sudirman Kav.45-46 Jakarta Selatan 12930
+y=5547      x=809      w=200     h=24     Lato Bold                16/1.5RAW ls=0% ['#338C72']            None    :: rif_helpdesk@perdania.co.id
+y=5547      x=1162.5   w=166     h=24     Lato Bold                16/1.5RAW ls=0% ['#338C72']            None    :: cust_rif@perdania.co.id
+y=5658      x=50       w=210     h=29     Lato Bold                24/100% ls=0% ['#FFFFFF']            None    :: ABOUT PERDANIA
+y=5658      x=397.5    w=240     h=29     Lato Bold                24/100% ls=0% ['#FFFFFF']            None    :: PRODUCT & SERVICE
+y=5658      x=745      w=253     h=29     Lato Bold                24/100% ls=0% ['#FFFFFF']            None    :: INVESTOR RELATIONS
+y=5658      x=1092.5   w=253     h=29     Lato Bold                24/100% ls=0% ['#FFFFFF']            None    :: INVESTOR RELATIONS
+y=5711      x=50       w=118     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Management
+y=5711      x=397.5    w=147     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Current Account
+y=5711      x=745      w=123     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Laporan Bank
+y=5711      x=1092.5   w=123     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Laporan Bank
+y=5769      x=50       w=109     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Bank Profile
+y=5769      x=397.5    w=70      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Deposit
+y=5769      x=745      w=136     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Risk Disclosure
+y=5769      x=1092.5   w=136     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Risk Disclosure
+y=5827      x=50       w=230     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Resona Indonesia Finance
+y=5827      x=397.5    w=43      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Loan
+y=5827      x=745      w=297.5   h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Disclosure Recovery Action Plan
+y=5827      x=1092.5   w=297.5   h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Disclosure Recovery Action Plan
+y=5885      x=50       w=221     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Privacy & Security Policy
+y=5885      x=397.5    w=84      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Factoring
+y=5885      x=745      w=297.5   h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Business Strategy & Future Plan
+y=5885      x=1092.5   w=297.5   h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Business Strategy & Future Plan
+y=5943      x=50       w=69      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Careers
+y=5943      x=397.5    w=61      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Import
+y=5943      x=745      w=147     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Company Profile
+y=5943      x=1092.5   w=147     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Company Profile
+y=6001      x=397.5    w=60      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Export
+y=6001      x=745      w=297.5   h=68     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Disclosure Information & Materials Facts
+y=6001      x=1092.5   w=297.5   h=68     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Disclosure Information & Materials Facts
+y=6013      x=50       w=51      h=29     Lato Bold                24/100% ls=0% ['#FFFFFF']            None    :: GCG
+y=6059      x=397.5    w=297.5   h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Interbank Payment Transaction
+y=6066      x=50       w=238     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Anti Fraud & Integrity Pact
+y=6093      x=745      w=51      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: News
+y=6093      x=1092.5   w=51      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: News
+y=6117      x=397.5    w=62      h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Others
+y=6124      x=50       w=256     h=34     Lato Bold                20/1.7RAW ls=0% ['#338C72']            None    :: Good Corporate Governance
+y=6582      x=50       w=519     h=21     Lato SemiBold            14/1.5RAW ls=0% ['#FFFFFF']            None    :: PT Resona Indonesia Finance berizin Dan diawasi oleh Otoritas Jasa Keuangan (OJK)
+y=6582      x=1036     w=354     h=21     Lato Regular             14/1.5RAW ls=0% ['#FFFFFF']            None    :: ©2025 PT Resona Indonesia Finance. All Rights Reserved.

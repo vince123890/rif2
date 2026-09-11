@@ -14,6 +14,7 @@ import { BackToTop } from "@/components/layout/back-to-top";
 /** Lato — the typeface used throughout the Figma design. */
 const lato = Lato({
   weight: ["300", "400", "700", "900"],
+  style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
   variable: "--font-lato",
