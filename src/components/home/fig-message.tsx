@@ -38,53 +38,63 @@ export function FigMessage({
     <div className="grid items-start gap-10 lg:grid-cols-[400fr_830fr] lg:gap-[50px]">
       {/* Portrait card */}
       <Reveal className="mx-auto w-full max-w-[400px]">
-        <div className="relative aspect-[400/550] overflow-hidden rounded-[32px] bg-white">
+        {/*
+         * fig `Rectangle 102`: a 400×550 card at radius 32 filled #006F4F
+         * at 5% — a pale mint tint, not the solid brand green.
+         */}
+        {/*
+         * Every offset below is the fig's own number expressed against the
+         * 400×550 card, so the layout holds as the card scales:
+         *
+         *   card       `Rectangle 102`   400×550 @(80,1000)  #006F4F @ 0.05
+         *   R mark     `Group 30`/Vector 704.53² @(-30,1236.93) #006F4F @ 0.04
+         *   portrait   `image 29`        302×507 @(129,1043)
+         *   logo R     `Group 161`/Vector 57.66×59.64 @(112,1091.64)
+         *   "RESONA"   TEXT              @(112,1094.74) 14px #F58220
+         */}
+        <div className="relative aspect-[400/550] overflow-hidden rounded-[32px] bg-[#006F4F]/5">
           {/*
-           * fig `Group 30`: a single oversized blossom filled #006F4F,
-           * bleeding out of the bottom-left of the card behind the
-           * portrait. Painted as a masked block rather than a tinted <img>
-           * so the colour is the literal brand green, not a filter
-           * approximation of it.
+           * R mark: (-30-80)/400 = -27.5% left, (1236.93-1000)/550 = 43.08%
+           * top, 704.53/400 = 176.13% wide. Painted as a masked block so the
+           * fill is literally #006F4F at 4%, regardless of the artwork's own
+           * colours.
            */}
           <span
             aria-hidden
-            className="pointer-events-none absolute -bottom-[18%] -left-[28%] block h-[140%] w-[140%] bg-brand-600"
+            className="pointer-events-none absolute left-[-27.5%] top-[43.08%] block aspect-square w-[176.13%] bg-[#006F4F] opacity-[0.04]"
             style={{
-              WebkitMaskImage: "url(/brand/resona-blossom.png)",
-              maskImage: "url(/brand/resona-blossom.png)",
+              WebkitMaskImage: "url(/brand/resona-mark-only.png)",
+              maskImage: "url(/brand/resona-mark-only.png)",
               WebkitMaskSize: "contain",
               maskSize: "contain",
               WebkitMaskRepeat: "no-repeat",
               maskRepeat: "no-repeat",
-              WebkitMaskPosition: "center",
-              maskPosition: "center",
             }}
           />
 
-          {/* fig `image 29`: the cut-out portrait, 302×507 */}
+          {/* portrait: (129-80)/400 = 12.25% left, (1043-1000)/550 = 7.82% top */}
           <Image
             src="/fig/ceo.png"
             alt=""
             width={604}
             height={1014}
             priority
-            className="absolute bottom-0 left-1/2 h-[92%] w-auto -translate-x-1/2 object-contain"
+            className="absolute left-[12.25%] top-[7.82%] h-[92.18%] w-[75.5%] object-contain object-bottom"
           />
 
-          {/* fig `Group 161`: the mark + orange RESONA wordmark, top-left */}
-          <span className="absolute left-8 top-8 flex flex-col items-center gap-1">
-            <Image
-              src="/brand/resona-mark.png"
-              alt=""
-              width={252}
-              height={320}
-              aria-hidden
-              className="h-[58px] w-auto"
-            />
-            <span className="text-[13px] font-semibold leading-none tracking-[0.08em] text-accent-500">
-              RESONA
-            </span>
-          </span>
+          {/*
+           * `Group 161`: the mark with its orange RESONA wordmark, at
+           * (112-80)/400 = 8% left, (1032-1000)/550 = 5.82% top. The
+           * supplied lockup already pairs the two, so it ships whole.
+           */}
+          <Image
+            src="/brand/resona-mark.png"
+            alt=""
+            aria-hidden
+            width={252}
+            height={320}
+            className="absolute left-[8%] top-[5.82%] w-[15.09%]"
+          />
         </div>
       </Reveal>
 
