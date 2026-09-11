@@ -44,9 +44,14 @@ export function FigReports({
 
   return (
     <div>
-      {/* fig `Frame 82`: the segmented control */}
+      {/*
+       * fig `Frame 82`: 485×76 at r=100, filled #EEEFF0 at **10%** with a
+       * GLASS effect — a near-transparent rail, not a solid grey pill. The
+       * active tab (`Frame 4`) is 242×44 filled #F58220, its label 20px
+       * Lato Bold white; the inactive one is unfilled with #0F0F0F type.
+       */}
       <div className="flex justify-center">
-        <div className="inline-flex gap-2 rounded-full bg-[#EEEFF0] p-4">
+        <div className="inline-flex gap-2 rounded-full bg-[#EEEFF0]/10 p-4 backdrop-blur-[6px]">
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -54,7 +59,7 @@ export function FigReports({
               onClick={() => setActive(tab.key)}
               aria-pressed={active === tab.key}
               className={cn(
-                "rounded-full px-5 py-2 text-[16px] leading-[1.7] transition-colors duration-200 md:px-[20px] md:text-[20px]",
+                "rounded-full px-5 py-[5px] text-[16px] leading-[1.7] transition-colors duration-200 md:text-[20px]",
                 active === tab.key
                   ? "bg-accent-500 font-bold text-white"
                   : "text-ink-900 hover:bg-black/5",
@@ -95,10 +100,13 @@ export function FigReports({
                 {r.title}
               </h3>
 
-              {/* fig `Line 5`: 80×4 orange rule */}
+              {/*
+               * fig `Line 5`: an 80×4 orange rule at x=411 — flush with the
+               * card's right edge (card spans 80–490), not under the title.
+               */}
               <span
                 aria-hidden
-                className="mt-6 block h-1 w-20 rounded-full bg-accent-500"
+                className="mt-6 ml-auto block h-1 w-20 bg-accent-500"
               />
 
               {/* fig `Frame 127`: 64px-tall actions at radius 12 */}

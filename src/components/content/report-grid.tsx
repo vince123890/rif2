@@ -111,9 +111,10 @@ export function ReportGrid({
                   {coverLabel}
                 </h3>
 
+                {/* fig `Line 5`: 80×4 orange rule, flush right */}
                 <span
                   aria-hidden
-                  className="mt-6 block h-1 w-20 rounded-full bg-accent-500"
+                  className="mt-6 ml-auto block h-1 w-20 bg-accent-500"
                 />
 
                 {/* fig `Frame 127`: 64px actions at radius 12 */}
