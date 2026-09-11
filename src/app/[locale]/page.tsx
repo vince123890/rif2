@@ -43,7 +43,7 @@ export default async function HomePage({
 
   const [products, articles, sustainability, financial] = await Promise.all([
     getProducts(),
-    getArticles({ limit: 5 }),
+    getArticles({ limit: 6 }),
     getSustainabilityReports(),
     getFinancialReports(),
   ]);

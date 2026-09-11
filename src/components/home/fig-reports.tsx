@@ -85,13 +85,18 @@ export function FigReports({
                 className="pointer-events-none absolute right-6 top-5 h-[189px] w-[134px] bg-[url('/brand/blossom-pattern.png')] bg-contain bg-right-top bg-no-repeat opacity-30"
               />
 
-              {/* fig `Rectangle 116` + the 80px Black Italic year */}
+              {/*
+               * fig: the year text sits at y=2991 (card+20) and the
+               * `Rectangle 116` plate at y=3039 (card+68) — the plate
+               * crosses the number's lower half. It is flush with the
+               * card's left edge and 286 of the card's 410 wide.
+               */}
               <div className="relative">
                 <span
                   aria-hidden
-                  className="absolute -left-6 top-4 h-24 w-[286px] max-w-[calc(100%+3rem)] bg-[#F2F8F6]"
+                  className="absolute -left-6 bottom-0 h-12 w-[286px] max-w-[calc(100%+1.5rem)] bg-[#F2F8F6]"
                 />
-                <p className="relative py-2 text-[56px] font-black italic leading-none text-brand-600 md:text-[80px]">
+                <p className="relative text-[56px] font-black italic leading-[1.2] text-brand-600 md:text-[80px]">
                   {r.year}
                 </p>
               </div>

@@ -107,22 +107,28 @@ export function FigProducts({
             className="absolute inset-0 bg-gradient-to-r from-[#00100C] via-[#00100C]/70 to-transparent"
           />
 
-          {/* Slide copy — fig places it at (264, 2173) inside the card */}
+          {/*
+           * Slide copy. fig, relative to the 976×600 card at (232,1913):
+           *   title  264,2173  32px Bold        -> card + (32, 260)
+           *   rule   264,2223  80×4 #F58220     -> card + (32, 310)
+           *   desc   264,2255  24px Regular     -> card + (32, 342)
+           *   bullets 264,2337 287×144, 38 pitch-> card + (32, 424)
+           */}
           <div
             key={active.title}
-            className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:p-[32px] [animation:fade-up_0.7s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
+            className="absolute inset-x-0 bottom-0 p-6 md:p-8 lg:px-[32px] lg:pb-[88px] [animation:fade-up_0.7s_cubic-bezier(0.22,1,0.36,1)_both] motion-reduce:animate-none"
           >
-            {/* fig `Line 1`: 80×4 orange rule */}
-            <span
-              aria-hidden
-              className="block h-1 w-20 rounded-full bg-accent-500"
-            />
-
-            <h3 className="mt-5 text-[24px] font-bold leading-none text-white md:text-[32px]">
+            <h3 className="text-[24px] font-bold leading-none text-white md:text-[32px]">
               {active.title}
             </h3>
 
-            <p className="mt-5 max-w-[912px] text-[16px] leading-tight text-white md:text-[24px]">
+            {/* fig `Line 1`: 80×4 orange rule, under the title */}
+            <span
+              aria-hidden
+              className="mt-3 block h-1 w-20 bg-accent-500"
+            />
+
+            <p className="mt-4 max-w-[912px] text-[16px] leading-none text-white md:text-[24px]">
               {active.description}
             </p>
 
@@ -209,7 +215,8 @@ function NavButton({
       onClick={onClick}
       aria-label={label}
       className={cn(
-        "absolute top-1/2 z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full",
+        /* fig: arrows sit at y=2417 in a 1913–2513 card => 84% down. */
+        "absolute top-[84%] z-10 grid h-12 w-12 -translate-y-1/2 place-items-center rounded-full",
         "bg-accent-500 text-white shadow-lg backdrop-blur-[2px] transition-transform duration-200",
         "hover:scale-110 active:scale-95 lg:h-16 lg:w-16",
         side === "left" ? "left-0 lg:left-8" : "right-0 lg:right-8",

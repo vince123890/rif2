@@ -103,11 +103,8 @@ export function MainNav({
   ];
   const onLightBanner = !SECTION_LANDINGS.includes(pathname);
 
-  const linkTone = onLightBanner
-    ? "text-white hover:text-accent-300"
-    : scrolled
-      ? "text-white lg:text-ink-900 lg:hover:text-brand-600"
-      : "text-white hover:text-accent-300";
+  /* The pill is dark-on-dark in every state now, so labels stay white. */
+  const linkTone = "text-white hover:text-accent-300";
 
   /*
    * The fig's rail opens straight on "About Us" — the brand lockup is the
@@ -152,8 +149,10 @@ export function MainNav({
             ? /* fig: solid #006F4F over the cream banner */
               "lg:bg-brand-600 lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
             : scrolled
-              ? "lg:bg-white lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
-              : "lg:bg-white/10 lg:shadow-none lg:ring-1 lg:ring-white/20",
+              ? "lg:bg-brand-600 lg:shadow-[0_10px_40px_-18px_rgba(0,0,0,0.35)]"
+              : /* fig `Frame 4`: #FFFFFF at 6% — a glass pane over the
+                   hero photo, not a solid white bar. */
+                "lg:bg-white/[0.06] lg:shadow-none",
         )}
       >
         <div className="container-rif flex h-16 items-center justify-between gap-3 lg:h-20 lg:flex-nowrap lg:gap-5 lg:px-0">
@@ -164,9 +163,9 @@ export function MainNav({
             className="shrink-0 lg:pl-2"
           >
             <Logo
-              /* White lockup on the green pill; full colour once the pill
-                 turns white on scroll over a dark banner. */
-              tone={!onLightBanner && scrolled ? "dark" : "light"}
+              /* Always the white lockup: the pill is either the 6% glass
+                 pane over the hero or solid #006F4F. */
+              tone="light"
               wordmarkClassName="text-[15px] xl:text-[16px]"
             />
           </Link>
@@ -266,12 +265,7 @@ export function MainNav({
             <Link
               href="/search"
               aria-label={t("search")}
-              className={cn(
-                "grid h-11 w-11 place-items-center rounded-full transition-colors",
-                !onLightBanner && scrolled
-                  ? "text-white lg:text-ink-900 lg:hover:bg-black/5"
-                  : "text-white hover:bg-white/10",
-              )}
+              className="grid h-11 w-11 place-items-center rounded-full text-white transition-colors hover:bg-white/10"
             >
               <Search className="h-5 w-5" aria-hidden />
             </Link>
