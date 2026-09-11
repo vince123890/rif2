@@ -42,12 +42,22 @@ export function CurvedRule({
         style={{
           position: "absolute",
           top: 0,
-          // clipped from the far end, mirrored when it sits to the right
-          [flip ? "left" : "right"]: 0,
+          /*
+           * The pill is wider (509.5) than the visible node (392), so one end
+           * is cut off. The CLOSED, rounded end is the one that sits away
+           * from the heading; the cut end runs into it. For the left-hand
+           * rule that means anchoring the drawing's left edge and letting the
+           * right (heading-side) end overflow out of the clip.
+           */
+          left: 0,
           transform: flip ? "scaleX(-1)" : undefined,
+          transformOrigin: "center",
         }}
       >
         <defs>
+          {/* Solid at the heading-side (right) end, fading out as it travels
+              away — matching the fig's stroke gradient, whose transform
+              reverses it along x. */}
           <linearGradient
             id={`cr-${x}-${y}`}
             x1={vw}
@@ -56,7 +66,7 @@ export function CurvedRule({
             y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0" stopColor={color} stopOpacity="1" />
+            <stop offset="0" stopColor={color} stopOpacity="0.9" />
             <stop offset="1" stopColor={color} stopOpacity="0" />
           </linearGradient>
         </defs>

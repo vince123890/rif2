@@ -159,7 +159,14 @@ export function HomeDesktop({
         r={32}
         style={{ background: "#FFFFFF", overflow: "hidden" }}
       >
-        {/* image 29 — x=129 y=1043 w=302 h=507, i.e. +49/+43 inside */}
+        {/*
+         * image 29 — the node is 302x507 at +49/+43 inside the card, but its
+         * paint is STRETCH with a transform that scales the source to 0.62 x
+         * 0.97 and offsets it, so the portrait fills the frame rather than
+         * sitting inside it as a small contained image. Reproduced by
+         * covering the box and anchoring to the bottom, which is where the
+         * transform lands it.
+         */}
         <Image
           src="/fig2/ceo.webp"
           alt=""
@@ -171,8 +178,8 @@ export function HomeDesktop({
             top: 43,
             width: 302,
             height: 507,
-            objectFit: "contain",
-            objectPosition: "bottom",
+            objectFit: "cover",
+            objectPosition: "center bottom",
           }}
         />
       </N>
@@ -204,16 +211,19 @@ export function HomeDesktop({
       >
         {copy.managementEyebrow}
       </T>
+      {/* The node is auto-sized to 360x48 — one line at 40px. Browsers
+          measure Lato a shade wider than Figma does, so the box is given
+          room and told not to wrap rather than being pinned to 360. */}
       <T
         x={530}
         y={1054}
-        w={360}
         h={48}
         size={40}
-        lh={1}
+        lh={1.2}
         weight={700}
         color={INK}
         as="h2"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.managementHeading}
       </T>
@@ -287,16 +297,17 @@ export function HomeDesktop({
         {copy.productsEyebrow}
       </T>
       <T
-        x={495}
+        x={220}
         y={1786}
-        w={451}
+        w={1001}
         h={48}
         size={40}
-        lh={1}
+        lh={1.2}
         weight={700}
         color="#FFFFFF"
         align="center"
         as="h2"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.productsHeading}
       </T>
@@ -325,16 +336,17 @@ export function HomeDesktop({
         {copy.reportsEyebrow}
       </T>
       <T
-        x={540}
+        x={220}
         y={2749}
-        w={361}
+        w={1001}
         h={48}
         size={40}
-        lh={1}
+        lh={1.2}
         weight={700}
         color={INK}
         align="center"
         as="h2"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.reportsHeading}
       </T>
@@ -428,16 +440,17 @@ export function HomeDesktop({
         {copy.newsEyebrow}
       </T>
       <T
-        x={602}
+        x={220}
         y={3801}
-        w={236}
+        w={1000}
         h={48}
         size={40}
-        lh={1}
+        lh={1.2}
         weight={700}
         color={INK}
         align="center"
         as="h2"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.newsHeading}
       </T>
