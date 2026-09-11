@@ -90,19 +90,10 @@ export function FigHero({
       </div>
 
       {/*
-       * fig `Rectangle 5`: a flat #00100C plate covers the photo at full
-       * opacity in the file. Taken down to a strong wash here so the
-       * skyline stays visible — a solid fill would hide the photo the
-       * design deliberately places behind it.
+       * fig `Rectangle 5`: #00100B painted at 80% over the photo. One flat
+       * plate, exactly as the file has it — no extra gradient on top.
        */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-[#00100C]/72"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-[#00100C]/85 via-transparent to-[#00100C]/90"
-      />
+      <div aria-hidden className="absolute inset-0 -z-10 bg-[#00100B]/80" />
 
       {/* 1440×900 in the fig; min-height keeps the proportion without pinning it */}
       <div className="relative mx-auto min-h-[620px] w-full max-w-[1440px] pt-[180px] md:min-h-[760px] lg:min-h-[900px] lg:pt-[220px]">

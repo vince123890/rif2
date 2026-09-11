@@ -169,14 +169,14 @@ export default async function HomePage({
 
       {/*
        * ---- NEWS (y 3665) ----
-       * fig `Rectangle 27`: a 1440×2926 #EDB886 plate runs behind this
-       * block. Rendered at low opacity so it reads as the warm wash the
-       * design intends rather than a flat peach slab.
+       * fig `Rectangle 27`: a 1440×2926 #EDB886 plate behind this block,
+       * painted at 5% — a warm wash, not a solid peach slab.
        */}
       <section className="relative isolate py-16 md:py-[100px]">
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-[#EDB886]/15"
+          /* fig `Rectangle 27`: #EDB886 painted at 5% */
+          className="absolute inset-0 -z-10 bg-[#EDB886]/[0.05]"
         />
 
         <div className="mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-20">

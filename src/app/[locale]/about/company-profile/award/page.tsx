@@ -3,7 +3,7 @@ import { setRequestLocale } from "next-intl/server";
 import { getAwards } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
-import { AwardCarousel } from "@/components/content/award-carousel";
+import { AwardGrid } from "@/components/content/award-grid";
 
 const ROUTE = "/about/company-profile/award";
 
@@ -32,7 +32,7 @@ export default async function Page({
 
   return (
     <CompanyProfilePage route={ROUTE} bare>
-      <AwardCarousel awards={awards} />
+      <AwardGrid awards={awards} />
     </CompanyProfilePage>
   );
 }
