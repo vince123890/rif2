@@ -17,7 +17,11 @@ import {
   Dot,
   TitleRule,
 } from "./ornaments";
-import { NotchedCard } from "./notched-card";
+import {
+  NotchedCard,
+  NOTCH_CARD_410,
+  NOTCH_CARD_481,
+} from "./notched-card";
 
 const GREEN = "#006F4F";
 const ORANGE = "#F58220";
@@ -99,24 +103,26 @@ export function HomeDesktop({
         style={{ background: "#00100C", opacity: 0.8 }}
       />
 
-      {/* Children — 70px Lato. The node is WIDTH_AND_HEIGHT auto-sized to
-          641x168, i.e. two lines of 84px, so line-height is 84/70 = 1.2.
-          The text carries a U+2028 separator: it always breaks after the
-          comma, never on width, hence `whiteSpace: pre` on the break. */}
+      {/*
+       * 70px Lato in a 641x168 box at lineHeight 100%. The break after the
+       * comma is a literal U+2028 LINE SEPARATOR inside the string, honoured
+       * by `pre-wrap` — the text must never rewrap on width, or the second
+       * line starts with "a" instead of "for".
+       */}
       <T
         x={80}
         y={220}
-        w={720}
+        w={641}
         h={168}
         size={70}
-        lh={1.2}
+        lh={1}
         color="#FFFFFF"
         as="h1"
-        style={{ whiteSpace: "nowrap" }}
+        style={{ whiteSpace: "nowrap", display: "inline-block" }}
       >
         {copy.heroTitle}
         <br />
-        <span>for a </span>
+        {"for a "}
         <span style={{ color: ORANGE }}>Brighter Future.</span>
       </T>
 
@@ -196,7 +202,7 @@ export function HomeDesktop({
 
       {/* Vector 5 — the long curve that sweeps in from the right margin.
           x=1360 w=561 on a 600-wide normalized canvas, no fill. */}
-      <CurvedRule x={1360} y={1030} w={561} vw={600} color={GREEN} />
+      <CurvedRule x={1360} y={1030} color={GREEN} flip long />
       <Dot x={800} y={1024} color={GREEN} />
 
       <T
@@ -493,47 +499,91 @@ export function HomeDesktop({
  * y=551.69. The fig rotates them via the node transform; the angles below
  * come from those matrices.
  */
+/**
+ * The cards are NOT rotated — an earlier version applied `rotate(±10deg)` and
+ * a 1px border, both invented. The tilt is an illusion: each card is an
+ * upright clipped box whose dark veil is a curved outline, bowing along the
+ * top and bottom edges. The two right-hand cards are the same two shapes
+ * mirrored with `matrix(-1,0,0,1,w,0)`.
+ */
+const STRIP_VEIL_411 =
+  "M 0 64.828 C 0 47.491 13.802 33.294 31.128 32.687 C 73.035 31.217 148.877 28.092 205.579 23.126 C 258.726 18.472 331.911 9.805 375.106 4.505 C 394.253 2.155 411.159 17.08 411.159 36.371 L 411.159 317.155 C 411.159 336.141 394.769 350.962 375.88 349.031 C 332.78 344.623 259.013 337.195 205.579 332.432 C 149.423 327.427 72.428 322.974 30.406 320.71 C 13.364 319.792 0 305.722 0 288.655 L 0 64.828 Z";
+
+const STRIP_VEIL_391 =
+  "M 0 40.359 C 0 22.812 14.091 8.535 31.637 8.331 C 72.312 7.856 143.865 6.935 195.687 5.787 C 246.959 4.651 317.436 2.437 358.324 1.101 C 376.418 0.51 391.375 15.014 391.375 33.117 L 391.375 253.161 C 391.375 271.324 376.322 285.854 358.171 285.205 C 317.255 283.743 246.877 281.405 195.687 280.648 C 144.121 279.886 73.033 280.153 32.257 280.407 C 14.466 280.517 0 266.135 0 248.344 L 0 40.359 Z";
+
 function HeroStrip() {
+  // offsets are relative to "Group 167" at x=-90, y=519 (1620.55 x 352.667)
   const cards = [
-    { x: -90, y: 519, w: 411.16, h: 352.67, src: "/fig2/strip-1.webp", rot: -10 },
-    { x: 327.18, y: 551.69, w: 391.38, h: 286.43, src: "/fig2/strip-2.webp", rot: 0 },
-    { x: 722.86, y: 551.69, w: 391.37, h: 286.43, src: "/fig2/strip-3.webp", rot: 0 },
-    { x: 1119.39, y: 519, w: 411.16, h: 352.67, src: "/fig2/strip-4.webp", rot: 10 },
+    { left: 0, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: false },
+    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
+    { left: 812.855, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 700, ih: 438, flip: true },
+    { left: 1209.392, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-4.webp", ix: -135.392, iy: -119, iw: 825, ih: 516, flip: true },
   ];
   return (
-    <>
+    <N x={-90} y={519} w={1620.55} h={352.667} style={{ overflow: "hidden" }}>
       {cards.map((c) => (
-        <N
+        <div
           key={c.src}
-          x={c.x}
-          y={c.y}
-          w={c.w}
-          h={c.h}
-          r={32}
           style={{
+            position: "absolute",
+            left: c.left,
+            top: c.top,
+            width: c.w,
+            height: c.h,
             overflow: "hidden",
-            border: "1px solid #0F0F0F",
-            transform: c.rot ? `rotate(${c.rot}deg)` : undefined,
           }}
         >
-          <Image
-            src={c.src}
-            alt=""
-            fill
-            sizes="420px"
-            style={{ objectFit: "cover" }}
-          />
-          {/* the #000000 @0.3 veil the fig lays over each card */}
-          <span
+          <div
             style={{
               position: "absolute",
               inset: 0,
-              background: "rgba(0,0,0,0.3)",
+              overflow: "hidden",
+              borderRadius: 32,
             }}
-          />
-        </N>
+          >
+            <Image
+              src={c.src}
+              alt=""
+              width={Math.round(c.iw)}
+              height={Math.round(c.ih)}
+              style={{
+                position: "absolute",
+                left: c.ix,
+                top: c.iy,
+                width: c.iw,
+                height: c.ih,
+                borderRadius: 32,
+                objectFit: "cover",
+              }}
+            />
+          </div>
+          <svg
+            width={c.w}
+            height={c.h}
+            viewBox={`0 0 ${c.w} ${c.h}`}
+            fill="none"
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: c.w,
+              height: c.h,
+              borderRadius: 32,
+              ...(c.flip
+                ? {
+                    transform: `matrix(-1,0,0,1,${c.w},0)`,
+                    transformOrigin: "0 0",
+                  }
+                : null),
+            }}
+          >
+            <path d={c.veil} fill="rgba(0,0,0,0.3)" fillRule="nonzero" />
+          </svg>
+        </div>
       ))}
-    </>
+    </N>
   );
 }
 
@@ -821,20 +871,19 @@ function FeatureArticle({
         />
       </N>
 
-      {/* Subtract: 442x518 r32 #F2F8F6 minus a 66px circle whose centre is
-          at x=899 y=4416 absolute -> (+416, +498) inside the panel. */}
-      <N x={483} y={3918}>
-        <NotchedCard
-          w={442}
-          h={518}
-          r={32}
-          cx={416}
-          cy={498}
-          cr={33}
-          fill={MINT}
-          id="feature"
-        />
-      </N>
+      {/*
+       * Two layers, not one. The notched mint shape is 481x518 at x=444 —
+       * wider than, and starting left of, the 442x518 image panel at x=483
+       * that sits on top of it.
+       */}
+      <NotchedCard
+        x={444}
+        y={3918}
+        w={481}
+        h={518}
+        d={NOTCH_CARD_481}
+        fill={MINT}
+      />
 
       {/* Frame 21 — copy inset 58/50 from the panel */}
       <T
@@ -885,29 +934,39 @@ function NewsCard({
 }) {
   return (
     <>
-      <N x={x} y={yImage} w={410} h={267} r={32} style={{ overflow: "hidden" }}>
+      {/* 410x267 window onto a 446.637 square offset by (-0.181, -18.819) */}
+      <N
+        x={x}
+        y={yImage}
+        w={410}
+        h={267}
+        style={{ overflow: "hidden", borderRadius: 32 }}
+      >
         <Image
           src="/fig2/news-thumb.webp"
           alt=""
-          fill
-          sizes="410px"
-          style={{ objectFit: "cover" }}
+          width={447}
+          height={447}
+          style={{
+            position: "absolute",
+            left: -0.181,
+            top: -18.819,
+            width: 446.637,
+            height: 446.637,
+            borderRadius: 32,
+            objectFit: "cover",
+          }}
         />
       </N>
 
-      {/* circle centre sits at (+390, +223) from the body's origin, r=31 */}
-      <N x={x} y={yBody}>
-        <NotchedCard
-          w={410}
-          h={243}
-          r={32}
-          cx={390}
-          cy={223}
-          cr={31}
-          fill="#FFFFFF"
-          id={id}
-        />
-      </N>
+      <NotchedCard
+        x={x}
+        y={yBody}
+        w={410}
+        h={243}
+        d={NOTCH_CARD_410}
+        fill="#FFFFFF"
+      />
 
       <T
         x={x + 24}

@@ -47,3 +47,10 @@ yarn-error.log*
 docs/Analysis/
 docs/Requirement/
 docs/Figma dan Capture/
+
+# The Claude Design handoff bundle (131MB of prototype JSX plus the original
+# bitmaps). Kept locally as the reference the fig geometry was read from —
+# what was taken out of it lives in src/components/fig/*, where each path and
+# coordinate cites the node it came from.
+docs/dari_claude_design/
+docs/hasill.png
