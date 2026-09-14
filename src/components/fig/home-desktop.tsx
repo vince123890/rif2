@@ -510,25 +510,6 @@ export function HomeDesktop({
 
 /* -------------------------------------------------------------------- */
 
-/**
- * "Group 167" — four photo cards bleeding off both edges, each rotated
- * slightly. Outer pair 411.16x352.67 at y=519; inner pair 391.37x286.43 at
- * y=551.69. The fig rotates them via the node transform; the angles below
- * come from those matrices.
- */
-/**
- * The cards are NOT rotated — an earlier version applied `rotate(±10deg)` and
- * a 1px border, both invented. The tilt is an illusion: each card is an
- * upright clipped box whose dark veil is a curved outline, bowing along the
- * top and bottom edges. The two right-hand cards are the same two shapes
- * mirrored with `matrix(-1,0,0,1,w,0)`.
- */
-const STRIP_VEIL_411 =
-  "M 0 64.828 C 0 47.491 13.802 33.294 31.128 32.687 C 73.035 31.217 148.877 28.092 205.579 23.126 C 258.726 18.472 331.911 9.805 375.106 4.505 C 394.253 2.155 411.159 17.08 411.159 36.371 L 411.159 317.155 C 411.159 336.141 394.769 350.962 375.88 349.031 C 332.78 344.623 259.013 337.195 205.579 332.432 C 149.423 327.427 72.428 322.974 30.406 320.71 C 13.364 319.792 0 305.722 0 288.655 L 0 64.828 Z";
-
-const STRIP_VEIL_391 =
-  "M 0 40.359 C 0 22.812 14.091 8.535 31.637 8.331 C 72.312 7.856 143.865 6.935 195.687 5.787 C 246.959 4.651 317.436 2.437 358.324 1.101 C 376.418 0.51 391.375 15.014 391.375 33.117 L 391.375 253.161 C 391.375 271.324 376.322 285.854 358.171 285.205 C 317.255 283.743 246.877 281.405 195.687 280.648 C 144.121 279.886 73.033 280.153 32.257 280.407 C 14.466 280.517 0 266.135 0 248.344 L 0 40.359 Z";
-
 function HeroStrip() {
   /*
    * The fig only carries TWO photos here, not four:
@@ -542,10 +523,10 @@ function HeroStrip() {
    * Offsets below are relative to "Group 167" at x=-90, y=519 (1620.55 x 352.667).
    */
   const cards = [
-    { left: 0, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: false },
-    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: true },
-    { left: 812.855, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
-    { left: 1209.392, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-4.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: true },
+    { left: 0, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: false },
+    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: true },
+    { left: 812.855, top: 32.686, w: 391.375, h: 286.435, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
+    { left: 1209.392, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-4.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: true },
   ];
   return (
     <N x={-90} y={519} w={1620.55} h={352.667} style={{ overflow: "hidden" }}>
@@ -586,12 +567,12 @@ function HeroStrip() {
               }}
             />
           </div>
-          <svg
-            width={c.w}
-            height={c.h}
-            viewBox={`0 0 ${c.w} ${c.h}`}
-            fill="none"
-            aria-hidden
+          {/*
+           * fig "Rectangle 11/12/13/14": a plain rounded rectangle filled
+           * #000000 at 0.3, NOT a curved outline. An earlier version drew a
+           * bowed path here, which tinted the four cards unevenly.
+           */}
+          <div
             style={{
               position: "absolute",
               left: 0,
@@ -599,16 +580,9 @@ function HeroStrip() {
               width: c.w,
               height: c.h,
               borderRadius: 32,
-              ...(c.flip
-                ? {
-                    transform: `matrix(-1,0,0,1,${c.w},0)`,
-                    transformOrigin: "0 0",
-                  }
-                : null),
+              background: "rgba(0,0,0,0.3)",
             }}
-          >
-            <path d={c.veil} fill="rgba(0,0,0,0.3)" fillRule="nonzero" />
-          </svg>
+          />
         </div>
       ))}
     </N>
