@@ -240,3 +240,35 @@
     transform: none;
   }
 }
+
+/*
+ * Scroll-reveal for the fig canvas.
+ *
+ * Nodes there are absolutely positioned, so they cannot be wrapped in the
+ * shared <Reveal> without the wrapper stealing the coordinates. Instead the
+ * positioned element animates itself: it starts lowered and transparent and
+ * is released when FigReveal adds `.is-in`.
+ *
+ * `translate` is used rather than `transform` so a node that already carries
+ * its own transform (the mirrored rules, for one) keeps it.
+ */
+[data-fig-reveal] {
+  opacity: 0;
+  translate: 0 24px;
+  transition:
+    opacity 0.7s var(--ease-out-soft),
+    translate 0.7s var(--ease-out-soft);
+}
+
+[data-fig-reveal].is-in {
+  opacity: 1;
+  translate: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-fig-reveal] {
+    opacity: 1;
+    translate: none;
+    transition: none;
+  }
+}

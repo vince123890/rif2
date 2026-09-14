@@ -89,6 +89,9 @@ export default async function HomePage({
     newsHeading: t("newsHeading"),
     seeMore: t("seeMore"),
     readMore: tc("readMore"),
+    // fig footer blurb — 14px Lato Italic at 70% white
+    footerBlurb:
+      "PT Resona Indonesia Finance didirikan pada tanggal 15 Agustus 1984 berdasarkan akta No. 157 tanggal 15 Agustus 1984 yang dibuat dihadapan Lieyono, S.H., sebagai pengganti dari Muqfiat Wilamarta S.H., notaris di Jakarta. PT Resona Indonesia Finance tergabung dalam kelompok Resona Grup.",
   };
 
   return (

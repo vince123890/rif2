@@ -9,6 +9,7 @@ import { routing } from "@/i18n/routing";
 import { site } from "@/config/site";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
+import { HomeFooterGate } from "@/components/fig/home-footer-gate";
 import { BackToTop } from "@/components/layout/back-to-top";
 
 /** Lato — the typeface used throughout the Figma design. */
@@ -137,7 +138,13 @@ export default async function LocaleLayout({
           <main id="main" className="flex-1">
             {children}
           </main>
-          <SiteFooter />
+          {/*
+           * The homepage canvas carries the fig's own footer, so the shared
+           * one is suppressed there to avoid two footers stacking.
+           */}
+          <HomeFooterGate>
+            <SiteFooter />
+          </HomeFooterGate>
           <BackToTop />
         </NextIntlClientProvider>
       </body>

@@ -50,6 +50,7 @@ export function CurvedRule({
   color,
   flip,
   long,
+  fadeTo,
 }: {
   x: number;
   y: number;
@@ -57,9 +58,16 @@ export function CurvedRule({
   flip?: boolean;
   /** use the 561x66 "Vector 5" shape instead of the 392x68 one */
   long?: boolean;
+  /**
+   * The fig strokes these with a LINEAR gradient that fades to a second
+   * colour at zero alpha — #0B3706 on the green sections, white on the
+   * products panel. Passing it keeps that fade instead of a flat ramp.
+   */
+  fadeTo?: string;
 }) {
   const w = long ? 561 : 392;
   const h = long ? 66 : 68;
+  const gid = `cr-${x}-${y}${flip ? "-f" : ""}`;
   return (
     <svg
       width={w}
@@ -80,10 +88,62 @@ export function CurvedRule({
         color,
       }}
     >
+      <defs>
+        {/*
+         * fig: GRADIENT_LINEAR, #006F4F@1.0 -> #0B3706@0.0 on the green
+         * sections, #FFFFFF@1.0 -> #FFFFFF@0.0 on the products panel. Solid
+         * at the heading end, fading to zero alpha as it runs away — the
+         * line should dissolve, not stop at full strength.
+         */}
+        <linearGradient
+          id={gid}
+          x1={w}
+          y1="0"
+          x2="0"
+          y2="0"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0" stopColor={color} stopOpacity="1" />
+          <stop offset="1" stopColor={fadeTo ?? color} stopOpacity="0" />
+        </linearGradient>
+      </defs>
       <path
         d={long ? RULE_PATH_561 : RULE_PATH}
-        fill="currentColor"
+        fill={`url(#${gid})`}
         fillRule="nonzero"
+      />
+    </svg>
+  );
+}
+
+/**
+ * The 16x16 calendar that precedes every news date.
+ * fig: INSTANCE "Linear / Time / Calendar".
+ */
+export function CalendarIcon({ color = "#6E6E6E" }: { color?: string }) {
+  return (
+    <svg
+      width={16}
+      height={16}
+      viewBox="0 0 24 24"
+      fill="none"
+      aria-hidden
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      <path
+        d="M8 2v3M16 2v3M3.5 9.09h17M21 8.5V17c0 3-1.5 5-5 5H8c-3.5 0-5-2-5-5V8.5c0-3 1.5-5 5-5h8c3.5 0 5 2 5 5Z"
+        stroke={color}
+        strokeWidth="1.5"
+        strokeMiterlimit="10"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M11.995 13.7h.009M8.294 13.7h.01M8.294 16.7h.01"
+        stroke={color}
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
@@ -184,11 +244,14 @@ export function Dot({
   y,
   color,
   size = 12,
+  fadeTo,
 }: {
   x: number;
   y: number;
   color: string;
   size?: number;
+  /** the fig gives these a 1px gradient stroke fading to this colour */
+  fadeTo?: string;
 }) {
   return (
     <N
@@ -196,7 +259,18 @@ export function Dot({
       y={y}
       w={size}
       h={size}
-      style={{ borderRadius: "50%", backgroundColor: color }}
+      style={{
+        borderRadius: "50%",
+        backgroundColor: color,
+        ...(fadeTo
+          ? {
+              border: "1px solid transparent",
+              backgroundImage: `linear-gradient(${color}, ${color}), linear-gradient(270deg, ${color}, ${fadeTo})`,
+              backgroundOrigin: "border-box",
+              backgroundClip: "padding-box, border-box",
+            }
+          : null),
+      }}
       aria-hidden
     />
   );

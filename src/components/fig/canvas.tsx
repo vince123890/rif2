@@ -16,6 +16,20 @@ import type { CSSProperties, ReactNode } from "react";
 
 export const FIG_W = 1440;
 
+/**
+ * Scroll-reveal for absolutely positioned nodes.
+ *
+ * The shared `<Reveal>` wraps its children in an extra div, which would break
+ * absolute positioning here — the wrapper, not the node, would carry the
+ * coordinates. So the canvas animates the positioned element itself: a class
+ * that starts the node lowered and transparent, lifted by `.is-in` once the
+ * observer fires. See `fig-reveal` in globals.css.
+ */
+export const revealProps = (delay = 0) => ({
+  "data-fig-reveal": "",
+  style: { transitionDelay: `${delay}ms` } as CSSProperties,
+});
+
 /** Absolute box at fig coordinates. */
 export function N({
   x,
@@ -26,6 +40,8 @@ export function N({
   style,
   className,
   children,
+  reveal,
+  delay = 0,
   as: Tag = "div",
 }: {
   x: number;
@@ -37,11 +53,16 @@ export function N({
   style?: CSSProperties;
   className?: string;
   children?: ReactNode;
+  /** animate this node in on first scroll into view */
+  reveal?: boolean;
+  /** stagger, in ms */
+  delay?: number;
   as?: "div" | "section" | "article" | "header" | "footer" | "nav";
 }) {
   return (
     <Tag
       className={className}
+      {...(reveal ? { "data-fig-reveal": "" } : null)}
       style={{
         position: "absolute",
         left: x,
@@ -49,6 +70,7 @@ export function N({
         ...(w !== undefined ? { width: w } : null),
         ...(h !== undefined ? { height: h } : null),
         ...(r !== undefined ? { borderRadius: r } : null),
+        ...(reveal && delay ? { transitionDelay: `${delay}ms` } : null),
         ...style,
       }}
     >

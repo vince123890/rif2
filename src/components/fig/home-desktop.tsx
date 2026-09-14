@@ -13,10 +13,13 @@ import { Canvas, N, T } from "./canvas";
 import {
   AccentBar,
   ArrowRight,
+  CalendarIcon,
   CurvedRule,
   Dot,
   TitleRule,
 } from "./ornaments";
+import { FigReveal } from "./fig-reveal";
+import { HomeFooter } from "./home-footer";
 import {
   NotchedCard,
   NOTCH_CARD_410,
@@ -67,6 +70,7 @@ export type HomeCopy = {
   newsHeading: string;
   seeMore: string;
   readMore: string;
+  footerBlurb: string;
 };
 
 export function HomeDesktop({
@@ -80,6 +84,8 @@ export function HomeDesktop({
 }) {
   return (
     <Canvas h={6627} style={{ background: "#F9FAFB", overflow: "hidden" }}>
+      {/* drives the scroll-reveal on every node marked `reveal` */}
+      <FigReveal />
       {/* ================================================================
           HERO — y 0..900
           "Mask group" 1440x900 photo, then "Rectangle 5" #00100C @0.8
@@ -154,6 +160,7 @@ export function HomeDesktop({
         w={400}
         h={550}
         r={32}
+        reveal
         style={{ background: GREEN, opacity: 0.05 }}
       />
       {/* Rectangle 103 — white card, clipping the portrait */}
@@ -163,6 +170,7 @@ export function HomeDesktop({
         w={400}
         h={550}
         r={32}
+        reveal
         style={{ background: "#FFFFFF", overflow: "hidden" }}
       >
         {/*
@@ -202,8 +210,8 @@ export function HomeDesktop({
 
       {/* Vector 5 — the long curve that sweeps in from the right margin.
           x=1360 w=561 on a 600-wide normalized canvas, no fill. */}
-      <CurvedRule x={1360} y={1030} color={GREEN} flip long />
-      <Dot x={800} y={1024} color={GREEN} />
+      <CurvedRule x={1360} y={1030} color={GREEN} fadeTo="#0B3706" flip long />
+      <Dot x={800} y={1024} color={GREEN} fadeTo="#0B3706" />
 
       <T
         x={530}
@@ -288,7 +296,7 @@ export function HomeDesktop({
       {/* ================================================================
           PRODUK & LAYANAN — Rectangle 123, y 1650, 1392x963 r32 #006F4F
           ================================================================ */}
-      <N x={24} y={1650} w={1392} h={963} r={32} style={{ background: GREEN }} />
+      <N x={24} y={1650} w={1392} h={963} r={32} reveal style={{ background: GREEN }} />
 
       <T
         x={640}
@@ -317,10 +325,10 @@ export function HomeDesktop({
       >
         {copy.productsHeading}
       </T>
-      <CurvedRule x={186} y={1762} color="#FFFFFF" />
-      <Dot x={577} y={1756} color="#FFFFFF" />
-      <CurvedRule x={1254} y={1762} color="#FFFFFF" flip />
-      <Dot x={863} y={1756} color="#FFFFFF" />
+      <CurvedRule x={186} y={1762} color="#FFFFFF" fadeTo="#FFFFFF" />
+      <Dot x={577} y={1756} color="#FFFFFF" fadeTo="#FFFFFF" />
+      <CurvedRule x={1254} y={1762} color="#FFFFFF" fadeTo="#FFFFFF" flip />
+      <Dot x={863} y={1756} color="#FFFFFF" fadeTo="#FFFFFF" />
       {/* Group 176 — 331 wide, white */}
       <TitleRule x={555} y={1846} w={331} color="#FFFFFF" />
 
@@ -356,10 +364,10 @@ export function HomeDesktop({
       >
         {copy.reportsHeading}
       </T>
-      <CurvedRule x={188} y={2724} color={GREEN} />
-      <Dot x={579} y={2718} color={GREEN} />
-      <CurvedRule x={1253} y={2724} color={GREEN} flip />
-      <Dot x={862} y={2718} color={GREEN} />
+      <CurvedRule x={188} y={2724} color={GREEN} fadeTo="#0B3706" />
+      <Dot x={579} y={2718} color={GREEN} fadeTo="#0B3706" />
+      <CurvedRule x={1253} y={2724} color={GREEN} fadeTo="#0B3706" flip />
+      <Dot x={862} y={2718} color={GREEN} fadeTo="#0B3706" />
       <TitleRule x={540} y={2809} w={372} color={ORANGE} />
 
       {/* Frame 82 — the glass tab pill, 485x76 r100, #EEEFF0 @0.1 */}
@@ -460,10 +468,10 @@ export function HomeDesktop({
       >
         {copy.newsHeading}
       </T>
-      <CurvedRule x={186} y={3776} color={GREEN} />
-      <Dot x={577} y={3770} color={GREEN} />
-      <CurvedRule x={1254} y={3776} color={GREEN} flip />
-      <Dot x={863} y={3770} color={GREEN} />
+      <CurvedRule x={186} y={3776} color={GREEN} fadeTo="#0B3706" />
+      <Dot x={577} y={3770} color={GREEN} fadeTo="#0B3706" />
+      <CurvedRule x={1254} y={3776} color={GREEN} fadeTo="#0B3706" flip />
+      <Dot x={863} y={3770} color={GREEN} fadeTo="#0B3706" />
       <TitleRule x={602} y={3861} w={247} color={ORANGE} />
 
       <FeatureArticle article={articles[0]} copy={copy} />
@@ -487,6 +495,11 @@ export function HomeDesktop({
       ))}
 
       <SeeMore x={638.5} y={5028} label={copy.seeMore} />
+
+      {/* ================================================================
+          FOOTER — "Group 160", y 5192, 1440x1435
+          ================================================================ */}
+      <HomeFooter blurb={copy.footerBlurb} />
     </Canvas>
   );
 }
@@ -513,12 +526,22 @@ const STRIP_VEIL_391 =
   "M 0 40.359 C 0 22.812 14.091 8.535 31.637 8.331 C 72.312 7.856 143.865 6.935 195.687 5.787 C 246.959 4.651 317.436 2.437 358.324 1.101 C 376.418 0.51 391.375 15.014 391.375 33.117 L 391.375 253.161 C 391.375 271.324 376.322 285.854 358.171 285.205 C 317.255 283.743 246.877 281.405 195.687 280.648 C 144.121 279.886 73.033 280.153 32.257 280.407 C 14.466 280.517 0 266.135 0 248.344 L 0 40.359 Z";
 
 function HeroStrip() {
-  // offsets are relative to "Group 167" at x=-90, y=519 (1620.55 x 352.667)
+  /*
+   * The fig only carries TWO photos here, not four:
+   *   Group 162 "image 10" (16d6c076…) at x=-176 y=508, 598x374
+   *   Group 164 "image 11" (dcdeeee1…) at x=723  y=519, 569x356
+   * Group 163 and Group 165 hold the SAME two rectangles mirrored with
+   * T=[-1,0,0,1] and no image fill of their own. Feeding four different
+   * photos in — as an earlier version did — is what left cards part-covered
+   * and mismatched.
+   *
+   * Offsets below are relative to "Group 167" at x=-90, y=519 (1620.55 x 352.667).
+   */
   const cards = [
     { left: 0, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: false },
-    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
-    { left: 812.855, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 700, ih: 438, flip: true },
-    { left: 1209.392, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-4.webp", ix: -135.392, iy: -119, iw: 825, ih: 516, flip: true },
+    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: true },
+    { left: 812.855, top: 32.686, w: 391.375, h: 286.435, veil: STRIP_VEIL_391, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
+    { left: 1209.392, top: 0, w: 411.159, h: 352.667, veil: STRIP_VEIL_411, src: "/fig2/strip-4.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: true },
   ];
   return (
     <N x={-90} y={519} w={1620.55} h={352.667} style={{ overflow: "hidden" }}>
@@ -991,7 +1014,18 @@ function FeatureArticle({
             paddingRight: 32,
           }}
         >
-          <span style={{ fontSize: 14, lineHeight: 1.5, color: MUTED }}>
+          {/* fig "Frame 23" — calendar icon then the date, 8px apart */}
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              fontSize: 14,
+              lineHeight: 1.5,
+              color: MUTED,
+            }}
+          >
+            <CalendarIcon />
             {article.date}
           </span>
           <span style={{ fontSize: 14, lineHeight: 1.5, color: GREEN }}>
@@ -1084,6 +1118,10 @@ function NewsCard({
       >
         {article.excerpt}
       </T>
+      {/* fig "Frame 23" — 16px calendar at x+24, date 8px after it */}
+      <N x={x + 24} y={yBody + 191} w={16} h={16}>
+        <CalendarIcon />
+      </N>
       <T x={x + 48} y={yBody + 188.5} w={82} h={21} size={14} lh={1.5} color={MUTED}>
         {article.date}
       </T>
@@ -1119,12 +1157,13 @@ function SeeMore({ x, y, label }: { x: number; y: number; label: string }) {
   );
 }
 
+/* fig: the download glyph is ORANGE (#F58220), not green like its label. */
 function DownloadIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
       <path
         d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
-        stroke={GREEN}
+        stroke={ORANGE}
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
