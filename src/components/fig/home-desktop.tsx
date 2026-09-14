@@ -510,6 +510,44 @@ export function HomeDesktop({
 
 /* -------------------------------------------------------------------- */
 
+/**
+ * The strip cards are NOT rectangles and are NOT rotated.
+ *
+ * `Rectangle 11/12/13/14` are VECTOR nodes whose blob decodes to six points:
+ * four tilted corners plus a control midpoint on the top and bottom edge, so
+ * each edge bows outward. Decoded from the fig:
+ *
+ *   411.159 x 352.667      135 x 99 (scaled to 391.375 x 286.435)
+ *   v0 (0,      33.681)    v0 (0,     3)
+ *   v1 (411.159, 0)        v1 (135,   0)
+ *   v2 (411.159, 352.667)  v2 (135,  99)
+ *   v3 (0,      319.132)   v3 (0,    97)
+ *   v4 (205.579, 23.126)   v4 (67.5,  2)   <- top edge midpoint
+ *   v5 (205.579, 332.432)  v5 (67.5, 97)   <- bottom edge midpoint
+ *
+ * Earlier versions guessed a rotate(10deg), then a bowed outline with the
+ * curve running the wrong way, then a plain rounded rect — which flattened
+ * the tilt away entirely.
+ */
+function stripShape(w: number, h: number, big: boolean) {
+  // normalised source box the verts were decoded against
+  const [sw, sh] = big ? [411.159, 352.667] : [135, 99];
+  const [v0y, v1y, v3y, v4y, v5y] = big
+    ? [33.681, 0, 319.132, 23.126, 332.432]
+    : [3, 0, 97, 2, 97];
+  const sx = w / sw;
+  const sy = h / sh;
+  const mx = (big ? 205.579 : 67.5) * sx;
+  const p = (x: number, y: number) => `${+(x).toFixed(2)} ${+(y).toFixed(2)}`;
+  // top edge bows through v4, bottom edge bows through v5
+  return (
+    `M ${p(0, v0y * sy)} ` +
+    `Q ${p(mx, v4y * sy)} ${p(w, v1y * sy)} ` +
+    `L ${p(w, h)} ` +
+    `Q ${p(mx, v5y * sy)} ${p(0, v3y * sy)} Z`
+  );
+}
+
 function HeroStrip() {
   /*
    * The fig only carries TWO photos here, not four:
@@ -547,7 +585,7 @@ function HeroStrip() {
               position: "absolute",
               inset: 0,
               overflow: "hidden",
-              borderRadius: 32,
+              clipPath: `path('${stripShape(c.w, c.h, c.w > 400)}')`,
             }}
           >
             <Image
@@ -567,22 +605,20 @@ function HeroStrip() {
               }}
             />
           </div>
-          {/*
-           * fig "Rectangle 11/12/13/14": a plain rounded rectangle filled
-           * #000000 at 0.3, NOT a curved outline. An earlier version drew a
-           * bowed path here, which tinted the four cards unevenly.
-           */}
-          <div
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 0,
-              width: c.w,
-              height: c.h,
-              borderRadius: 32,
-              background: "rgba(0,0,0,0.3)",
-            }}
-          />
+          {/* veil: same tilted, bowed shape, filled #000000 at 0.3 */}
+          <svg
+            width={c.w}
+            height={c.h}
+            viewBox={`0 0 ${c.w} ${c.h}`}
+            fill="none"
+            aria-hidden
+            style={{ position: "absolute", left: 0, top: 0 }}
+          >
+            <path
+              d={stripShape(c.w, c.h, c.w > 400)}
+              fill="rgba(0,0,0,0.3)"
+            />
+          </svg>
         </div>
       ))}
     </N>
