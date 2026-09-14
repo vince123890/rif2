@@ -814,18 +814,18 @@ function ReportCard({
   return (
     <>
       <N x={x} y={2971} w={410} h={480} r={32} style={{ background: "#FFFFFF" }} />
-      {/* Rectangle 116/119/122 — mint block behind the year */}
-      <N x={x} y={3039} w={286} h={96} style={{ background: MINT }} />
-      {/* Rectangle 34/118/121 — seigaiha pattern @30% */}
+      {/*
+       * Rectangle 116/119/122 — the mint block behind the year. Rounded only
+       * on its right edge (16px); it runs off the card's left side.
+       */}
       <N
-        x={x + 256}
-        y={2991}
-        w={134}
-        h={189}
+        x={x}
+        y={3039}
+        w={286}
+        h={96}
         style={{
-          opacity: 0.3,
-          backgroundImage: "url(/fig/pattern-seigaiha.webp)",
-          backgroundSize: "cover",
+          background: MINT,
+          borderRadius: "0px 16px 16px 0px",
         }}
       />
       <T
