@@ -186,6 +186,7 @@ export function HomeDesktop({
           alt=""
           width={302}
           height={507}
+          loading="eager"
           style={{
             position: "absolute",
             left: 49,
@@ -573,6 +574,7 @@ function HeroStrip() {
               alt=""
               width={Math.round(c.iw)}
               height={Math.round(c.ih)}
+              loading="eager"
               style={{
                 position: "absolute",
                 left: c.ix,
@@ -643,6 +645,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
           alt=""
           width={974}
           height={609}
+          loading="eager"
           style={{
             position: "absolute",
             left: -396,
@@ -664,11 +667,18 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
 
       {/* right sliver */}
       <N x={1232} y={1913} w={128} h={600} r={32} style={{ overflow: "hidden" }}>
+        {/*
+         * Eager, not lazy. These sit at y=1913 — far below any viewport at
+         * first paint — so Next's default lazy loading left them unfetched
+         * and the scrim painted over blank space, which is why the slivers
+         * read as solid dark green with no photo in them.
+         */}
         <Image
           src="/fig2/product-next.webp"
           alt=""
           width={959}
           height={600}
+          loading="eager"
           style={{
             position: "absolute",
             left: -247,
@@ -695,6 +705,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
           alt=""
           width={985}
           height={616}
+          loading="eager"
           style={{
             position: "absolute",
             left: -9,
@@ -846,7 +857,16 @@ function ReportCard({
   const x = [80, 514, 948][index];
   return (
     <>
-      <N x={x} y={2971} w={410} h={480} r={32} style={{ background: "#FFFFFF" }} />
+      <N
+        x={x}
+        y={2971}
+        w={410}
+        h={480}
+        r={32}
+        reveal
+        delay={index * 80}
+        style={{ background: "#FFFFFF" }}
+      />
       {/*
        * Rectangle 116/119/122 — the mint block behind the year. Rounded only
        * on its right edge (16px); it runs off the card's left side.
@@ -1082,6 +1102,7 @@ function NewsCard({
           alt=""
           width={447}
           height={447}
+          loading="eager"
           style={{
             position: "absolute",
             left: -0.181,
