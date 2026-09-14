@@ -216,12 +216,12 @@ export function HomeDesktop({
       <T
         x={530}
         y={1018}
-        w={207}
+        w={420}
         h={24}
         size={16}
         lh={1.5}
         color={ORANGE}
-        align="center"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.managementEyebrow}
       </T>
@@ -299,14 +299,15 @@ export function HomeDesktop({
       <N x={24} y={1650} w={1392} h={963} r={32} reveal style={{ background: GREEN }} />
 
       <T
-        x={640}
+        x={440}
         y={1750}
-        w={160}
+        w={560}
         h={24}
         size={16}
         lh={1.5}
         color="#FFFFFF"
         align="center"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.productsEyebrow}
       </T>
@@ -338,14 +339,15 @@ export function HomeDesktop({
           TRANSPARANSI KINERJA — y 2713..3565
           ================================================================ */}
       <T
-        x={642}
+        x={440}
         y={2713}
-        w={157}
+        w={561}
         h={24}
         size={16}
         lh={1.5}
         color={ORANGE}
         align="center"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.reportsEyebrow}
       </T>
@@ -442,14 +444,15 @@ export function HomeDesktop({
       />
 
       <T
-        x={640}
+        x={440}
         y={3765}
-        w={160}
+        w={560}
         h={24}
         size={16}
         lh={1.5}
         color={ORANGE}
         align="center"
+        style={{ whiteSpace: "nowrap" }}
       >
         {copy.newsEyebrow}
       </T>
@@ -622,8 +625,15 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
    * 100%. An earlier version ran it the other way and painted the slivers
    * almost solid black.
    */
+  /*
+   * fig "Rectangle 103/104": GRADIENT_LINEAR #00100C@1.0 -> #999792@0.0 with
+   * transform m01=-1, m10=1 — a 90 degree rotation, so it runs bottom to top:
+   * solid at the foot of the sliver, fully clear at the head. Stated as a
+   * 3-stop ramp so the photo is untouched across the top third instead of
+   * being dimmed the whole way up.
+   */
   const sliverVeil =
-    "linear-gradient(0deg, rgb(0,16,12) 0%, rgba(153,151,146,0) 100%)";
+    "linear-gradient(0deg, rgb(0,16,12) 0%, rgba(0,16,12,0.55) 45%, rgba(153,151,146,0) 100%)";
   return (
     <>
       {/* left sliver */}
