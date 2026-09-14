@@ -593,8 +593,14 @@ function HeroStrip() {
  * (#00100C -> #999792, rotated 90deg per the paint transform).
  */
 function ProductPanel({ copy }: { copy: HomeCopy }) {
-  const veil =
-    "linear-gradient(180deg, rgba(0,16,12,1) 0%, rgba(153,151,146,0) 100%)";
+  /*
+   * The slivers' scrim is a plain gradient div stacked ON TOP of the clipped
+   * photo, running bottom-up: opaque #00100C at 0% rising to transparent at
+   * 100%. An earlier version ran it the other way and painted the slivers
+   * almost solid black.
+   */
+  const sliverVeil =
+    "linear-gradient(0deg, rgb(0,16,12) 0%, rgba(153,151,146,0) 100%)";
   return (
     <>
       {/* left sliver */}
@@ -613,8 +619,15 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             objectFit: "cover",
           }}
         />
-        <span style={{ position: "absolute", inset: 0, background: veil }} />
       </N>
+      <N
+        x={80}
+        y={1913}
+        w={128}
+        h={600}
+        r={32}
+        style={{ background: sliverVeil }}
+      />
 
       {/* right sliver */}
       <N x={1232} y={1913} w={128} h={600} r={32} style={{ overflow: "hidden" }}>
@@ -632,10 +645,17 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             objectFit: "cover",
           }}
         />
-        <span style={{ position: "absolute", inset: 0, background: veil }} />
       </N>
+      <N
+        x={1232}
+        y={1913}
+        w={128}
+        h={600}
+        r={32}
+        style={{ background: sliverVeil }}
+      />
 
-      {/* main panel */}
+      {/* main panel photo */}
       <N x={232} y={1913} w={976} h={600} r={32} style={{ overflow: "hidden" }}>
         <Image
           src="/fig2/product-main.webp"
@@ -651,15 +671,41 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             objectFit: "cover",
           }}
         />
-        <span
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(180deg, rgba(0,16,12,1) 0%, rgba(52,52,52,0) 100%)",
-          }}
-        />
       </N>
+      {/*
+       * The scrim over the main panel is NOT a full rectangle — it is a
+       * notched outline that bites a 96px corner out of the bottom right so
+       * the white pager button sits in clear space. Gradient runs top (clear)
+       * to bottom (#00100C).
+       */}
+      <svg
+        width={976}
+        height={600}
+        viewBox="0 0 976 600"
+        fill="none"
+        aria-hidden
+        style={{
+          overflow: "visible",
+          position: "absolute",
+          left: 232,
+          top: 1913,
+          width: 976,
+          height: 600,
+          borderRadius: 32,
+        }}
+      >
+        <defs>
+          <linearGradient id="rif-card-scrim" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="rgb(52,52,52)" stopOpacity="0" />
+            <stop offset="1" stopColor="rgb(0,16,12)" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M 976 488 C 976 505.673 961.673 520 944 520 L 928 520 C 910.327 520 896 534.327 896 552 L 896 568 C 896 585.673 881.673 600 864 600 L 32 600 C 14.327 600 0 585.673 0 568 L 0 32 C 0 14.327 14.327 0 32 0 L 944 0 C 961.673 0 976 14.327 976 32 L 976 488 Z"
+          fill="url(#rif-card-scrim)"
+          fillRule="nonzero"
+        />
+      </svg>
 
       {/* copy sits above the panel */}
       <T x={264} y={2173} w={319} h={38} size={32} lh={1} weight={700} color="#FFFFFF" as="h3">
@@ -673,6 +719,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
       {/* Frame 26871 — bullets, 4 rows of 30 with an 8px gap */}
       {copy.productBullets.slice(0, 4).map((b, i) => (
         <N key={b} x={264} y={2337 + i * 38} w={287} h={30}>
+          {/* solid white hex, per the bundle — not the outline asset */}
           <span
             style={{
               position: "absolute",
@@ -683,7 +730,12 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
               display: "inline-flex",
             }}
           >
-            <Image src="/brand/bullet-hex.svg" alt="" width={22} height={22} />
+            <svg width={22} height={22} viewBox="0 0 22 22" fill="none">
+              <path
+                d="M10.05 1.577a1.9 1.9 0 0 1 1.9 0l6.062 3.5a1.9 1.9 0 0 1 .95 1.645v7a1.9 1.9 0 0 1-.95 1.645l-6.062 3.5a1.9 1.9 0 0 1-1.9 0l-6.062-3.5a1.9 1.9 0 0 1-.95-1.645v-7a1.9 1.9 0 0 1 .95-1.645l6.062-3.5Z"
+                fill="#FFFFFF"
+              />
+            </svg>
           </span>
           <span
             style={{
@@ -885,29 +937,68 @@ function FeatureArticle({
         fill={MINT}
       />
 
-      {/* Frame 21 — copy inset 58/50 from the panel */}
-      <T
-        x={541}
-        y={3968}
-        w={352}
-        h={90}
-        size={20}
-        lh={1.5}
-        weight={700}
-        color={INK}
-        as="h3"
+      {/*
+       * The copy sits in its own 434x518 flex column at x=491, padded
+       * 50/32/24/50 and rounded only on the right — the bundle lays it out
+       * rather than pinning each line, so the date row stays glued to the
+       * bottom however long the excerpt runs.
+       */}
+      <N
+        x={491}
+        y={3918}
+        w={434}
+        h={518}
+        style={{
+          borderRadius: "0px 32px 32px 0px",
+          padding: "50px 32px 24px 50px",
+          boxSizing: "border-box",
+          display: "flex",
+          flexDirection: "column",
+          gap: 12,
+          alignItems: "flex-start",
+        }}
       >
-        {article.title}
-      </T>
-      <T x={541} y={4074} w={352} h={126} size={14} lh={1.5} color={MUTED} as="p">
-        {article.excerpt}
-      </T>
-      <T x={565} y={4381.5} w={82} h={21} size={14} lh={1.5} color={MUTED}>
-        {article.date}
-      </T>
-      <T x={802} y={4381.5} w={67} h={21} size={14} lh={1.5} color={GREEN}>
-        {copy.readMore}
-      </T>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 16,
+            alignSelf: "stretch",
+            flexGrow: 1,
+          }}
+        >
+          <h3
+            style={{
+              margin: 0,
+              fontSize: 20,
+              lineHeight: 1.5,
+              fontWeight: 700,
+              color: INK,
+            }}
+          >
+            {article.title}
+          </h3>
+          <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: MUTED }}>
+            {article.excerpt}
+          </p>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            alignSelf: "stretch",
+            paddingRight: 32,
+          }}
+        >
+          <span style={{ fontSize: 14, lineHeight: 1.5, color: MUTED }}>
+            {article.date}
+          </span>
+          <span style={{ fontSize: 14, lineHeight: 1.5, color: GREEN }}>
+            {copy.readMore}
+          </span>
+        </div>
+      </N>
       <PagerButton x={885} y={4396} size={40} bg={ORANGE} icon={20} />
     </>
   );

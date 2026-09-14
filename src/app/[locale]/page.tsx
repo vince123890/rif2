@@ -50,6 +50,14 @@ export default async function HomePage({
     year: "numeric",
   });
 
+  /*
+   * The fig's product panel shows "Modal Kerja" with its four bullets
+   * (Alat Berat / Mesin Industri / Perangkat TI / Kendaraan Operasional).
+   * That is `working-capital`, not whatever happens to sort first.
+   */
+  const featured =
+    products.find((p) => p.slug === "working-capital") ?? products[0];
+
   const managementBody =
     locale === "id"
       ? "Perekonomian global menunjukkan kinerja yang bervariasi, dipengaruhi oleh tensi geopolitik, fragmentasi perdagangan, serta dinamika kebijakan moneter di berbagai negara. Dalam situasi ketidakpastian ini, Indonesia berhasil mencatatkan pertumbuhan ekonomi pada Triwulan IV Tahun 2024 sebesar 5,03% (yoy), lebih tinggi dibandingkan peer countries seperti Singapura (4,3%), Arab Saudi (4,4%), dan Malaysia (4,8%). Pertumbuhan ini didorong oleh sektor Jasa Lainnya, diikuti oleh Jasa Perusahaan, serta Transportasi dan Pergudangan. Indonesia juga mampu menjaga inflasi pada tingkat terkendali di level 1,57% (yoy) dan mencatatkan surplus neraca perdagangan sebesar USD 29,04 miliar."
@@ -66,10 +74,10 @@ export default async function HomePage({
     managementCta: t("managementCta"),
     productsEyebrow: t("productsEyebrow"),
     productsHeading: t("productsHeading"),
-    productTitle: products[0] ? pick(products[0].name, locale) : "",
-    productBody: products[0] ? pick(products[0].summary, locale) : "",
-    productBullets: products[0]
-      ? pickList(products[0].highlights, locale).slice(0, 4)
+    productTitle: featured ? pick(featured.name, locale) : "",
+    productBody: featured ? pick(featured.summary, locale) : "",
+    productBullets: featured
+      ? pickList(featured.highlights, locale).slice(0, 4)
       : [],
     reportsEyebrow: t("reportsEyebrow"),
     reportsHeading: t("reportsHeading"),
