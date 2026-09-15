@@ -9,6 +9,7 @@
  */
 import Image from "next/image";
 
+import { Link } from "@/i18n/routing";
 import { Canvas, N, T } from "./canvas";
 import {
   AccentBar,
@@ -163,7 +164,23 @@ export function HomeDesktop({
         reveal
         style={{ background: GREEN, opacity: 0.05 }}
       />
-      {/* Rectangle 103 — white card, clipping the portrait */}
+      {/*
+       * The faint "R" watermark. There is no white card underneath it —
+       * an earlier version added `background: "#FFFFFF"` here, which isn't
+       * in the fig at all and is what flattened this into a plain white
+       * panel. The watermark is its own clip frame (same 400x550 rounded
+       * bounds as Rectangle 102, no fill of its own) sitting between the
+       * tint and the photo, so it only shows through where the photo
+       * doesn't cover it.
+       *
+       * Geometry is copied verbatim from the fig's own resolved transform
+       * chain (974x974 box -> rotated 704.528 box -> flipped 548.665x547.002
+       * box -> the mark's path), not re-derived from the raw vector blob:
+       *   left:-110 top:-355, 974x974
+       *     matrix(0.542,-0.840,0.840,0.542, 0, 591.934), 704.528x704.528
+       *       matrix(1,0,0,-1, 76.411, 625.988), 548.665x547.002
+       *         <path> fill rgba(0,111,79,0.04)
+       */}
       <N
         x={80}
         y={1000}
@@ -171,16 +188,79 @@ export function HomeDesktop({
         h={550}
         r={32}
         reveal
-        style={{ background: "#FFFFFF", overflow: "hidden" }}
+        style={{ overflow: "hidden" }}
       >
-        {/*
-         * image 29 — the node is 302x507 at +49/+43 inside the card, but its
-         * paint is STRETCH with a transform that scales the source to 0.62 x
-         * 0.97 and offsets it, so the portrait fills the frame rather than
-         * sitting inside it as a small contained image. Reproduced by
-         * covering the box and anchoring to the bottom, which is where the
-         * transform lands it.
-         */}
+        <div
+          style={{
+            position: "absolute",
+            left: -110,
+            top: -355,
+            width: 974,
+            height: 974,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              transform: "matrix(0.542,-0.840,0.840,0.542,0,591.934)",
+              transformOrigin: "0 0",
+              width: 704.528,
+              height: 704.528,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                transform: "matrix(1,0,0,-1,76.411,625.988)",
+                transformOrigin: "0 0",
+                width: 548.665,
+                height: 547.002,
+                overflow: "hidden",
+              }}
+            >
+              <svg
+                width={548.665}
+                height={547.002}
+                viewBox="0 0 548.665 547.002"
+                fill="none"
+                aria-hidden
+                style={{
+                  overflow: "visible",
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: 548.665,
+                  height: 547.002,
+                  color: "rgba(0,111,79,0.04)",
+                }}
+              >
+                <path
+                  d="M 240.627 543.793 C 223.796 541.053 223.796 541.053 236.712 540.271 C 287.204 537.922 332.607 515.612 353.351 483.908 C 362.745 469.035 363.919 463.947 363.919 434.2 C 363.528 405.236 362.353 398.974 353.351 385.274 C 347.871 376.664 339.26 365.704 334.172 361.399 C 321.647 350.048 293.075 336.74 275.07 333.609 C 266.851 332.435 260.197 329.304 260.197 326.955 C 260.197 324.607 268.025 308.559 277.81 291.337 C 287.204 274.116 300.12 250.24 305.991 238.498 C 322.43 206.794 347.871 182.527 375.661 171.959 C 395.231 164.914 405.016 163.739 433.589 164.914 C 454.725 166.088 467.25 164.914 466.467 162.565 C 465.684 160.608 455.116 153.563 442.591 146.909 C 424.978 137.907 413.236 134.775 392.492 133.601 C 368.616 132.036 362.745 133.21 340.435 144.169 C 286.029 171.176 251.586 215.013 207.749 314.43 C 202.269 326.955 197.572 337.914 197.572 338.306 C 197.572 339.089 207.749 340.654 220.273 342.22 C 246.889 345.351 277.027 360.616 289.944 377.446 C 303.643 395.451 309.122 426.763 303.643 452.205 C 290.335 511.698 197.963 530.877 118.117 490.562 C 89.544 475.689 49.621 434.2 32.008 400.539 C 6.567 351.222 -4.784 293.686 1.87 245.152 C 10.481 182.135 35.922 127.73 75.845 86.633 C 162.737 -3.782 283.681 -24.918 397.188 30.27 C 428.109 45.144 439.851 53.755 468.033 81.544 C 495.822 109.726 504.433 121.468 519.307 152.389 C 538.877 193.095 543.965 210.708 547.879 252.197 C 551.402 287.032 542.791 340.263 527.917 378.621 C 515.393 410.716 478.209 460.424 450.811 481.951 L 434.372 494.868 L 448.462 477.255 C 516.175 392.32 536.528 261.982 490.734 204.054 C 465.684 171.568 420.673 178.221 383.098 220.102 C 363.528 242.02 318.125 328.912 325.561 331.261 C 327.518 332.043 343.566 341.829 360.396 353.179 C 409.713 385.666 426.935 416.195 416.759 453.379 C 411.279 474.515 371.356 515.221 344.349 527.746 C 327.518 535.574 273.505 548.099 262.154 546.925 C 260.197 546.925 250.412 545.359 240.627 543.793 Z M 210.488 482.343 C 217.534 478.037 226.927 468.644 232.016 461.207 C 239.844 449.856 241.018 443.985 239.844 423.632 C 236.712 375.881 203.443 347.7 145.907 344.96 C 129.076 344.177 115.377 341.829 115.377 340.263 C 115.377 333.218 161.171 250.24 184.264 215.013 C 237.104 133.993 287.595 101.898 363.528 101.115 L 391.317 100.723 L 369.79 90.938 C 335.738 75.673 304.425 69.02 263.328 69.411 C 155.3 69.411 65.669 137.907 39.053 240.455 C 30.051 276.464 30.834 371.184 40.619 398.191 C 55.101 437.723 96.981 476.08 138.079 487.822 C 161.171 494.085 194.049 491.737 210.488 482.343 Z"
+                  fill="currentColor"
+                  fillRule="nonzero"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </N>
+      {/*
+       * image 29 — the node is 302x507 at +49/+43 inside the card, but its
+       * paint is STRETCH with a transform that scales the source to 0.62 x
+       * 0.97 and offsets it, so the portrait fills the frame rather than
+       * sitting inside it as a small contained image. Reproduced by
+       * covering the box and anchoring to the bottom, which is where the
+       * transform lands it. This is its own layer (not nested in a white
+       * card — the fig has no white fill here), clipped to the same
+       * rounded bounds so it still reads as one card with the tint/mark.
+       */}
+      <N x={80} y={1000} w={400} h={550} r={32} style={{ overflow: "hidden" }}>
         <Image
           src="/fig2/ceo.webp"
           alt=""
@@ -273,14 +353,22 @@ export function HomeDesktop({
         {copy.managementBody}
       </T>
 
-      {/* Button — 216x64 r12, two stacked drop shadows */}
-      <N
-        x={529}
-        y={1469}
-        w={216}
-        h={64}
-        r={12}
+      {/*
+       * Button — 216x64 r12, two stacked drop shadows. The flow-layout
+       * version of this section linked to /about/management-message; that
+       * href was lost when the section was rebuilt as an absolute canvas
+       * (N has no `Link` variant), so this restores it via next-intl's
+       * locale-aware Link rather than a plain <a>.
+       */}
+      <Link
+        href="/about/management-message"
         style={{
+          position: "absolute",
+          left: 529,
+          top: 1469,
+          width: 216,
+          height: 64,
+          borderRadius: 12,
           background: GREEN,
           display: "flex",
           alignItems: "center",
@@ -292,7 +380,7 @@ export function HomeDesktop({
         <span style={{ fontSize: 20, lineHeight: 1.7, color: "#FFFFFF" }}>
           {copy.managementCta}
         </span>
-      </N>
+      </Link>
 
       {/* ================================================================
           PRODUK & LAYANAN — Rectangle 123, y 1650, 1392x963 r32 #006F4F
