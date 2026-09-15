@@ -184,6 +184,18 @@ function ReportCard({
         delay={index * 80}
         style={{ background: "#FFFFFF" }}
       />
+      {/*
+       * Rectangle 34/118/121 — a 134x189 dot grid at 30% opacity, top right
+       * of the card. The fig stores this as a PATTERN paint, a fill type
+       * neither this project's decoder nor the authoritative
+       * docs/dari_claude_design export can resolve (both surface it as an
+       * empty node with no image data) — so the 4x4 grid of 16 dots below
+       * is transcribed from the rendered design instead, evenly spaced
+       * across the same 134x189 box the fig gives the pattern.
+       */}
+      <N x={x + 256} y={2991} w={134} h={189} style={{ opacity: 0.3 }}>
+        <DotGrid />
+      </N>
       <N
         x={x}
         y={3039}
@@ -266,6 +278,39 @@ function ReportCard({
           {copy.viewPdf}
         </span>
       </a>
+    </>
+  );
+}
+
+/** The 4x4 grid of 16 dots inside Rectangle 34/118/121 — see the comment above its call site. */
+function DotGrid() {
+  const cols = 4;
+  const rows = 4;
+  const dot = 6;
+  const gapX = (134 - cols * dot) / (cols - 1);
+  const gapY = (189 - rows * dot) / (rows - 1);
+  const dots = [];
+  for (let row = 0; row < rows; row += 1) {
+    for (let col = 0; col < cols; col += 1) {
+      dots.push({ x: col * (dot + gapX), y: row * (dot + gapY) });
+    }
+  }
+  return (
+    <>
+      {dots.map((d, i) => (
+        <span
+          key={i}
+          style={{
+            position: "absolute",
+            left: d.x,
+            top: d.y,
+            width: dot,
+            height: dot,
+            borderRadius: "50%",
+            background: GREEN,
+          }}
+        />
+      ))}
     </>
   );
 }
