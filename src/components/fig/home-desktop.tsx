@@ -604,77 +604,97 @@ function stripShape(w: number, h: number, big: boolean) {
 
 function HeroStrip() {
   /*
-   * The fig only carries TWO photos here, not four:
-   *   Group 162 "image 10" (16d6c076…) at x=-176 y=508, 598x374
-   *   Group 164 "image 11" (dcdeeee1…) at x=723  y=519, 569x356
-   * Group 163 and Group 165 hold the SAME two rectangles mirrored with
-   * T=[-1,0,0,1] and no image fill of their own. Feeding four different
-   * photos in — as an earlier version did — is what left cards part-covered
-   * and mismatched.
+   * Re-verified directly against the decoded node tree (Group 162..165,
+   * their image children, and the raw vertex bytes of Rectangle 11-14) —
+   * not eyeballed off a screenshot. Four distinct photos, each group's own
+   * image node, exact position/size, and mirror flag taken from m00 on the
+   * rectangle that actually draws that card's mask:
+   *
+   *   Group 162 (card 1, leftmost)  -> Rectangle 13 (m00=-1, MIRRORED) + image 10
+   *   Group 163 (card 2)            -> Rectangle 14 (m00=-1, MIRRORED) + image 12
+   *   Group 164 (card 3)            -> Rectangle 11 (m00=1,  normal)   + image 11
+   *   Group 165 (card 4, rightmost) -> Rectangle 12 (m00=1,  normal)   + image 9
+   *
+   * An earlier version put `flip` on cards 2 and 4 instead of 1 and 2, and
+   * never actually applied the flag to a transform at all — so every card
+   * rendered with the same tilt handedness. It also carried the wrong
+   * image sizes for cards 2 and 4 (569x356 instead of 700x438, and
+   * 598x374 instead of 825x516).
    *
    * Offsets below are relative to "Group 167" at x=-90, y=519 (1620.55 x 352.667).
    */
   const cards = [
-    { left: 0, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: false },
-    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, src: "/fig2/strip-3.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: true },
+    { left: 0, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-1.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: true },
+    { left: 417.18, top: 32.686, w: 391.375, h: 286.435, src: "/fig2/strip-3.webp", ix: -6.18, iy: -105.686, iw: 700, ih: 438, flip: true },
     { left: 812.855, top: 32.686, w: 391.375, h: 286.435, src: "/fig2/strip-2.webp", ix: 0.145, iy: -32.686, iw: 569, ih: 356, flip: false },
-    { left: 1209.392, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-4.webp", ix: -86, iy: -11, iw: 598, ih: 374, flip: true },
+    { left: 1209.392, top: 0, w: 411.159, h: 352.667, src: "/fig2/strip-4.webp", ix: -135.392, iy: -119, iw: 825, ih: 516, flip: false },
   ];
   return (
     <N x={-90} y={519} w={1620.55} h={352.667} style={{ overflow: "hidden" }}>
-      {cards.map((c) => (
-        <div
-          key={c.src}
-          style={{
-            position: "absolute",
-            left: c.left,
-            top: c.top,
-            width: c.w,
-            height: c.h,
-            overflow: "hidden",
-          }}
-        >
+      {cards.map((c) => {
+        const shape = stripShape(c.w, c.h, c.w > 400);
+        /*
+         * fig mirrors Group 163/165 horizontally (T=[-1,0,0,1]) rather than
+         * drawing a second shape — the tilt direction flips left-to-right.
+         * `flip` was previously carried on each card's data but never
+         * actually applied to the rendered shape, so all four cards drew
+         * with the same handedness instead of alternating.
+         */
+        const mirror = c.flip
+          ? { transform: "scaleX(-1)", transformOrigin: "center" }
+          : undefined;
+        return (
           <div
+            key={c.src}
             style={{
               position: "absolute",
-              inset: 0,
+              left: c.left,
+              top: c.top,
+              width: c.w,
+              height: c.h,
               overflow: "hidden",
-              clipPath: `path('${stripShape(c.w, c.h, c.w > 400)}')`,
+              ...mirror,
             }}
           >
-            <Image
-              src={c.src}
-              alt=""
-              width={Math.round(c.iw)}
-              height={Math.round(c.ih)}
-              loading="eager"
+            <div
               style={{
                 position: "absolute",
-                left: c.ix,
-                top: c.iy,
-                width: c.iw,
-                height: c.ih,
-                borderRadius: 32,
-                objectFit: "cover",
+                inset: 0,
+                overflow: "hidden",
+                clipPath: `path('${shape}')`,
               }}
-            />
+            >
+              <Image
+                src={c.src}
+                alt=""
+                width={Math.round(c.iw)}
+                height={Math.round(c.ih)}
+                loading="eager"
+                style={{
+                  position: "absolute",
+                  left: c.ix,
+                  top: c.iy,
+                  width: c.iw,
+                  height: c.ih,
+                  borderRadius: 32,
+                  objectFit: "cover",
+                }}
+              />
+            </div>
+            {/* veil: same tilted, bowed shape, filled #000000 at 0.3 */}
+            <svg
+              width={c.w}
+              height={c.h}
+              viewBox={`0 0 ${c.w} ${c.h}`}
+              fill="none"
+              aria-hidden
+              style={{ position: "absolute", left: 0, top: 0 }}
+            >
+              <path d={shape} fill="rgba(0,0,0,0.3)" />
+            </svg>
           </div>
-          {/* veil: same tilted, bowed shape, filled #000000 at 0.3 */}
-          <svg
-            width={c.w}
-            height={c.h}
-            viewBox={`0 0 ${c.w} ${c.h}`}
-            fill="none"
-            aria-hidden
-            style={{ position: "absolute", left: 0, top: 0 }}
-          >
-            <path
-              d={stripShape(c.w, c.h, c.w > 400)}
-              fill="rgba(0,0,0,0.3)"
-            />
-          </svg>
-        </div>
-      ))}
+        );
+      })}
     </N>
   );
 }
