@@ -196,26 +196,16 @@
   }
 
   /*
-   * Hex-marked list — kept for the Mission list, but flagged: no page in
-   * the resolved fig export (docs/dari_claude_design/project/components/)
-   * actually contains "Mission"/"Misi" content, so this hexagon marker was
-   * never verified against the source and may not be correct. Left as-is
-   * rather than guessing a replacement; fix once the real source turns up.
+   * There used to be a `.prose-hex` marker here for the Mission list (a
+   * solid hexagon with white hairlines). Decoding docs/Resona_Indonesia_
+   * Finance.fig directly (zstd + Kiwi, not just the resolved JSX bundle)
+   * and searching every layer name in the file for anything hexagon- or
+   * polygon-shaped came back empty — the file's entire vector vocabulary
+   * is Ellipse/Rectangle/Line/Vector, nothing else. So `.prose-hex` had no
+   * basis in the source and is gone; the Mission list now uses the same
+   * `.prose-ring` marker as every other confirmed bullet list in this
+   * design (see below).
    */
-  .prose-hex ul {
-    @apply list-none space-y-2.5 pl-0;
-  }
-  .prose-hex ul > li {
-    @apply relative pl-10 text-ink-500;
-  }
-  .prose-hex ul > li::before {
-    content: "";
-    @apply absolute left-0 top-[0.15em] h-7 w-7 bg-contain bg-center bg-no-repeat;
-    background-image: url("/brand/bullet-hex.svg");
-  }
-  .prose-hex ul > li > strong {
-    @apply font-normal text-accent-500;
-  }
 
   /*
    * Ring-marked list — fig `detail` (Detail.jsx lines 2074-2112, repeated

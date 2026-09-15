@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from "next-intl";
 import type { Product } from "@/lib/content";
 import { pick, pickList } from "@/lib/content";
 import { ButtonLink } from "@/components/ui/button";
+import { BulletBadge } from "@/components/content/bullet-badge";
 import { cn } from "@/lib/utils";
 
 /**
@@ -74,21 +75,24 @@ export function ProductTabs({ products }: { products: Product[] }) {
             {pick(product.summary, locale)}
           </h3>
 
-          {/* fig `Frame 113`: 28px hex marks, 24px copy in green */}
+          {/*
+           * fig `Frame 113`: 22px medal badges, 24px copy in green — the
+           * same BulletBadge already verified for the homepage carousel
+           * (src/components/fig/product-carousel.tsx), just green instead
+           * of white to sit on this panel's white ground. A hexagon icon
+           * used to be drawn here; decoding the .fig file's full layer
+           * name list found no hexagon/polygon shape anywhere in it, so
+           * it had no basis.
+           */}
           <ul className="mt-6 space-y-2.5">
             {pickList(product.highlights, locale).map((item) => (
               <li
                 key={item}
                 className="flex items-center gap-2.5 text-[18px] font-bold text-brand-600 md:text-[24px]"
               >
-                <Image
-                  src="/brand/bullet-hex.svg"
-                  alt=""
-                  width={28}
-                  height={28}
-                  aria-hidden
-                  className="h-7 w-7 shrink-0"
-                />
+                <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center">
+                  <BulletBadge color="#006F4F" />
+                </span>
                 {item}
               </li>
             ))}

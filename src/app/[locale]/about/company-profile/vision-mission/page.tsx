@@ -28,12 +28,21 @@ export async function generateMetadata({
  * "Sekilas Perusahaan" (see /about/company-profile/at-a-glance, which used
  * to be folded into this same page before the tab rail was corrected).
  *
- * No page in the resolved fig export actually contains Vision/Mission
- * content (searched the full docs/dari_claude_design bundle — see the
- * comment on `.prose-hex` in globals.css), so the card chrome below
- * follows the confirmed `detail` shell (DetailCard, radius 16) but the
- * Mission list's hex bullet is unverified — left as-is rather than
- * guessing a replacement.
+ * No page in the resolved fig export actually contains Vision/Mission body
+ * text (confirmed by decoding docs/Resona_Indonesia_Finance.fig directly —
+ * zstd + Kiwi, not just the resolved JSX bundle — and searching all
+ * 39,700+ extracted strings for "Visi"/"Misi"/"Vision"/"Mission": only the
+ * "Visi Misi" tab label exists, four times, always a bare nav item with no
+ * attached body). The Mission list's bullet marker was a hexagon
+ * (.prose-hex) that turned out to have the same problem: a second decode
+ * pass searched the whole file's layer names for anything
+ * hexagon/polygon-shaped and found none — the file's entire vector
+ * vocabulary is Ellipse/Rectangle/Line/Vector, nothing else, so a hexagon
+ * bullet has no basis here either. The only bullet actually confirmed
+ * in the file is the ring icon already used on at-a-glance /
+ * business-license / finance-facilities (`.prose-ring`, ellipse-based —
+ * see Detail.jsx), so the Mission list uses that one too now rather than
+ * a shape with no source at all.
  */
 export default async function Page({
   params,
@@ -54,7 +63,7 @@ export default async function Page({
           <DetailCard key={page.key} title={pick(page.title, locale)}>
             <RichText
               html={pick(page.body, locale)}
-              className={page.key === "mission" ? "prose-hex" : undefined}
+              className={page.key === "mission" ? "prose-ring" : undefined}
             />
           </DetailCard>
         ))}
