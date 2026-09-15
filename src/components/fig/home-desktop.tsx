@@ -21,11 +21,14 @@ import {
 } from "./ornaments";
 import { FigReveal } from "./fig-reveal";
 import { HomeFooter } from "./home-footer";
+import { ProductCarousel, type HomeProduct } from "./product-carousel";
 import {
   NotchedCard,
   NOTCH_CARD_410,
   NOTCH_CARD_481,
 } from "./notched-card";
+
+export type { HomeProduct };
 
 const GREEN = "#006F4F";
 const ORANGE = "#F58220";
@@ -58,9 +61,6 @@ export type HomeCopy = {
   managementCta: string;
   productsEyebrow: string;
   productsHeading: string;
-  productTitle: string;
-  productBody: string;
-  productBullets: string[];
   reportsEyebrow: string;
   reportsHeading: string;
   tabSustainability: string;
@@ -71,15 +71,19 @@ export type HomeCopy = {
   newsHeading: string;
   seeMore: string;
   readMore: string;
+  prevSlide: string;
+  nextSlide: string;
   footerBlurb: string;
 };
 
 export function HomeDesktop({
   copy,
+  products,
   articles,
   reports,
 }: {
   copy: HomeCopy;
+  products: HomeProduct[];
   articles: HomeArticle[];
   reports: HomeReport[];
 }) {
@@ -422,7 +426,11 @@ export function HomeDesktop({
       {/* Group 176 — 331 wide, white */}
       <TitleRule x={555} y={1846} w={331} color="#FFFFFF" />
 
-      <ProductPanel copy={copy} />
+      <ProductCarousel
+        products={products}
+        labelPrev={copy.prevSlide}
+        labelNext={copy.nextSlide}
+      />
 
       {/* ================================================================
           TRANSPARANSI KINERJA — y 2713..3565
@@ -785,199 +793,6 @@ function HeroStrip() {
         );
       })}
     </N>
-  );
-}
-
-/**
- * The product carousel: a 976x600 main panel flanked by two 128x600 slivers,
- * all r32, each veiled with the same top-to-bottom gradient
- * (#00100C -> #999792, rotated 90deg per the paint transform).
- */
-function ProductPanel({ copy }: { copy: HomeCopy }) {
-  /*
-   * The slivers' scrim is a plain gradient div stacked ON TOP of the clipped
-   * photo, running bottom-up: opaque #00100C at 0% rising to transparent at
-   * 100%. An earlier version ran it the other way and painted the slivers
-   * almost solid black.
-   */
-  /*
-   * fig "Rectangle 103/104": GRADIENT_LINEAR #00100C@1.0 -> #999792@0.0 with
-   * transform m01=-1, m10=1 — a 90 degree rotation, so it runs bottom to top:
-   * solid at the foot of the sliver, fully clear at the head. Stated as a
-   * 3-stop ramp so the photo is untouched across the top third instead of
-   * being dimmed the whole way up.
-   */
-  const sliverVeil =
-    "linear-gradient(0deg, rgb(0,16,12) 0%, rgba(0,16,12,0.55) 45%, rgba(153,151,146,0) 100%)";
-  return (
-    <>
-      {/* left sliver */}
-      <N x={80} y={1913} w={128} h={600} r={32} style={{ overflow: "hidden" }}>
-        <Image
-          src="/fig2/product-prev.webp"
-          alt=""
-          width={974}
-          height={609}
-          loading="eager"
-          style={{
-            position: "absolute",
-            left: -396,
-            top: 0,
-            width: 974,
-            maxWidth: "none",
-            height: 609,
-            objectFit: "cover",
-          }}
-        />
-      </N>
-      <N
-        x={80}
-        y={1913}
-        w={128}
-        h={600}
-        r={32}
-        style={{ background: sliverVeil }}
-      />
-
-      {/* right sliver */}
-      <N x={1232} y={1913} w={128} h={600} r={32} style={{ overflow: "hidden" }}>
-        {/*
-         * Eager, not lazy. These sit at y=1913 — far below any viewport at
-         * first paint — so Next's default lazy loading left them unfetched
-         * and the scrim painted over blank space, which is why the slivers
-         * read as solid dark green with no photo in them.
-         */}
-        <Image
-          src="/fig2/product-next.webp"
-          alt=""
-          width={959}
-          height={600}
-          loading="eager"
-          style={{
-            position: "absolute",
-            left: -247,
-            top: 0,
-            width: 959,
-            maxWidth: "none",
-            height: 600,
-            objectFit: "cover",
-          }}
-        />
-      </N>
-      <N
-        x={1232}
-        y={1913}
-        w={128}
-        h={600}
-        r={32}
-        style={{ background: sliverVeil }}
-      />
-
-      {/* main panel photo */}
-      <N x={232} y={1913} w={976} h={600} r={32} style={{ overflow: "hidden" }}>
-        <Image
-          src="/fig2/product-main.webp"
-          alt=""
-          width={985}
-          height={616}
-          loading="eager"
-          style={{
-            position: "absolute",
-            left: -9,
-            top: 0,
-            width: 985,
-            maxWidth: "none",
-            height: 616,
-            objectFit: "cover",
-          }}
-        />
-      </N>
-      {/*
-       * The scrim over the main panel is NOT a full rectangle — it is a
-       * notched outline that bites a 96px corner out of the bottom right so
-       * the white pager button sits in clear space. Gradient runs top (clear)
-       * to bottom (#00100C).
-       */}
-      <svg
-        width={976}
-        height={600}
-        viewBox="0 0 976 600"
-        fill="none"
-        aria-hidden
-        style={{
-          overflow: "visible",
-          position: "absolute",
-          left: 232,
-          top: 1913,
-          width: 976,
-          height: 600,
-          borderRadius: 32,
-        }}
-      >
-        <defs>
-          <linearGradient id="rif-card-scrim" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="rgb(52,52,52)" stopOpacity="0" />
-            <stop offset="1" stopColor="rgb(0,16,12)" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M 976 488 C 976 505.673 961.673 520 944 520 L 928 520 C 910.327 520 896 534.327 896 552 L 896 568 C 896 585.673 881.673 600 864 600 L 32 600 C 14.327 600 0 585.673 0 568 L 0 32 C 0 14.327 14.327 0 32 0 L 944 0 C 961.673 0 976 14.327 976 32 L 976 488 Z"
-          fill="url(#rif-card-scrim)"
-          fillRule="nonzero"
-        />
-      </svg>
-
-      {/* copy sits above the panel */}
-      <T x={264} y={2173} w={319} h={38} size={32} lh={1} weight={700} color="#FFFFFF" as="h3">
-        {copy.productTitle}
-      </T>
-      <AccentBar x={264} y={2223} />
-      <T x={264} y={2255} w={912} h={58} size={24} lh={1} color="#FFFFFF" as="p">
-        {copy.productBody}
-      </T>
-
-      {/* Frame 26871 — bullets, 4 rows of 30 with an 8px gap */}
-      {copy.productBullets.slice(0, 4).map((b, i) => (
-        <N key={b} x={264} y={2337 + i * 38} w={287} h={30}>
-          {/* solid white hex, per the bundle — not the outline asset */}
-          <span
-            style={{
-              position: "absolute",
-              left: 0,
-              top: 4,
-              width: 22,
-              height: 22,
-              display: "inline-flex",
-            }}
-          >
-            <svg width={22} height={22} viewBox="0 0 22 22" fill="none">
-              <path
-                d="M10.05 1.577a1.9 1.9 0 0 1 1.9 0l6.062 3.5a1.9 1.9 0 0 1 .95 1.645v7a1.9 1.9 0 0 1-.95 1.645l-6.062 3.5a1.9 1.9 0 0 1-1.9 0l-6.062-3.5a1.9 1.9 0 0 1-.95-1.645v-7a1.9 1.9 0 0 1 .95-1.645l6.062-3.5Z"
-                fill="#FFFFFF"
-              />
-            </svg>
-          </span>
-          <span
-            style={{
-              position: "absolute",
-              left: 34,
-              top: 0,
-              fontSize: 20,
-              lineHeight: 1.5,
-              color: "#FFFFFF",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {b}
-          </span>
-        </N>
-      ))}
-
-      {/* pagers — 64x64 r100, orange at the edges, white inside the panel */}
-      <PagerButton x={112} y={2417} size={64} bg="#F58220" icon={24} />
-      <PagerButton x={1264} y={2417} size={64} bg="#F58220" icon={24} />
-      <PagerButton x={1144} y={2449} size={64} bg="#FFFFFF" icon={24} iconColor={INK} />
-    </>
   );
 }
 

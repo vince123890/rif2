@@ -52,11 +52,15 @@ export default async function HomePage({
 
   /*
    * The fig's product panel shows "Modal Kerja" with its four bullets
-   * (Alat Berat / Mesin Industri / Perangkat TI / Kendaraan Operasional).
-   * That is `working-capital`, not whatever happens to sort first.
+   * (Alat Berat / Mesin Industri / Perangkat TI / Kendaraan Operasional)
+   * as the first slide of the carousel, so `working-capital` is sorted to
+   * the front rather than left at wherever `getProducts()` happens to
+   * return it.
    */
-  const featured =
-    products.find((p) => p.slug === "working-capital") ?? products[0];
+  const orderedProducts = [
+    ...products.filter((p) => p.slug === "working-capital"),
+    ...products.filter((p) => p.slug !== "working-capital"),
+  ];
 
   const managementBody =
     locale === "id"
@@ -74,11 +78,6 @@ export default async function HomePage({
     managementCta: t("managementCta"),
     productsEyebrow: t("productsEyebrow"),
     productsHeading: t("productsHeading"),
-    productTitle: featured ? pick(featured.name, locale) : "",
-    productBody: featured ? pick(featured.summary, locale) : "",
-    productBullets: featured
-      ? pickList(featured.highlights, locale).slice(0, 4)
-      : [],
     reportsEyebrow: t("reportsEyebrow"),
     reportsHeading: t("reportsHeading"),
     tabSustainability: t("tabSustainability"),
@@ -89,6 +88,8 @@ export default async function HomePage({
     newsHeading: t("newsHeading"),
     seeMore: t("seeMore"),
     readMore: tc("readMore"),
+    prevSlide: t("prevSlide"),
+    nextSlide: t("nextSlide"),
     // fig footer blurb — 14px Lato Italic at 70% white
     footerBlurb:
       "PT Resona Indonesia Finance didirikan pada tanggal 15 Agustus 1984 berdasarkan akta No. 157 tanggal 15 Agustus 1984 yang dibuat dihadapan Lieyono, S.H., sebagai pengganti dari Muqfiat Wilamarta S.H., notaris di Jakarta. PT Resona Indonesia Finance tergabung dalam kelompok Resona Grup.",
@@ -97,6 +98,13 @@ export default async function HomePage({
   return (
     <HomeDesktop
       copy={copy}
+      products={orderedProducts.map((p) => ({
+        title: pick(p.name, locale),
+        body: pick(p.summary, locale),
+        bullets: pickList(p.highlights, locale).slice(0, 4),
+        image: p.image,
+        href: `/products/${p.slug}`,
+      }))}
       articles={articles.map((a) => ({
         title: pick(a.title, locale),
         excerpt: pick(a.excerpt, locale),
