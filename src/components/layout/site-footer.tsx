@@ -1,9 +1,10 @@
 import Image from "next/image";
-import { Globe, MapPin, MessageSquare, Phone, Printer } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { site } from "@/config/site";
 import { Link } from "@/i18n/routing";
+import { ContactBadge, type ContactIconKind } from "@/components/layout/contact-badge";
 
 /**
  * FR-GL-02 — footer, built from `Group 160` in
@@ -86,11 +87,11 @@ export async function SiteFooter() {
     ];
 
   /* fig `Frame 26807` / `Frame 26808`: the 2×2 block of contact cards. */
-  const contacts = [
-    { icon: Phone, label: t("phoneLabel"), value: site.phone, href: `tel:${site.phone.replace(/[^\d+]/g, "")}` },
-    { icon: Printer, label: t("faxLabel"), value: site.fax },
-    { icon: Globe, label: t("customerReport"), value: "rif_helpdesk@perdania.co.id", href: "mailto:rif_helpdesk@perdania.co.id" },
-    { icon: MessageSquare, label: t("customerQuestionnaire"), value: "cust_rif@perdania.co.id", href: "mailto:cust_rif@perdania.co.id" },
+  const contacts: { icon: ContactIconKind; label: string; value: string; href?: string }[] = [
+    { icon: "phone", label: t("phoneLabel"), value: site.phone, href: `tel:${site.phone.replace(/[^\d+]/g, "")}` },
+    { icon: "fax", label: t("faxLabel"), value: site.fax },
+    { icon: "globe", label: t("customerReport"), value: "rif_helpdesk@perdania.co.id", href: "mailto:rif_helpdesk@perdania.co.id" },
+    { icon: "chat", label: t("customerQuestionnaire"), value: "cust_rif@perdania.co.id", href: "mailto:cust_rif@perdania.co.id" },
   ];
 
   return (
@@ -101,13 +102,26 @@ export async function SiteFooter() {
           {/* ---- Brand, blurb, address, contacts ---- */}
           <div className="grid gap-12 lg:grid-cols-[589fr_645fr] lg:gap-[106px]">
             <div>
-              <Image
-                src="/brand/resona-mark-white.png"
-                alt={site.name}
-                width={252}
-                height={320}
-                className="h-[68px] w-auto lg:h-[90px]"
-              />
+              {/*
+               * fig: "Resona Indonesia Finance" is its own run of vector
+               * letterforms beside the roundel, not baked into
+               * resona-mark-white.png (which is only the roundel +
+               * "RESONA") — set as real text instead of hand-tracing dozens
+               * of individual glyph paths, the same fix applied to the
+               * homepage canvas footer (src/components/fig/home-footer.tsx).
+               */}
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/brand/resona-mark-white.png"
+                  alt=""
+                  width={252}
+                  height={320}
+                  className="h-[68px] w-auto lg:h-[90px]"
+                />
+                <span className="text-[20px] font-normal leading-tight md:text-[28px]">
+                  {site.shortName}
+                </span>
+              </div>
 
               {/* fig: 14px Lato Italic, 589px wide */}
               <p className="mt-6 max-w-[589px] text-[13px] italic leading-[1.5] text-white/90 md:text-[14px]">
@@ -129,10 +143,7 @@ export async function SiteFooter() {
             <ul className="grid gap-6 sm:grid-cols-2 lg:gap-x-[62px] lg:gap-y-6 lg:pt-[62px]">
               {contacts.map((c) => (
                 <li key={c.label} className="flex items-center gap-3">
-                  {/* fig `euro-coin-svgrepo-com 1`: a 52px #006F4F roundel */}
-                  <span className="grid h-[52px] w-[52px] shrink-0 place-items-center rounded-full bg-brand-600">
-                    <c.icon className="h-4 w-4" aria-hidden />
-                  </span>
+                  <ContactBadge icon={c.icon} />
 
                   <span className="min-w-0">
                     <span className="block text-[15px] font-bold leading-[1.5] md:text-[16px]">
