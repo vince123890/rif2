@@ -530,21 +530,75 @@ export function HomeDesktop({
  * the tilt away entirely.
  */
 function stripShape(w: number, h: number, big: boolean) {
-  // normalised source box the verts were decoded against
-  const [sw, sh] = big ? [411.159, 352.667] : [135, 99];
+  /*
+   * Normalised source boxes the verts were decoded against. There are only
+   * TWO distinct shapes in the fig, one per card size:
+   *
+   *   big  (411.159 x 352.667 cards) -> 142 x 122, top edge -4.69deg
+   *   small(391.375 x 286.435 cards) -> 135 x  99, top edge -1.27deg
+   *
+   * An earlier version paired the big cards with a 411 x 352 source box and
+   * verts 33.681 / 319.132 — numbers that came from a name collision while
+   * looking the node up, not from the file.
+   */
+  const [sw, sh] = big ? [142, 122] : [135, 99];
   const [v0y, v1y, v3y, v4y, v5y] = big
-    ? [33.681, 0, 319.132, 23.126, 332.432]
+    ? [11.652, 0, 110.399, 8, 115]
     : [3, 0, 97, 2, 97];
   const sx = w / sw;
   const sy = h / sh;
-  const mx = (big ? 205.579 : 67.5) * sx;
-  const p = (x: number, y: number) => `${+(x).toFixed(2)} ${+(y).toFixed(2)}`;
-  // top edge bows through v4, bottom edge bows through v5
+  const mx = (big ? 71 : 67.5) * sx;
+
+  // the four tilted corners, in draw order
+  const c0: [number, number] = [0, v0y * sy]; // top-left
+  const c1: [number, number] = [w, v1y * sy]; // top-right
+  const c2: [number, number] = [w, h]; // bottom-right
+  const c3: [number, number] = [0, v3y * sy]; // bottom-left
+  // control points that bow the top and bottom edges outward
+  const tMid: [number, number] = [mx, v4y * sy];
+  const bMid: [number, number] = [mx, v5y * sy];
+
+  /*
+   * clip-path cuts exactly on the outline, so a CSS border-radius no longer
+   * applies — the 32px rounding has to be built into the path. Each corner is
+   * reached by stopping `r` short along the incoming edge, then curving
+   * through the corner point to a point `r` along the outgoing edge.
+   */
+  const r = 32;
+  const lerp = (
+    a: [number, number],
+    b: [number, number],
+    d: number,
+  ): [number, number] => {
+    const [ax, ay] = a;
+    const [bx, by] = b;
+    const len = Math.hypot(bx - ax, by - ay) || 1;
+    const t = Math.min(d / len, 0.5);
+    return [ax + (bx - ax) * t, ay + (by - ay) * t];
+  };
+  const f = (pt: [number, number]) =>
+    `${+pt[0].toFixed(2)} ${+pt[1].toFixed(2)}`;
+
+  // approach/leave points around each corner, measured along the real edges
+  const a0 = lerp(c0, tMid, r); // leaving top-left along the top edge
+  const b1 = lerp(c1, tMid, r); // arriving at top-right along the top edge
+  const a1 = lerp(c1, c2, r); // leaving top-right down the right edge
+  const b2 = lerp(c2, c1, r); // arriving at bottom-right up the right edge
+  const a2 = lerp(c2, bMid, r); // leaving bottom-right along the bottom edge
+  const b3 = lerp(c3, bMid, r); // arriving at bottom-left along the bottom edge
+  const a3 = lerp(c3, c0, r); // leaving bottom-left up the left edge
+  const b0 = lerp(c0, c3, r); // arriving at top-left down the left edge
+
   return (
-    `M ${p(0, v0y * sy)} ` +
-    `Q ${p(mx, v4y * sy)} ${p(w, v1y * sy)} ` +
-    `L ${p(w, h)} ` +
-    `Q ${p(mx, v5y * sy)} ${p(0, v3y * sy)} Z`
+    `M ${f(a0)} ` +
+    `Q ${f(tMid)} ${f(b1)} ` + // bowed top edge
+    `Q ${f(c1)} ${f(a1)} ` + // top-right corner
+    `L ${f(b2)} ` +
+    `Q ${f(c2)} ${f(a2)} ` + // bottom-right corner
+    `Q ${f(bMid)} ${f(b3)} ` + // bowed bottom edge
+    `Q ${f(c3)} ${f(a3)} ` + // bottom-left corner
+    `L ${f(b0)} ` +
+    `Q ${f(c0)} ${f(a0)} Z` // top-left corner
   );
 }
 
