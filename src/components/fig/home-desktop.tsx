@@ -7,6 +7,7 @@
  * `docs/fig-spec/SPEC-home.txt` is cited next to anything non-obvious.
  * Nothing here is eyeballed from a screenshot.
  */
+import type { CSSProperties } from "react";
 import Image from "next/image";
 
 import { Link } from "@/i18n/routing";
@@ -517,7 +518,7 @@ export function HomeDesktop({
 
       {/* Top-right card — y 3918 image, y 4193 body */}
       {articles[1] ? (
-        <NewsCard article={articles[1]} x={949} yImage={3918} yBody={4193} id="n1" copy={copy} />
+        <NewsCard article={articles[1]} x={949} yImage={3918} yBody={4193} copy={copy} />
       ) : null}
 
       {/* Bottom row — y 4460 image, y 4735 body */}
@@ -528,7 +529,6 @@ export function HomeDesktop({
           x={[81, 515, 949][i]}
           yImage={4460}
           yBody={4735}
-          id={`n${i + 2}`}
           copy={copy}
         />
       ))}
@@ -742,6 +742,8 @@ function PagerButton({
   bg,
   icon,
   iconColor = "#FFFFFF",
+  href,
+  label,
 }: {
   x: number;
   y: number;
@@ -749,21 +751,33 @@ function PagerButton({
   bg: string;
   icon: number;
   iconColor?: string;
+  /** fig: "News" — the card's own arrow opens its article */
+  href?: string;
+  label?: string;
 }) {
+  const style: CSSProperties = {
+    position: "absolute",
+    left: x,
+    top: y,
+    width: size,
+    height: size,
+    borderRadius: size / 2,
+    background: bg,
+    backdropFilter: "blur(2px)",
+    WebkitBackdropFilter: "blur(2px)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  };
+  if (href) {
+    return (
+      <Link href={href} aria-label={label} style={style}>
+        <ArrowRight size={icon} color={iconColor} />
+      </Link>
+    );
+  }
   return (
-    <N
-      x={x}
-      y={y}
-      w={size}
-      h={size}
-      r={size / 2}
-      style={{
-        background: bg,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <N x={x} y={y} w={size} h={size} r={size / 2} style={{ background: bg, backdropFilter: "blur(2px)", WebkitBackdropFilter: "blur(2px)", display: "flex", alignItems: "center", justifyContent: "center" }}>
       <ArrowRight size={icon} color={iconColor} />
     </N>
   );
@@ -814,6 +828,80 @@ function FeatureArticle({
       />
 
       {/*
+       * The faint "R" watermark inside the mint panel — same construction as
+       * the leadership section's mark (a clipped, rotated, then flipped
+       * copy of the same glyph), but its own transform chain and a lower
+       * 0.03 alpha. Copied verbatim from the bundle's export rather than
+       * re-derived:
+       *   left:483 top:3918, 442x518, clip round 32
+       *     left:-133 top:-25, 824.5x824.5
+       *       matrix(0.542,-0.840,0.840,0.542, 0, 501.077), 596.39x596.39
+       *         matrix(1,0,0,-1, 64.683,529.905), 464.45x463.042
+       *           <path> fill rgba(0,111,79,0.03)
+       */}
+      <N x={483} y={3918} w={442} h={518} r={32} style={{ overflow: "hidden" }}>
+        <div
+          style={{
+            position: "absolute",
+            left: -133,
+            top: -25,
+            width: 824.5,
+            height: 824.5,
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              transform: "matrix(0.542,-0.840,0.840,0.542,0,501.077)",
+              transformOrigin: "0 0",
+              width: 596.39,
+              height: 596.39,
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                transform: "matrix(1,0,0,-1,64.683,529.905)",
+                transformOrigin: "0 0",
+                width: 464.45,
+                height: 463.042,
+                overflow: "hidden",
+              }}
+            >
+              <svg
+                width={464.45}
+                height={463.042}
+                viewBox="0 0 464.450 463.042"
+                fill="none"
+                aria-hidden
+                style={{
+                  overflow: "visible",
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  width: 464.45,
+                  height: 463.042,
+                  color: "rgba(0,111,79,0.03)",
+                }}
+              >
+                <path
+                  d="M 203.693 460.326 C 189.446 458.007 189.446 458.007 200.379 457.344 C 243.121 455.356 281.555 436.471 299.115 409.633 C 307.067 397.043 308.061 392.735 308.061 367.554 C 307.729 343.036 306.736 337.735 299.115 326.138 C 294.476 318.849 287.187 309.572 282.88 305.927 C 272.277 296.319 248.091 285.054 232.849 282.403 C 225.892 281.409 220.259 278.759 220.259 276.771 C 220.259 274.783 226.886 261.198 235.169 246.62 C 243.121 232.041 254.054 211.83 259.024 201.891 C 272.94 175.053 294.476 154.511 318.001 145.565 C 334.567 139.601 342.85 138.607 367.037 139.601 C 384.929 140.595 395.531 139.601 394.869 137.613 C 394.206 135.956 385.26 129.992 374.658 124.36 C 359.748 116.739 349.808 114.089 332.248 113.095 C 312.037 111.769 307.067 112.763 288.181 122.041 C 242.127 144.902 212.97 182.011 175.861 266.168 C 171.223 276.771 167.247 286.048 167.247 286.379 C 167.247 287.042 175.861 288.367 186.464 289.692 C 208.994 292.343 234.506 305.265 245.44 319.512 C 257.036 334.753 261.675 361.259 257.036 382.795 C 245.771 433.157 167.578 449.392 99.987 415.266 C 75.8 402.675 42.005 367.554 27.095 339.06 C 5.559 297.313 -4.05 248.608 1.583 207.523 C 8.872 154.179 30.408 108.125 64.204 73.335 C 137.758 -3.201 240.139 -21.093 336.224 25.624 C 362.399 38.215 372.338 45.504 396.194 69.028 C 419.718 92.884 427.007 102.824 439.598 128.998 C 456.164 163.457 460.471 178.366 463.785 213.487 C 466.767 242.975 459.478 288.036 446.887 320.506 C 436.285 347.675 404.808 389.753 381.616 407.976 L 367.7 418.91 L 379.628 404 C 436.947 332.102 454.176 221.77 415.411 172.734 C 394.206 145.234 356.103 150.866 324.296 186.318 C 307.729 204.872 269.295 278.427 275.591 280.415 C 277.247 281.078 290.832 289.361 305.079 298.97 C 346.826 326.47 361.405 352.313 352.79 383.789 C 348.151 401.681 314.356 436.139 291.494 446.742 C 277.247 453.368 231.524 463.971 221.916 462.977 C 220.259 462.977 211.976 461.651 203.693 460.326 Z M 178.18 408.308 C 184.144 404.663 192.096 396.711 196.403 390.416 C 203.03 380.807 204.024 375.838 203.03 358.609 C 200.379 318.187 172.216 294.331 123.511 292.012 C 109.264 291.349 97.668 289.361 97.668 288.036 C 97.668 282.072 136.433 211.83 155.981 182.011 C 200.711 113.426 243.452 86.257 307.729 85.595 L 331.254 85.263 L 313.031 76.98 C 284.205 64.058 257.699 58.426 222.91 58.757 C 131.463 58.757 55.589 116.739 33.059 203.547 C 25.438 234.029 26.101 314.211 34.384 337.072 C 46.643 370.536 82.095 403.006 116.885 412.946 C 136.433 418.248 164.265 416.26 178.18 408.308 Z"
+                  fill="currentColor"
+                  fillRule="nonzero"
+                />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </N>
+
+      {/*
        * The copy sits in its own 434x518 flex column at x=491, padded
        * 50/32/24/50 and rounded only on the right — the bundle lays it out
        * rather than pinning each line, so the date row stays glued to the
@@ -843,16 +931,19 @@ function FeatureArticle({
             flexGrow: 1,
           }}
         >
-          <h3
-            style={{
-              margin: 0,
-              fontSize: 20,
-              lineHeight: 1.5,
-              fontWeight: 700,
-              color: INK,
-            }}
-          >
-            {article.title}
+          <h3 style={{ margin: 0 }}>
+            <Link
+              href={article.href}
+              style={{
+                fontSize: 20,
+                lineHeight: 1.5,
+                fontWeight: 700,
+                color: INK,
+                textDecoration: "none",
+              }}
+            >
+              {article.title}
+            </Link>
           </h3>
           <p style={{ margin: 0, fontSize: 14, lineHeight: 1.5, color: MUTED }}>
             {article.excerpt}
@@ -881,12 +972,23 @@ function FeatureArticle({
             <CalendarIcon />
             {article.date}
           </span>
-          <span style={{ fontSize: 14, lineHeight: 1.5, color: GREEN }}>
+          <Link
+            href={article.href}
+            style={{ fontSize: 14, lineHeight: 1.5, color: GREEN }}
+          >
             {copy.readMore}
-          </span>
+          </Link>
         </div>
       </N>
-      <PagerButton x={885} y={4396} size={40} bg={ORANGE} icon={20} />
+      <PagerButton
+        x={885}
+        y={4396}
+        size={40}
+        bg={ORANGE}
+        icon={20}
+        href={article.href}
+        label={article.title}
+      />
     </>
   );
 }
@@ -900,14 +1002,12 @@ function NewsCard({
   x,
   yImage,
   yBody,
-  id,
   copy,
 }: {
   article: HomeArticle;
   x: number;
   yImage: number;
   yBody: number;
-  id: string;
   copy: HomeCopy;
 }) {
   return (
@@ -948,19 +1048,21 @@ function NewsCard({
         fill="#FFFFFF"
       />
 
-      <T
-        x={x + 24}
-        y={yBody + 24}
-        w={362}
-        h={60}
-        size={20}
-        lh={1.5}
-        weight={700}
-        color={INK}
-        as="h3"
-      >
-        {article.title}
-      </T>
+      <Link href={article.href} style={{ display: "contents" }}>
+        <T
+          x={x + 24}
+          y={yBody + 24}
+          w={362}
+          h={60}
+          size={20}
+          lh={1.5}
+          weight={700}
+          color={INK}
+          as="h3"
+        >
+          {article.title}
+        </T>
+      </Link>
       <T
         x={x + 24}
         y={yBody + 100}
@@ -980,10 +1082,20 @@ function NewsCard({
       <T x={x + 48} y={yBody + 188.5} w={82} h={21} size={14} lh={1.5} color={MUTED}>
         {article.date}
       </T>
-      <T x={x + 295} y={yBody + 188.5} w={67} h={21} size={14} lh={1.5} color={GREEN}>
-        {copy.readMore}
-      </T>
-      <PagerButton x={x + 370} y={yBody + 203} size={40} bg={ORANGE} icon={20} />
+      <Link href={article.href} style={{ display: "contents" }}>
+        <T x={x + 295} y={yBody + 188.5} w={67} h={21} size={14} lh={1.5} color={GREEN}>
+          {copy.readMore}
+        </T>
+      </Link>
+      <PagerButton
+        x={x + 370}
+        y={yBody + 203}
+        size={40}
+        bg={ORANGE}
+        icon={20}
+        href={article.href}
+        label={article.title}
+      />
     </>
   );
 }
