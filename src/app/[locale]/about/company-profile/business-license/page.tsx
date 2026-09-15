@@ -40,7 +40,7 @@ export default async function Page({
   return (
     <CompanyProfilePage route={ROUTE}>
       <DetailCard title={pick(page.title, locale)}>
-        <RichText html={pick(page.body, locale)} />
+        <RichText html={pick(page.body, locale)} className="prose-ring" />
         {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
       </DetailCard>
     </CompanyProfilePage>
