@@ -19,6 +19,8 @@
  */
 import Image from "next/image";
 
+import { Link } from "@/i18n/routing";
+import { site } from "@/config/site";
 import { N, T } from "./canvas";
 
 const DARK = "#101828";
@@ -29,8 +31,19 @@ const GREEN = "#006F4F";
 /** y offsets inside the footer group */
 const Y = 5192;
 
-type Col = { heading: string; items: string[] };
+type Item = { label: string; href?: string };
+type Col = { heading: string; items: Item[] };
 
+/*
+ * The fig's own footer text (docs/fig-spec/texts.txt, y=5658..6124) really
+ * does repeat "INVESTOR RELATIONS" as both the 3rd and 4th column heading
+ * with identical items in each — an unfinished spot in the design, not a
+ * transcription bug here. Labels are kept exactly as the fig has them;
+ * `href` is only set where the label maps to a page that actually exists
+ * elsewhere in this app (see src/components/layout/site-footer.tsx, which
+ * carries the same mapping for the non-canvas pages), everything else stays
+ * plain text rather than guessing a URL for it.
+ */
 const COLUMNS: { x: number; blocks: Col[] }[] = [
   {
     x: 50,
@@ -38,16 +51,25 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
       {
         heading: "ABOUT PERDANIA",
         items: [
-          "Management",
-          "Bank Profile",
-          "Resona Indonesia Finance",
-          "Privacy & Security Policy",
-          "Careers",
+          { label: "Management", href: "/about/company-profile/management" },
+          { label: "Bank Profile" },
+          {
+            label: "Resona Indonesia Finance",
+            href: "/about/bank-resona-perdania",
+          },
+          { label: "Privacy & Security Policy", href: "/about/privacy" },
+          { label: "Careers", href: "/careers" },
         ],
       },
       {
         heading: "GCG",
-        items: ["Anti Fraud & Integrity Pact", "Good Corporate Governance"],
+        items: [
+          { label: "Anti Fraud & Integrity Pact", href: "/gcg" },
+          {
+            label: "Good Corporate Governance",
+            href: "/gcg/good-corporate-governance",
+          },
+        ],
       },
     ],
   },
@@ -57,14 +79,14 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
       {
         heading: "PRODUCT & SERVICE",
         items: [
-          "Current Account",
-          "Deposit",
-          "Loan",
-          "Factoring",
-          "Import",
-          "Export",
-          "Interbank Payment Transaction",
-          "Others",
+          { label: "Current Account" },
+          { label: "Deposit" },
+          { label: "Loan" },
+          { label: "Factoring", href: "/products/factoring" },
+          { label: "Import" },
+          { label: "Export" },
+          { label: "Interbank Payment Transaction" },
+          { label: "Others" },
         ],
       },
     ],
@@ -75,13 +97,16 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
       {
         heading: "INVESTOR RELATIONS",
         items: [
-          "Laporan Bank",
-          "Risk Disclosure",
-          "Disclosure Recovery Action Plan",
-          "Business Strategy & Future Plan",
-          "Company Profile",
-          "Disclosure Information & Materials Facts",
-          "News",
+          { label: "Laporan Bank" },
+          { label: "Risk Disclosure" },
+          { label: "Disclosure Recovery Action Plan" },
+          {
+            label: "Business Strategy & Future Plan",
+            href: "/corporate-secretary/business-strategy",
+          },
+          { label: "Company Profile", href: "/about/company-profile" },
+          { label: "Disclosure Information & Materials Facts" },
+          { label: "News", href: "/news" },
         ],
       },
     ],
@@ -92,13 +117,16 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
       {
         heading: "INVESTOR RELATIONS",
         items: [
-          "Laporan Bank",
-          "Risk Disclosure",
-          "Disclosure Recovery Action Plan",
-          "Business Strategy & Future Plan",
-          "Company Profile",
-          "Disclosure Information & Materials Facts",
-          "News",
+          { label: "Laporan Bank" },
+          { label: "Risk Disclosure" },
+          { label: "Disclosure Recovery Action Plan" },
+          {
+            label: "Business Strategy & Future Plan",
+            href: "/corporate-secretary/business-strategy",
+          },
+          { label: "Company Profile", href: "/about/company-profile" },
+          { label: "Disclosure Information & Materials Facts" },
+          { label: "News", href: "/news" },
         ],
       },
     ],
@@ -106,10 +134,31 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
 ];
 
 const CONTACTS = [
-  { x: 745, y: 5444, icon: "phone", label: "Phone Number", value: "021 - 570 1956" },
-  { x: 1098.5, y: 5444, icon: "fax", label: "Fax Number", value: "021 - 570 1961" },
-  { x: 745, y: 5520, icon: "globe", label: "Customer Report", value: "rif_helpdesk@perdania.co.id" },
-  { x: 1098.5, y: 5520, icon: "chat", label: "Customer Questionnaire", value: "cust_rif@perdania.co.id" },
+  {
+    x: 745,
+    y: 5444,
+    icon: "phone",
+    label: "Phone Number",
+    value: site.phone,
+    href: `tel:${site.phone.replace(/[^\d+]/g, "")}`,
+  },
+  { x: 1098.5, y: 5444, icon: "fax", label: "Fax Number", value: site.fax },
+  {
+    x: 745,
+    y: 5520,
+    icon: "globe",
+    label: "Customer Report",
+    value: "rif_helpdesk@perdania.co.id",
+    href: "mailto:rif_helpdesk@perdania.co.id",
+  },
+  {
+    x: 1098.5,
+    y: 5520,
+    icon: "chat",
+    label: "Customer Questionnaire",
+    value: "cust_rif@perdania.co.id",
+    href: "mailto:cust_rif@perdania.co.id",
+  },
 ] as const;
 
 export function HomeFooter({ blurb }: { blurb: string }) {
@@ -193,7 +242,7 @@ export function HomeFooter({ blurb }: { blurb: string }) {
                  * row after it starts 92px down instead of 58. Advancing every
                  * row by a flat 58 collided it with the item below.
                  */
-                y += it.length > 34 ? 92 : 58;
+                y += it.label.length > 34 ? 92 : 58;
                 return { it, iy };
               });
               y += 12; // gap between blocks within a column
@@ -210,20 +259,40 @@ export function HomeFooter({ blurb }: { blurb: string }) {
                   >
                     {b.heading}
                   </T>
-                  {rows.map(({ it, iy }) => (
-                    <T
-                      key={it}
-                      x={col.x}
-                      y={iy}
-                      w={297.5}
-                      size={20}
-                      lh={1.7}
-                      weight={700}
-                      color={LINK}
-                    >
-                      {it}
-                    </T>
-                  ))}
+                  {rows.map(({ it, iy }) =>
+                    it.href ? (
+                      <Link
+                        key={it.label}
+                        href={it.href}
+                        style={{
+                          position: "absolute",
+                          left: col.x,
+                          top: iy,
+                          width: 297.5,
+                          fontSize: 20,
+                          lineHeight: 1.7,
+                          fontWeight: 700,
+                          color: LINK,
+                          transition: "color 0.2s ease",
+                        }}
+                      >
+                        {it.label}
+                      </Link>
+                    ) : (
+                      <T
+                        key={it.label}
+                        x={col.x}
+                        y={iy}
+                        w={297.5}
+                        size={20}
+                        lh={1.7}
+                        weight={700}
+                        color={LINK}
+                      >
+                        {it.label}
+                      </T>
+                    ),
+                  )}
                 </div>
               );
             })}
@@ -297,12 +366,14 @@ function ContactTile({
   icon,
   label,
   value,
+  href,
 }: {
   x: number;
   y: number;
   icon: "phone" | "fax" | "globe" | "chat";
   label: string;
   value: string;
+  href?: string;
 }) {
   return (
     <N x={x} y={y} w={291.5} h={52} style={{ display: "flex", gap: 12 }}>
@@ -331,9 +402,18 @@ function ContactTile({
         <span style={{ fontSize: 16, lineHeight: 1.5, fontWeight: 700, color: "#FFFFFF" }}>
           {label}
         </span>
-        <span style={{ fontSize: 16, lineHeight: 1.5, fontWeight: 700, color: LINK }}>
-          {value}
-        </span>
+        {href ? (
+          <a
+            href={href}
+            style={{ fontSize: 16, lineHeight: 1.5, fontWeight: 700, color: LINK }}
+          >
+            {value}
+          </a>
+        ) : (
+          <span style={{ fontSize: 16, lineHeight: 1.5, fontWeight: 700, color: LINK }}>
+            {value}
+          </span>
+        )}
       </span>
     </N>
   );
