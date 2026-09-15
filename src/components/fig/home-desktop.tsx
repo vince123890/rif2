@@ -675,6 +675,7 @@ function HeroStrip() {
                   left: c.ix,
                   top: c.iy,
                   width: c.iw,
+                  maxWidth: "none",
                   height: c.ih,
                   borderRadius: 32,
                   objectFit: "cover",
@@ -735,6 +736,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             left: -396,
             top: 0,
             width: 974,
+            maxWidth: "none",
             height: 609,
             objectFit: "cover",
           }}
@@ -768,6 +770,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             left: -247,
             top: 0,
             width: 959,
+            maxWidth: "none",
             height: 600,
             objectFit: "cover",
           }}
@@ -795,6 +798,7 @@ function ProductPanel({ copy }: { copy: HomeCopy }) {
             left: -9,
             top: 0,
             width: 985,
+            maxWidth: "none",
             height: 616,
             objectFit: "cover",
           }}
@@ -1192,6 +1196,7 @@ function NewsCard({
             left: -0.181,
             top: -18.819,
             width: 446.637,
+            maxWidth: "none",
             height: 446.637,
             borderRadius: 32,
             objectFit: "cover",

@@ -249,6 +249,7 @@ export function HomeFooter({ blurb }: { blurb: string }) {
             left: -1,
             top: -223,
             width: 1350,
+            maxWidth: "none",
             height: 685,
             objectFit: "cover",
           }}
