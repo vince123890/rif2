@@ -122,14 +122,8 @@ export function FigHero({
 
       <div className="relative mx-auto w-full max-w-[1440px] px-5 pb-14 pt-[150px] sm:px-8 lg:px-20 lg:pb-[90px] lg:pt-[190px]">
         <div className="lg:max-w-[590px]">
-          {/* fig `Line 1` + `Ellipse 10`: an 80×4 orange rule with a dot */}
-          <span aria-hidden className="flex items-center gap-2">
-            <span className="block h-1 w-20 bg-accent-500" />
-            <span className="block h-3 w-3 rounded-full bg-accent-500" />
-          </span>
-
           {/* fig: 60px Lato Bold in #006F4F, 100% line box */}
-          <h1 className="mt-5 whitespace-pre-line text-[34px] font-bold leading-none text-brand-600 md:text-[46px] lg:text-[60px]">
+          <h1 className="whitespace-pre-line text-[34px] font-bold leading-none text-brand-600 md:text-[46px] lg:text-[60px]">
             {title}
           </h1>
 
@@ -228,10 +222,16 @@ function ChevronIcon() {
 }
 
 /**
- * Tab rail — fig `Frame 82`: a 76px #EEEFF0 pill at radius 100 holding the
- * section's pages, the current one filled #F58220 with white type. The fig
- * wraps the set onto a second rail when it runs long, which the flex wrap
- * here reproduces.
+ * Tab rail — fig `detail`/`history`/`manajemen - 1`/`award` (the shared
+ * shell reused per topic, e.g. docs/dari_claude_design/.../Detail.jsx
+ * lines 3861-4129): two separate radius-100 pill containers,
+ * `rgba(238,239,240,0.1)`, each `padding:16px`, the active tab filled
+ * `rgb(245,130,32)` (`accent-500`) with white 700-weight type, inactive
+ * tabs `rgb(15,15,15)` (`ink-900`) at 400-weight, every pill's own padding
+ * `5px 20px` and `fontSize:20`. The fig's own split is 6 tabs in the first
+ * rail and 3 in a second, narrower one below it; reproduced here as a
+ * single wrapping flex row so it still degrades sanely at widths the fig
+ * itself never specified.
  */
 export function FigTabs({
   tabs,
@@ -242,7 +242,7 @@ export function FigTabs({
 }) {
   return (
     <div className="container-rif pt-6">
-      <div className="flex flex-wrap items-center justify-center gap-2 rounded-[38px] bg-[#EEEFF0] p-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 rounded-[100px] bg-[rgba(238,239,240,0.1)] p-4">
         {tabs.map((tab) => {
           const active = tab.href === current;
           return (
@@ -251,10 +251,10 @@ export function FigTabs({
               href={tab.href}
               aria-current={active ? "page" : undefined}
               className={cn(
-                "whitespace-nowrap rounded-full px-5 py-2.5 text-center text-[15px] leading-[1.7] transition-colors md:text-[18px] lg:text-[20px]",
+                "whitespace-nowrap rounded-full px-5 py-[5px] text-center text-[15px] leading-[1.7] transition-colors md:text-[18px] lg:text-[20px]",
                 active
-                  ? "bg-accent-500 font-bold text-white"
-                  : "text-ink-900 hover:bg-black/5",
+                  ? "bg-[#F58220] font-bold text-white"
+                  : "text-[#0F0F0F] hover:bg-black/5",
               )}
             >
               {tab.label}

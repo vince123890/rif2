@@ -60,34 +60,59 @@ export const staticPages: Record<string, StaticPage> = {
     },
   },
 
+  /*
+   * "Sekilas Perusahaan" — fig `detail`
+   * (docs/dari_claude_design/project/components/Detail.jsx lines
+   * 1833-3020+) draws this as THREE separate white cards, not one card
+   * with <h2> subheadings, so the content is split into three keys to
+   * match: "at-a-glance" (company narrative), "at-a-glance-articles"
+   * (business activities per the articles of association) and
+   * "at-a-glance-current-year" (business activities during the year).
+   */
   "at-a-glance": {
     key: "at-a-glance",
-    title: { id: "Sekilas Perusahaan", en: "Company At a Glance" },
+    title: { id: "Profil Perusahaan", en: "Company Profile" },
     body: {
       id: `<p>PT Resona Indonesia Finance (untuk selanjutnya disebut “Perusahaan”) didirikan pada tanggal 15 Agustus 1984 berdasarkan akta No. 157 tanggal 15 Agustus 1984 yang dibuat dihadapan Lieyono, S.H., sebagai pengganti dari Musjaffak yang merupakan pengganti dari Misahardi Wilamarta S.H., notaris di Jakarta. Perusahaan tergabung dalam kelompok Resona Grup.</p>
-<p>Pada pendiriannya, Perusahaan telah mengalami beberapa kali pergantian nama. Pada tahun 1984 Perusahaan didirikan dengan nama PT Daiwa Lippo Leasing Corporation. Selanjutnya, pada tahun 1994, Perusahaan berubah nama menjadi PT Daiwa Lippo Finance. Kemudian pada tahun 2003 hingga saat ini, Perusahaan mengganti nama menjadi PT Resona Indonesia Finance.</p>
-<h2>Kegiatan Usaha Berdasarkan Anggaran Dasar</h2>
-<p>Sesuai dengan pasal 3 Anggaran Dasar Perusahaan, Perusahaan dapat melaksanakan kegiatan usaha yang meliputi pembiayaan barang dan/atau jasa sebagai berikut:</p>
+<p>Pada pendiriannya, Perusahaan telah mengalami beberapa kali pergantian nama. Pada tahun 1984 Perusahaan didirikan dengan nama PT Daiwa Lippo Leasing Corporation. Selanjutnya, pada tahun 1994, Perusahaan berubah nama menjadi PT Daiwa Lippo Finance. Kemudian pada tahun 2003 hingga saat ini, Perusahaan mengganti nama menjadi PT Resona Indonesia Finance.</p>`,
+      en: `<p>PT Resona Indonesia Finance (hereinafter referred to as the “Company”) was established on 15 August 1984 under deed No. 157 dated 15 August 1984, drawn up before Lieyono, S.H., as substitute for Musjaffak, who was the substitute for Misahardi Wilamarta S.H., notary in Jakarta. The Company is part of the Resona Group.</p>
+<p>Since its establishment the Company has changed its name several times. In 1984 the Company was founded as PT Daiwa Lippo Leasing Corporation. In 1994 it was renamed PT Daiwa Lippo Finance. From 2003 to the present the Company has operated as PT Resona Indonesia Finance.</p>`,
+    },
+  },
+
+  "at-a-glance-articles": {
+    key: "at-a-glance-articles",
+    title: {
+      id: "Kegiatan Usaha Berdasarkan Anggaran Dasar",
+      en: "Business Activities Under the Articles of Association",
+    },
+    body: {
+      id: `<p>Sesuai dengan pasal 3 Anggaran Dasar Perusahaan, Perusahaan dapat melaksanakan kegiatan usaha yang meliputi pembiayaan barang dan/atau jasa sebagai berikut:</p>
 <ol>
 <li>Pembiayaan Investasi;</li>
 <li>Pembiayaan Modal Kerja;</li>
 <li>Pembiayaan Multiguna;</li>
 <li>Kegiatan usaha pembiayaan lain berdasarkan persetujuan Otoritas Jasa Keuangan.</li>
-</ol>
-<h2>Kegiatan Usaha Selama Tahun Berjalan</h2>
-<p>Perusahaan menjalankan kegiatan usaha dalam bentuk pembiayaan investasi dan pembiayaan modal kerja. Adapun Fasilitas Pembiayaan yang disediakan oleh Perusahaan termasuk namun tidak terbatas untuk membiayai mesin industri, tool dan equipment, alat berat, mobil penumpang dan/atau kendaraan komersial, komputer dan/atau aksesoris, serta peralatan TI.</p>`,
-      en: `<p>PT Resona Indonesia Finance (hereinafter referred to as the “Company”) was established on 15 August 1984 under deed No. 157 dated 15 August 1984, drawn up before Lieyono, S.H., as substitute for Musjaffak, who was the substitute for Misahardi Wilamarta S.H., notary in Jakarta. The Company is part of the Resona Group.</p>
-<p>Since its establishment the Company has changed its name several times. In 1984 the Company was founded as PT Daiwa Lippo Leasing Corporation. In 1994 it was renamed PT Daiwa Lippo Finance. From 2003 to the present the Company has operated as PT Resona Indonesia Finance.</p>
-<h2>Business Activities Under the Articles of Association</h2>
-<p>In accordance with Article 3 of the Company's Articles of Association, the Company may carry out business activities covering the financing of goods and/or services as follows:</p>
+</ol>`,
+      en: `<p>In accordance with Article 3 of the Company's Articles of Association, the Company may carry out business activities covering the financing of goods and/or services as follows:</p>
 <ol>
 <li>Investment Financing;</li>
 <li>Working Capital Financing;</li>
 <li>Multipurpose Financing;</li>
 <li>Other financing business activities subject to the approval of the Financial Services Authority.</li>
-</ol>
-<h2>Business Activities During the Year</h2>
-<p>The Company conducts its business in the form of investment financing and working capital financing. The financing facilities provided include but are not limited to industrial machinery, tools and equipment, heavy equipment, passenger cars and/or commercial vehicles, computers and/or accessories, and IT equipment.</p>`,
+</ol>`,
+    },
+  },
+
+  "at-a-glance-current-year": {
+    key: "at-a-glance-current-year",
+    title: {
+      id: "Kegiatan Usaha Selama Tahun Berjalan",
+      en: "Business Activities During the Year",
+    },
+    body: {
+      id: `<p>Perusahaan menjalankan kegiatan usaha dalam bentuk pembiayaan investasi dan pembiayaan modal kerja. Adapun Fasilitas Pembiayaan yang disediakan oleh Perusahaan termasuk namun tidak terbatas untuk membiayai mesin industri, tool dan equipment, alat berat, mobil penumpang dan/atau kendaraan komersial, komputer dan/atau aksesoris, serta peralatan TI.</p>`,
+      en: `<p>The Company conducts its business in the form of investment financing and working capital financing. The financing facilities provided include but are not limited to industrial machinery, tools and equipment, heavy equipment, passenger cars and/or commercial vehicles, computers and/or accessories, and IT equipment.</p>`,
     },
   },
 

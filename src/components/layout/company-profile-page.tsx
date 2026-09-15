@@ -4,34 +4,42 @@ import { getTranslations } from "next-intl/server";
 import { FigHero, FigCrumbs, FigTabs } from "./fig-hero";
 
 /**
- * Shell for the Company Profile sections — `Desktop - 9…12` in the fig.
+ * Shell for the Company Profile sections — the fig's shared "detail" page
+ * template (docs/dari_claude_design/project/components/Detail.jsx, also
+ * reused verbatim by History.jsx/Manajemen1.jsx/Award.jsx for their own
+ * topics), figma node 1:4837.
  *
- * The fig draws these as one page with six tabs. RIF keeps a URL per
- * section, so the rail is rendered as links and the active pill is
- * whichever route is showing. Sections the fig folds into one tab share
- * that tab: "Company Overview" covers vision/mission, at-a-glance and the
- * business licence, and "Business & Financing" covers finance facilities.
+ * That file's tab rail carries 9 tabs, one per child route — not the 6
+ * grouped tabs this shell used to assume. "Sekilas Perusahaan" (at-a-glance)
+ * and "Visi Misi" (vision-mission) are two separate tabs in the fig, not one
+ * combined "Company Overview" tab; "Izin Usaha" (business-license) and
+ * "Fasilitas Pembiayaan" (finance-facilities) are each their own tab too.
  */
 
-/** fig `Frame 106`, left to right. */
+/** fig: 9 tabs, in the order the two pill rails give them. */
 export const COMPANY_PROFILE_TABS = [
   {
-    key: "overview",
+    key: "vision-mission",
     href: "/about/company-profile/vision-mission",
-    /** Routes that light this pill up. */
-    routes: [
-      "/about/company-profile/vision-mission",
-      "/about/company-profile/at-a-glance",
-      "/about/company-profile/business-license",
-    ],
+    routes: ["/about/company-profile/vision-mission"],
   },
   {
-    key: "journey",
+    key: "at-a-glance",
+    href: "/about/company-profile/at-a-glance",
+    routes: ["/about/company-profile/at-a-glance"],
+  },
+  {
+    key: "history",
     href: "/about/company-profile/history",
     routes: ["/about/company-profile/history"],
   },
   {
-    key: "business",
+    key: "business-license",
+    href: "/about/company-profile/business-license",
+    routes: ["/about/company-profile/business-license"],
+  },
+  {
+    key: "finance-facilities",
     href: "/about/company-profile/finance-facilities",
     routes: ["/about/company-profile/finance-facilities"],
   },
@@ -41,12 +49,14 @@ export const COMPANY_PROFILE_TABS = [
     routes: ["/about/company-profile/management"],
   },
   {
-    key: "structure",
+    key: "organization-structure",
     href: "/about/company-profile/organization-structure",
-    routes: [
-      "/about/company-profile/organization-structure",
-      "/about/company-profile/shareholders",
-    ],
+    routes: ["/about/company-profile/organization-structure"],
+  },
+  {
+    key: "shareholders",
+    href: "/about/company-profile/shareholders",
+    routes: ["/about/company-profile/shareholders"],
   },
   {
     key: "award",
@@ -58,15 +68,9 @@ export const COMPANY_PROFILE_TABS = [
 export async function CompanyProfilePage({
   route,
   children,
-  bare = false,
 }: {
   route: string;
   children: ReactNode;
-  /**
-   * Skip the white panel — for tabs that draw their own card, like the
-   * journey timeline in `Desktop - 10`.
-   */
-  bare?: boolean;
 }) {
   const tNav = await getTranslations("nav");
   const tCp = await getTranslations("companyProfile");
@@ -78,31 +82,26 @@ export async function CompanyProfilePage({
 
   return (
     <>
-      {/* fig `Desktop - 5`: full-bleed band, title orange over two lines */}
+      {/*
+       * fig `detail` — cream band, title "Profil Perusahaan" in
+       * #006F4F (green, not orange), the founding-history subtitle beside
+       * it, a photo filling the right half.
+       */}
       <FigHero
         variant="cream"
         title={tCp("heroTitle")}
+        subtitle={tCp("heroSubtitle")}
         image="/fig/inner-banner.webp"
       />
 
       {/*
-       * fig `image 134`/`image 135`: a gold seigaiha sheet tiled behind
-       * the whole page — the ground under the breadcrumb, the tab rail and
-       * the gaps between panels.
+       * There is no seigaiha (or any other) tiled pattern behind this page
+       * in the fig — grepped the full resolved export for it and found
+       * nothing; the plain ground colour is the whole background. An
+       * earlier version painted one in anyway; removed rather than kept
+       * as an unverified guess.
        */}
       <div className="relative isolate bg-canvas pb-16 md:pb-24">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.05]"
-          style={{
-            backgroundImage: "url(/fig/pattern-seigaiha.webp)",
-            /* The repeating unit inside the fig's 956x1645 artwork;
-               the fig paints it at 5% opacity. */
-            backgroundSize: "96px 176px",
-            backgroundRepeat: "repeat",
-          }}
-        />
-
         <FigCrumbs
           crumbs={[
             { label: tNav("about"), href: "/about" },
@@ -118,16 +117,14 @@ export async function CompanyProfilePage({
           }))}
         />
 
-        {/* fig `Frame 12`: white panel, radius 24, inset 64px from the edge */}
-        <div className="container-rif pt-6">
-          {bare ? (
-            children
-          ) : (
-            <div className="relative overflow-hidden rounded-[32px] bg-white p-6 md:p-10 lg:p-12">
-              {children}
-            </div>
-          )}
-        </div>
+        {/*
+         * fig: each tab's content is its own stack of radius-16 white
+         * cards (see e.g. Detail.jsx's three "Sekilas Perusahaan" cards),
+         * not one big radius-32 panel wrapping everything — so this shell
+         * no longer draws an outer panel; each page's own content supplies
+         * its own card(s) at the fig's actual 16px radius.
+         */}
+        <div className="container-rif pt-6">{children}</div>
       </div>
     </>
   );

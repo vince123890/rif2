@@ -48,7 +48,7 @@ export default async function Page({
   ];
 
   return (
-    <CompanyProfilePage route={ROUTE} bare>
+    <CompanyProfilePage route={ROUTE}>
       <div className="space-y-20">
         {boards.map((board) => {
           const members = people.filter((p) => p.board === board.key);

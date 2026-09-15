@@ -4,6 +4,7 @@ import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { DetailCard } from "@/components/content/detail-card";
 import { RichText } from "@/components/ui/rich-text";
 
 const ROUTE = "/about/company-profile/vision-mission";
@@ -23,11 +24,16 @@ export async function generateMetadata({
 }
 
 /**
- * "Company Overview" — `Desktop - 9`.
+ * "Visi Misi" — its own tab in the fig's 9-tab rail, separate from
+ * "Sekilas Perusahaan" (see /about/company-profile/at-a-glance, which used
+ * to be folded into this same page before the tab rail was corrected).
  *
- * The fig gives Vision, Mission and Company At A Glance a white panel each
- * rather than running them together under one heading, so this tab draws
- * three cards.
+ * No page in the resolved fig export actually contains Vision/Mission
+ * content (searched the full docs/dari_claude_design bundle — see the
+ * comment on `.prose-hex` in globals.css), so the card chrome below
+ * follows the confirmed `detail` shell (DetailCard, radius 16) but the
+ * Mission list's hex bullet is unverified — left as-is rather than
+ * guessing a replacement.
  */
 export default async function Page({
   params,
@@ -37,32 +43,20 @@ export default async function Page({
   const { locale } = await params;
   setRequestLocale(locale);
 
-  const panels = ["vision", "mission", "at-a-glance"]
+  const panels = ["vision", "mission"]
     .map((key) => getStaticPage(key))
     .filter((p) => p !== undefined);
 
   return (
-    <CompanyProfilePage route={ROUTE} bare>
+    <CompanyProfilePage route={ROUTE}>
       <div className="space-y-6">
         {panels.map((page) => (
-          <section
-            key={page.key}
-            className="relative overflow-hidden rounded-[24px] bg-white p-6 md:p-10 lg:p-12"
-          >
-            <div className="relative">
-              {/* fig `Frame 5`: 32px green heading behind a 5px green rule */}
-              <h2 className="border-l-[5px] border-brand-600 pl-6 text-[24px] font-bold leading-[1.2] text-brand-600 md:text-[32px]">
-                {pick(page.title, locale)}
-              </h2>
-              <div className="mt-6">
-                {/* fig: only the Mission list takes the hex bullets */}
-                <RichText
-                  html={pick(page.body, locale)}
-                  className={page.key === "mission" ? "prose-hex" : undefined}
-                />
-              </div>
-            </div>
-          </section>
+          <DetailCard key={page.key} title={pick(page.title, locale)}>
+            <RichText
+              html={pick(page.body, locale)}
+              className={page.key === "mission" ? "prose-hex" : undefined}
+            />
+          </DetailCard>
         ))}
       </div>
     </CompanyProfilePage>

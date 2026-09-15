@@ -207,12 +207,16 @@
     "managementMessage": "Pesan dan pandangan manajemen mengenai perjalanan, komitmen, serta arah strategis Resona Indonesia Finance dalam menghadapi perkembangan industri pembiayaan."
   },
   "companyProfile": {
-    "heroTitle": "Profil\nPerusahaan",
-    "tab-overview": "Sekilas Perusahaan",
-    "tab-journey": "Perjalanan Kami",
-    "tab-business": "Bisnis & Pembiayaan",
+    "heroTitle": "Profil Perusahaan",
+    "heroSubtitle": "Mengenal lebih dekat Resona Indonesia Finance, mulai dari perjalanan perusahaan, visi dan misi, hingga nilai-nilai yang menjadi dasar dalam menjalankan bisnis.",
+    "tab-vision-mission": "Visi Misi",
+    "tab-at-a-glance": "Sekilas Perusahaan",
+    "tab-history": "Sejarah",
+    "tab-business-license": "Izin Usaha",
+    "tab-finance-facilities": "Fasilitas Pembiayaan",
     "tab-management": "Manajemen",
-    "tab-structure": "Struktur Organisasi & Pemegang Saham",
+    "tab-organization-structure": "Struktur Organisasi",
+    "tab-shareholders": "Struktur Pemegang Saham",
     "tab-award": "Penghargaan",
     "scrollToExplore": "Geser untuk\nJelajahi"
   },

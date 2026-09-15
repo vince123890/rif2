@@ -31,7 +31,7 @@ export default async function Page({
   const awards = await getAwards();
 
   return (
-    <CompanyProfilePage route={ROUTE} bare>
+    <CompanyProfilePage route={ROUTE}>
       <AwardGrid awards={awards} />
     </CompanyProfilePage>
   );

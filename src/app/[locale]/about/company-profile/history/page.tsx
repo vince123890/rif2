@@ -25,7 +25,7 @@ export default async function Page({
 
   /* fig `Desktop - 10`: the whole tab is the journey card, nothing else. */
   return (
-    <CompanyProfilePage route={ROUTE} bare>
+    <CompanyProfilePage route={ROUTE}>
       <JourneyTimeline image="/images/office-tower.jpg" />
     </CompanyProfilePage>
   );

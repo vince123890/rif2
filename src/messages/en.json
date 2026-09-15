@@ -207,12 +207,16 @@
     "managementMessage": "Management's reflections on the company's journey, its commitments and the strategic direction of Resona Indonesia Finance as the financing industry evolves."
   },
   "companyProfile": {
-    "heroTitle": "Company\nProfile",
-    "tab-overview": "Company Overview",
-    "tab-journey": "Our Journey",
-    "tab-business": "Business & Financing",
+    "heroTitle": "Company Profile",
+    "heroSubtitle": "Get to know Resona Indonesia Finance more closely — from the company's journey and its vision and mission, to the values that guide how we do business.",
+    "tab-vision-mission": "Vision & Mission",
+    "tab-at-a-glance": "Company at a Glance",
+    "tab-history": "History",
+    "tab-business-license": "Business License",
+    "tab-finance-facilities": "Financing Facilities",
     "tab-management": "Management",
-    "tab-structure": "Organization & Shareholder Structure",
+    "tab-organization-structure": "Organization Structure",
+    "tab-shareholders": "Shareholder Structure",
     "tab-award": "Award",
     "scrollToExplore": "Scroll to\nExplore"
   },

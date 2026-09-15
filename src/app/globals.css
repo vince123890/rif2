@@ -196,10 +196,11 @@
   }
 
   /*
-   * Hex-marked list — fig `Desktop - 9` (`Group 119`) sets the Mission
-   * points behind a 28px six-sided mark: a solid #006F4F hexagon with three
-   * white hairlines nested inside it, not a disc. The opening verb is in
-   * accent orange and the rest in muted grey. Opt in with `prose-hex`.
+   * Hex-marked list — kept for the Mission list, but flagged: no page in
+   * the resolved fig export (docs/dari_claude_design/project/components/)
+   * actually contains "Mission"/"Misi" content, so this hexagon marker was
+   * never verified against the source and may not be correct. Left as-is
+   * rather than guessing a replacement; fix once the real source turns up.
    */
   .prose-hex ul {
     @apply list-none space-y-2.5 pl-0;
@@ -214,6 +215,30 @@
   }
   .prose-hex ul > li > strong {
     @apply font-normal text-accent-500;
+  }
+
+  /*
+   * Ring-marked list — fig `detail` (Detail.jsx lines 2074-2112, repeated
+   * for every item): a translucent 30%-opacity green disc behind a solid
+   * green compass/ring glyph, 28px square, in place of the plain bullet.
+   * Confirmed on the "Sekilas Perusahaan" (at-a-glance) business-activity
+   * lists — used for `at-a-glance`, `business-license` and
+   * `finance-facilities`, whose ordered lists in the fig all take this
+   * marker rather than a plain disc/number.
+   */
+  .prose-ring ol,
+  .prose-ring ul {
+    @apply list-none space-y-2.5 pl-0;
+  }
+  .prose-ring ol > li,
+  .prose-ring ul > li {
+    @apply relative flex items-start gap-2.5 pl-0 text-[#3B3B3B];
+  }
+  .prose-ring ol > li::before,
+  .prose-ring ul > li::before {
+    content: "";
+    @apply block h-7 w-7 shrink-0 bg-contain bg-center bg-no-repeat;
+    background-image: url("/brand/bullet-ring.svg");
   }
   .prose-rif table {
     @apply w-full border-collapse overflow-hidden text-[15px];

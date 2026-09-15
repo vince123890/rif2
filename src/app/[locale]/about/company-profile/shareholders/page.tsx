@@ -5,6 +5,7 @@ import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { DetailCard } from "@/components/content/detail-card";
 import { RichText } from "@/components/ui/rich-text";
 import { ZoomableImage } from "@/components/content/zoomable-image";
 import { DocumentActions } from "@/components/content/document-actions";
@@ -37,21 +38,21 @@ export default async function Page({
   const page = getStaticPage(PAGE_KEY);
   if (!page) notFound();
 
-
-
   return (
     <CompanyProfilePage route={ROUTE}>
-      {/* fig `image 7`: the ownership split is flat artwork, not markup. */}
-      <ZoomableImage
-        src="/images/shareholders-structure.png"
-        alt={pick(page.title, locale)}
-        width={801}
-        height={340}
-      />
-      <div className="mt-8">
-        <RichText html={pick(page.body, locale)} />
-      </div>
-      {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
+      <DetailCard title={pick(page.title, locale)}>
+        {/* fig `image 7`: the ownership split is flat artwork, not markup. */}
+        <ZoomableImage
+          src="/images/shareholders-structure.png"
+          alt={pick(page.title, locale)}
+          width={801}
+          height={340}
+        />
+        <div className="mt-8">
+          <RichText html={pick(page.body, locale)} />
+        </div>
+        {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
+      </DetailCard>
     </CompanyProfilePage>
   );
 }

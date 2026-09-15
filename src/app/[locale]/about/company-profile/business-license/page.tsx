@@ -5,6 +5,7 @@ import { getStaticPage } from "@/lib/content/pages";
 import { pick } from "@/lib/content";
 import { buildMetadata } from "@/lib/seo";
 import { CompanyProfilePage } from "@/components/layout/company-profile-page";
+import { DetailCard } from "@/components/content/detail-card";
 import { RichText } from "@/components/ui/rich-text";
 import { DocumentActions } from "@/components/content/document-actions";
 
@@ -36,12 +37,12 @@ export default async function Page({
   const page = getStaticPage(PAGE_KEY);
   if (!page) notFound();
 
-
-
   return (
     <CompanyProfilePage route={ROUTE}>
-      <RichText html={pick(page.body, locale)} />
-      {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
+      <DetailCard title={pick(page.title, locale)}>
+        <RichText html={pick(page.body, locale)} />
+        {page.document ? <DocumentActions file={page.document} className="mt-10" /> : null}
+      </DetailCard>
     </CompanyProfilePage>
   );
 }
