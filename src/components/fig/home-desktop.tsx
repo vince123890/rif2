@@ -68,7 +68,6 @@ export type HomeCopy = {
   newsEyebrow: string;
   newsHeading: string;
   seeMore: string;
-  readMore: string;
   prevSlide: string;
   nextSlide: string;
   footerBlurb: string;
@@ -514,11 +513,11 @@ export function HomeDesktop({
       <Dot x={863} y={3770} color={GREEN} fadeTo="#0B3706" />
       <TitleRule x={602} y={3861} w={247} color={ORANGE} />
 
-      <FeatureArticle article={articles[0]} copy={copy} />
+      <FeatureArticle article={articles[0]} />
 
       {/* Top-right card — y 3918 image, y 4193 body */}
       {articles[1] ? (
-        <NewsCard article={articles[1]} x={949} yImage={3918} yBody={4193} copy={copy} />
+        <NewsCard article={articles[1]} x={949} yImage={3918} yBody={4193} />
       ) : null}
 
       {/* Bottom row — y 4460 image, y 4735 body */}
@@ -529,7 +528,6 @@ export function HomeDesktop({
           x={[81, 515, 949][i]}
           yImage={4460}
           yBody={4735}
-          copy={copy}
         />
       ))}
 
@@ -795,10 +793,8 @@ function PagerButton({
  */
 function FeatureArticle({
   article,
-  copy,
 }: {
   article?: HomeArticle;
-  copy: HomeCopy;
 }) {
   if (!article) return null;
   return (
@@ -953,7 +949,6 @@ function FeatureArticle({
           style={{
             display: "flex",
             alignItems: "center",
-            justifyContent: "space-between",
             alignSelf: "stretch",
             paddingRight: 32,
           }}
@@ -972,12 +967,6 @@ function FeatureArticle({
             <CalendarIcon />
             {article.date}
           </span>
-          <Link
-            href={article.href}
-            style={{ fontSize: 14, lineHeight: 1.5, color: GREEN }}
-          >
-            {copy.readMore}
-          </Link>
         </div>
       </N>
       <PagerButton
@@ -1002,13 +991,11 @@ function NewsCard({
   x,
   yImage,
   yBody,
-  copy,
 }: {
   article: HomeArticle;
   x: number;
   yImage: number;
   yBody: number;
-  copy: HomeCopy;
 }) {
   return (
     <>
@@ -1082,11 +1069,6 @@ function NewsCard({
       <T x={x + 48} y={yBody + 188.5} w={82} h={21} size={14} lh={1.5} color={MUTED}>
         {article.date}
       </T>
-      <Link href={article.href} style={{ display: "contents" }}>
-        <T x={x + 295} y={yBody + 188.5} w={67} h={21} size={14} lh={1.5} color={GREEN}>
-          {copy.readMore}
-        </T>
-      </Link>
       <PagerButton
         x={x + 370}
         y={yBody + 203}

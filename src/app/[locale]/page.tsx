@@ -88,7 +88,6 @@ export default async function HomePage({
     newsEyebrow: t("newsEyebrow"),
     newsHeading: t("newsHeading"),
     seeMore: t("seeMore"),
-    readMore: tc("readMore"),
     prevSlide: t("prevSlide"),
     nextSlide: t("nextSlide"),
     // fig footer blurb — 14px Lato Italic at 70% white
