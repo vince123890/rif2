@@ -7,8 +7,16 @@ import { Link } from "@/i18n/routing";
 import { ContactBadge, type ContactIconKind } from "@/components/layout/contact-badge";
 
 /**
- * FR-GL-02 — footer, built from `Group 160` in
- * `docs/Resona_Indonesia_Finance.fig` (1440×1435 at y=5192).
+ * FR-GL-02 — the single footer rendered on every page (root layout,
+ * `src/app/[locale]/layout.tsx`), the homepage included. Built from
+ * `Group 160` in `docs/Resona_Indonesia_Finance.fig` (1440×1435 at
+ * y=5192).
+ *
+ * There used to be a second, separate implementation
+ * (`src/components/fig/home-footer.tsx`) that only the homepage's
+ * absolute-positioned canvas rendered, hidden behind a client-side gate so
+ * the two footers didn't stack. That meant every footer fix had to be made
+ * twice and kept in sync by hand; it's gone now; this is the only footer.
  *
  * Geometry from the decoded node tree:
  *   - `Rectangle 99`  : 1440×1366 #101828 ground (dark navy, not green)
@@ -107,8 +115,7 @@ export async function SiteFooter() {
                * letterforms beside the roundel, not baked into
                * resona-mark-white.png (which is only the roundel +
                * "RESONA") — set as real text instead of hand-tracing dozens
-               * of individual glyph paths, the same fix applied to the
-               * homepage canvas footer (src/components/fig/home-footer.tsx).
+               * of individual glyph paths.
                */}
               <div className="flex items-center gap-3">
                 <Image

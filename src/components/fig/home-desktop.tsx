@@ -20,7 +20,6 @@ import {
   TitleRule,
 } from "./ornaments";
 import { FigReveal } from "./fig-reveal";
-import { HomeFooter } from "./home-footer";
 import { ProductCarousel, type HomeProduct } from "./product-carousel";
 import {
   ReportsSection,
@@ -70,7 +69,6 @@ export type HomeCopy = {
   seeMore: string;
   prevSlide: string;
   nextSlide: string;
-  footerBlurb: string;
 };
 
 export function HomeDesktop({
@@ -84,8 +82,15 @@ export function HomeDesktop({
   articles: HomeArticle[];
   reports: HomeReports;
 }) {
+  /*
+   * The fig frame is 6627 tall including its own footer ("Group 160",
+   * y=5192, 1440x1435) — but the footer is now the single shared
+   * <SiteFooter> rendered once in the root layout for every page, not
+   * redrawn here. The canvas stops right where the footer group used to
+   * start so nothing reserves that 1435px twice.
+   */
   return (
-    <Canvas h={6627} style={{ background: "#F9FAFB", overflow: "hidden" }}>
+    <Canvas h={5192} style={{ background: "#F9FAFB", overflow: "hidden" }}>
       {/* drives the scroll-reveal on every node marked `reveal` */}
       <FigReveal />
       {/* ================================================================
@@ -532,11 +537,6 @@ export function HomeDesktop({
       ))}
 
       <SeeMore x={638.5} y={5028} href="/news" label={copy.seeMore} />
-
-      {/* ================================================================
-          FOOTER — "Group 160", y 5192, 1440x1435
-          ================================================================ */}
-      <HomeFooter blurb={copy.footerBlurb} />
     </Canvas>
   );
 }
