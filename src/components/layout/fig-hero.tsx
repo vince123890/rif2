@@ -2,6 +2,7 @@ import Image from "next/image";
 
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
+import { RWatermark } from "./r-watermark";
 
 export type Crumb = { label: string; href?: string };
 
@@ -35,24 +36,38 @@ export function FigHero({
 }) {
   if (variant === "green") {
     return (
-      /* fig `list menu` — `Rectangle 108`, 1440×800 #027756 */
-      <section className="relative isolate overflow-hidden bg-[#027756]">
-        {/* fig `Group 30`: a 1262px blossom in #F1F5F5, off the left edge */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -left-[26%] -top-[62%] block h-[1262px] w-[1262px] bg-[#F1F5F5] opacity-[0.10]"
-          style={{
-            WebkitMaskImage: "url(/brand/resona-blossom.png)",
-            maskImage: "url(/brand/resona-blossom.png)",
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
+      /*
+       * fig `list menu` (docs/dari_claude_design/.../ListMenu.jsx) —
+       * `rgb(3,119,86)`, 1440x800. Every value below is that file's own
+       * literal geometry, not eyeballed from a screenshot.
+       */
+      <section className="relative isolate overflow-hidden bg-[#037756]">
+        {/*
+         * The "R" swoosh watermark, 3% opacity near-white — same glyph as
+         * the homepage's, but its own clip box and transform chain (the fig
+         * only gives one path; every placement decodes its own matrix
+         * rather than reusing another spot's numbers). Clip box is
+         * 1262x1262 pinned in px, same convention the previous blossom
+         * mask used, so it scales the same way at narrower widths.
+         */}
+        <RWatermark
+          className="pointer-events-none -left-[372px] -top-[492px]"
+          clip={{ left: -372, top: -492, width: 1262, height: 1262 }}
+          rotate={{
+            matrix: "matrix(0.542,-0.840,0.840,0.542,0,766.961)",
+            width: 912.849,
+            height: 912.849,
           }}
+          flip={{
+            matrix: "matrix(1,0,0,-1,99.005,811.086)",
+            width: 710.899,
+            height: 708.743,
+          }}
+          color="rgba(241,245,245,0.03)"
         />
 
         <div className="relative mx-auto w-full max-w-[1440px] px-5 pb-12 pt-[150px] sm:px-8 lg:px-20 lg:pb-[80px] lg:pt-[190px]">
-          {/* fig `Group 168`: 60px title left, 20px lead right */}
+          {/* fig: h1 at (80,190) 590 wide, lead at (675,190) offset, both 90-tall box */}
           <div className="grid gap-6 lg:grid-cols-[590fr_605fr] lg:items-start lg:gap-[85px]">
             <h1 className="whitespace-pre-line text-[36px] font-bold leading-none text-white md:text-[48px] lg:text-[60px]">
               {title}
@@ -65,7 +80,7 @@ export function FigHero({
             ) : null}
           </div>
 
-          {/* fig `Mask group`: the 1280×368 photo card, radius 32 */}
+          {/* fig: the 1280x368 photo card at (80,352), radius 32 */}
           <div className="relative mt-10 aspect-[1280/368] w-full overflow-hidden rounded-[32px] lg:mt-[50px]">
             <Image
               src={image ?? "/fig/menu-hero.png"}
