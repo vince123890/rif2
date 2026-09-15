@@ -38,10 +38,11 @@ export default async function HomePage({
   const t = await getTranslations("home");
   const tc = await getTranslations("common");
 
-  const [products, articles, sustainability] = await Promise.all([
+  const [products, articles, sustainability, financial] = await Promise.all([
     getProducts(),
     getArticles({ limit: 6 }),
     getSustainabilityReports(),
+    getFinancialReports(),
   ]);
 
   const dateFmt = new Intl.DateTimeFormat(locale === "id" ? "id-ID" : "en-US", {
@@ -111,12 +112,20 @@ export default async function HomePage({
         date: dateFmt.format(new Date(a.publishedAt)),
         href: `/news/${a.slug}`,
       }))}
-      reports={sustainability.slice(0, 3).map((d) => ({
-        year: String(d.year),
-        title: t("tabSustainability"),
-        downloadHref: d.file.url,
-        viewHref: d.file.url,
-      }))}
+      reports={{
+        sustainability: sustainability.slice(0, 3).map((d) => ({
+          year: String(d.year),
+          title: t("tabSustainability"),
+          downloadHref: d.file.url,
+          viewHref: d.file.url,
+        })),
+        financial: financial.slice(0, 3).map((d) => ({
+          year: String(d.year),
+          title: t("tabFinancial"),
+          downloadHref: d.file.url,
+          viewHref: d.file.url,
+        })),
+      }}
     />
   );
 }

@@ -12,7 +12,6 @@ import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { Canvas, N, T } from "./canvas";
 import {
-  AccentBar,
   ArrowRight,
   CalendarIcon,
   CurvedRule,
@@ -23,12 +22,17 @@ import { FigReveal } from "./fig-reveal";
 import { HomeFooter } from "./home-footer";
 import { ProductCarousel, type HomeProduct } from "./product-carousel";
 import {
+  ReportsSection,
+  type HomeReport,
+  type HomeReports,
+} from "./reports-section";
+import {
   NotchedCard,
   NOTCH_CARD_410,
   NOTCH_CARD_481,
 } from "./notched-card";
 
-export type { HomeProduct };
+export type { HomeProduct, HomeReport, HomeReports };
 
 const GREEN = "#006F4F";
 const ORANGE = "#F58220";
@@ -41,13 +45,6 @@ export type HomeArticle = {
   excerpt: string;
   date: string;
   href: string;
-};
-
-export type HomeReport = {
-  year: string;
-  title: string;
-  downloadHref: string;
-  viewHref: string;
 };
 
 export type HomeCopy = {
@@ -85,7 +82,7 @@ export function HomeDesktop({
   copy: HomeCopy;
   products: HomeProduct[];
   articles: HomeArticle[];
-  reports: HomeReport[];
+  reports: HomeReports;
 }) {
   return (
     <Canvas h={6627} style={{ background: "#F9FAFB", overflow: "hidden" }}>
@@ -469,65 +466,7 @@ export function HomeDesktop({
       <Dot x={862} y={2718} color={GREEN} fadeTo="#0B3706" />
       <TitleRule x={540} y={2809} w={372} color={ORANGE} />
 
-      {/* Frame 82 — the glass tab pill, 485x76 r100, #EEEFF0 @0.1 */}
-      <N
-        x={477.5}
-        y={2871}
-        w={485}
-        h={76}
-        r={100}
-        style={{
-          background: "rgba(238,239,240,0.1)",
-          backdropFilter: "blur(6px)",
-          WebkitBackdropFilter: "blur(6px)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-        }}
-      >
-        {/* Frame 4 — active tab, 242x44 r100 #F58220 */}
-        <span
-          style={{
-            width: 242,
-            height: 44,
-            borderRadius: 100,
-            background: ORANGE,
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 20,
-            lineHeight: 1.7,
-            fontWeight: 700,
-            color: "#FFFFFF",
-          }}
-        >
-          {copy.tabSustainability}
-        </span>
-        {/* Frame 3 — inactive, 203x44, no fill */}
-        <span
-          style={{
-            width: 203,
-            height: 44,
-            borderRadius: 100,
-            display: "inline-flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontSize: 20,
-            lineHeight: 1.7,
-            color: INK,
-          }}
-        >
-          {copy.tabFinancial}
-        </span>
-      </N>
-
-      {reports.slice(0, 3).map((r, i) => (
-        <ReportCard key={r.year} report={r} index={i} copy={copy} />
-      ))}
-
-      {/* Button "Lihat Lainnya" — 164x64 r12 */}
-      <SeeMore x={638.5} y={3501} label={copy.seeMore} />
+      <ReportsSection reports={reports} copy={copy} />
 
       {/* ================================================================
           BERITA TERKINI — Rectangle 27 wash y 3665, 1440x2926 #EDB886 @0.05
@@ -594,7 +533,7 @@ export function HomeDesktop({
         />
       ))}
 
-      <SeeMore x={638.5} y={5028} label={copy.seeMore} />
+      <SeeMore x={638.5} y={5028} href="/news" label={copy.seeMore} />
 
       {/* ================================================================
           FOOTER — "Group 160", y 5192, 1440x1435
@@ -836,113 +775,6 @@ function PagerButton({
  * a 134x189 pattern at 30% opacity, the title, a 4px orange bar and two
  * 64-tall buttons.
  */
-function ReportCard({
-  report,
-  index,
-  copy,
-}: {
-  report: HomeReport;
-  index: number;
-  copy: HomeCopy;
-}) {
-  const x = [80, 514, 948][index];
-  return (
-    <>
-      <N
-        x={x}
-        y={2971}
-        w={410}
-        h={480}
-        r={32}
-        reveal
-        delay={index * 80}
-        style={{ background: "#FFFFFF" }}
-      />
-      {/*
-       * Rectangle 116/119/122 — the mint block behind the year. Rounded only
-       * on its right edge (16px); it runs off the card's left side.
-       */}
-      <N
-        x={x}
-        y={3039}
-        w={286}
-        h={96}
-        style={{
-          background: MINT,
-          borderRadius: "0px 16px 16px 0px",
-        }}
-      />
-      <T
-        x={x + 50}
-        y={2991}
-        w={186}
-        h={96}
-        size={80}
-        lh={1}
-        weight={900}
-        italic
-        color={GREEN}
-      >
-        {report.year}
-      </T>
-      <T
-        x={x + 24}
-        y={3185}
-        w={249}
-        h={68}
-        size={28}
-        lh={1}
-        weight={700}
-        color={INK}
-        as="h3"
-      >
-        {report.title}
-      </T>
-      {/* Line 5/6/7 — the 80px orange bar, right-aligned in the card */}
-      <AccentBar x={x + 331} y={3327} />
-
-      {/* Frame 127/128/129 — Download (outlined) + View PDF */}
-      <N
-        x={x + 24}
-        y={3359}
-        w={176}
-        h={64}
-        r={12}
-        style={{
-          border: `1px solid ${GREEN}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-        }}
-      >
-        <DownloadIcon />
-        <span style={{ fontSize: 20, lineHeight: 1.7, color: GREEN }}>
-          {copy.download}
-        </span>
-      </N>
-      <N
-        x={x + 212}
-        y={3359}
-        w={174}
-        h={64}
-        r={12}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 12,
-        }}
-      >
-        <PdfIcon />
-        <span style={{ fontSize: 20, lineHeight: 1.7, color: GREEN }}>
-          {copy.viewPdf}
-        </span>
-      </N>
-    </>
-  );
-}
-
 /**
  * The tall featured article — "Mask group" 410x518 photo at x=81 and the
  * mint panel at x=483 w=442 whose bottom-right is notched by a 66px circle.
@@ -1156,15 +988,27 @@ function NewsCard({
   );
 }
 
-function SeeMore({ x, y, label }: { x: number; y: number; label: string }) {
+function SeeMore({
+  x,
+  y,
+  href,
+  label,
+}: {
+  x: number;
+  y: number;
+  href: string;
+  label: string;
+}) {
   return (
-    <N
-      x={x}
-      y={y}
-      w={164}
-      h={64}
-      r={12}
+    <Link
+      href={href}
       style={{
+        position: "absolute",
+        left: x,
+        top: y,
+        width: 164,
+        height: 64,
+        borderRadius: 12,
         background: GREEN,
         display: "flex",
         alignItems: "center",
@@ -1176,35 +1020,7 @@ function SeeMore({ x, y, label }: { x: number; y: number; label: string }) {
       <span style={{ fontSize: 20, lineHeight: 1.7, color: "#FFFFFF" }}>
         {label}
       </span>
-    </N>
+    </Link>
   );
 }
 
-/* fig: the download glyph is ORANGE (#F58220), not green like its label. */
-function DownloadIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"
-        stroke={ORANGE}
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function PdfIcon() {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
-      <path
-        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6Z"
-        stroke="#E23D28"
-        strokeWidth="1.5"
-        strokeLinejoin="round"
-      />
-      <path d="M14 2v6h6" stroke="#E23D28" strokeWidth="1.5" strokeLinejoin="round" />
-    </svg>
-  );
-}
