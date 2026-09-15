@@ -151,19 +151,20 @@ const COLUMNS: { x: number; blocks: Col[] }[] = [
   },
 ];
 
+/* y values below are the fig's own (5444/5520) minus the 94px tightened above. */
 const CONTACTS = [
   {
     x: 745,
-    y: 5444,
+    y: 5350,
     icon: "phone",
     label: "Phone Number",
     value: site.phone,
     href: `tel:${site.phone.replace(/[^\d+]/g, "")}`,
   },
-  { x: 1098.5, y: 5444, icon: "fax", label: "Fax Number", value: site.fax },
+  { x: 1098.5, y: 5350, icon: "fax", label: "Fax Number", value: site.fax },
   {
     x: 745,
-    y: 5520,
+    y: 5426,
     icon: "globe",
     label: "Customer Report",
     value: "rif_helpdesk@perdania.co.id",
@@ -171,7 +172,7 @@ const CONTACTS = [
   },
   {
     x: 1098.5,
-    y: 5520,
+    y: 5426,
     icon: "chat",
     label: "Customer Questionnaire",
     value: "cust_rif@perdania.co.id",
@@ -188,24 +189,17 @@ export function HomeFooter({ blurb }: { blurb: string }) {
       <N x={0} y={Y + 1366} w={1440} h={69} style={{ background: STRIP }} />
 
       {/*
-       * Wordmark. The fig group spans y=5382..5472 (90 tall) but its glyphs
-       * only occupy the upper ~50px; the blurb starts at y=5432. Rendering a
-       * 90-tall logo box therefore ran it straight through the blurb, so the
-       * art is capped at 50 and left-aligned.
-       *
-       * The fig draws "Resona Indonesia Finance" as its own run of vector
-       * letterforms beside the roundel (docs/dari_claude_design/project/
-       * components/HomePage.jsx ~line 3040-3200+, one <svg> per glyph) — it
-       * is not baked into resona-mark-white.png, which is only the roundel
-       * + "RESONA". Rather than hand-trace dozens of individual letter
-       * paths, the name is set as real text beside the mark, the same
-       * pattern src/components/layout/logo.tsx already uses for the header
-       * (image + adjacent "Resona Indonesia Finance" label, Lato, white on
-       * a dark ground).
+       * Wordmark. The fig group sits at y=5382 (190 below the footer's own
+       * top edge, per docs/fig-spec/SPEC-home.txt) — accurate to the file,
+       * but visually that reads as a big dead gap once the mark carries its
+       * own text beside it rather than just the roundel, so it (and
+       * everything below it down to the link columns) is pulled up by a
+       * flat 94px, tightening the top padding without touching the
+       * spacing between the wordmark/blurb/address/contact rows.
        */}
       <N
         x={50}
-        y={Y + 190}
+        y={Y + 96}
         w={501}
         h={50}
         style={{ display: "flex", alignItems: "center", gap: 12 }}
@@ -225,7 +219,7 @@ export function HomeFooter({ blurb }: { blurb: string }) {
       {/* company blurb — 14px Lato Italic at 70% */}
       <T
         x={50}
-        y={Y + 240}
+        y={Y + 146}
         w={589}
         h={84}
         size={14}
@@ -241,7 +235,7 @@ export function HomeFooter({ blurb }: { blurb: string }) {
       {/* address row */}
       <N
         x={50}
-        y={Y + 348}
+        y={Y + 254}
         w={390}
         h={42}
         style={{ display: "flex", alignItems: "center", gap: 12 }}
